@@ -8,17 +8,13 @@ import java.util.Scanner;
 
 public class Labirinto {
 
-	private char[][] labirinto;
-	private Heroi heroi = new Heroi();
-	private Dragao dragao = new Dragao();
-
-	public char[][] criarLabirinto(char[][] lab)
-	{
-		return lab;
-	};
+//	public char[][] criarLabirinto(char[][] lab)
+//	{
+//		return lab;
+//	};
 	
-	public char[][] criarLabirinto(){
-		labirinto = new char[10][10];
+	public char[][] criarLabirinto(char[][] labirinto){
+		//labirinto = new char[10][10];
 
 		labirinto[1][1] = 'H';
 		labirinto[3][1] = 'D';
@@ -75,17 +71,8 @@ public class Labirinto {
 
 		return labirinto;
 	}
-
-	public void displayLabirinto(){
-		for(int i=0; i<10; i++){
-			for(int j=0; j<10; j++){
-				System.out.print(labirinto[i][j] + " ");
-			}
-
-			System.out.print("\n");
-		}
-	}
-	public void moverDragao(Dragao dragao, Heroi heroi, int t)
+	
+	public void moverDragao(Dragao dragao, Heroi heroi, int t, char[][] labirinto)
 	{   //0 - N; 1 - S; 2 - E; 3 - O
 		Random r = new Random();
 		if(dragao.getVida() == true) {
@@ -243,7 +230,7 @@ public class Labirinto {
 		}
 	}
 
-	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada, Interface interf)
+	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada, Interface interf, char[][] labirinto)
 	{
 		if(coordenada == 'n')
 		{
@@ -288,7 +275,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
 				interf.venceu();
-				displayLabirinto();
+				interf.displayLabirinto(labirinto);
 				System.exit(0);
 			}
 		}
@@ -334,7 +321,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
 				interf.venceu();
-				displayLabirinto();
+				interf.displayLabirinto(labirinto);
 				System.exit(0);
 			}
 		}
@@ -380,7 +367,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = 'H';
 				interf.venceu();
-				displayLabirinto();
+				interf.displayLabirinto(labirinto);
 				System.exit(0);
 			}
 		}
@@ -427,7 +414,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
 				interf.venceu();
-				displayLabirinto();
+				interf.displayLabirinto(labirinto);
 				System.exit(0);
 			}
 		}
@@ -436,29 +423,33 @@ public class Labirinto {
 		Interface interf = new Interface();
 		
 		int t = interf.modojogo();
+		char[][] lab = new char[10][10];
 
 		Labirinto labirinto = new Labirinto();
-		labirinto.criarLabirinto();
-		labirinto.displayLabirinto();
+		Dragao dragao = new Dragao();
+		Heroi heroi = new Heroi();
+		
+		labirinto.criarLabirinto(lab);
+		interf.displayLabirinto(lab);
 
 		int jogada = 1;
-		while(labirinto.heroi.getVida() == true){			
+		while(heroi.getVida() == true){			
 			Scanner S = interf.fazJogada(jogada);
 			jogada++;
 			
 			if(S.hasNext()){
 				char coordenada = S.next().charAt(0);
-				labirinto.moverHeroi(labirinto.heroi, labirinto.dragao, coordenada, interf);
+				labirinto.moverHeroi(heroi, dragao, coordenada, interf, lab);
 
 				if(t != 1)
-					labirinto.moverDragao(labirinto.dragao, labirinto.heroi, t);
+					labirinto.moverDragao(dragao, heroi, t, lab);
 
-				if(labirinto.heroi.getVida() == false)
+				if(heroi.getVida() == false)
 				{
 					interf.perdeu();
 					System.exit(1);
 				}
-				labirinto.displayLabirinto();
+				interf.displayLabirinto(lab);
 			}
 		}
 	}

@@ -52,6 +52,18 @@ public class Interface {
 		System.out.println("Heroi sem arma atacado!");
 	}
 	
+	//Faz display do labirinto
+	public void displayLabirinto(char[][] labirinto){
+		for(int i=0; i<10; i++){
+			for(int j=0; j<10; j++){
+				System.out.print(labirinto[i][j] + " ");
+			}
+			
+			System.out.print("\n");
+		}
+
+	}
+	
 	public static void main(String[] args) {
 		
 	}
