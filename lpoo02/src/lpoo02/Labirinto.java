@@ -16,6 +16,7 @@ public class Labirinto {
 	{
 		return lab;
 	};
+	
 	public char[][] criarLabirinto(){
 		labirinto = new char[10][10];
 
