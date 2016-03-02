@@ -89,10 +89,12 @@ public class Labirinto {
 		Random r = new Random();
 		if(dragao.getVida() == true) {
 			int direcao = r.nextInt(8);		//para ter maior probabilidade de virar em certas direcoes
-			int adormecer = r.nextInt(4);	//decidir se adormece ou nao 0 -> Nao || 1 -> Sim
+			int adormecer = r.nextInt(4);	//decidir se adormece ou nao 0, 2, 3 -> Nao || 1 -> Sim
 
 			if (direcao == 0) {									//NORTE
-				dragao.DragaoAcorda();
+				
+				if(t == 3 && adormecer != 1)
+					dragao.DragaoAcorda();
 
 				labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
 
