@@ -90,7 +90,6 @@ public class Heroi {
 	}
 	
 	public static void main(String[] args) {
-
 	}
 
 }
