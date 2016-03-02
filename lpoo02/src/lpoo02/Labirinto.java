@@ -12,7 +12,10 @@ public class Labirinto {
 	private Heroi heroi = new Heroi();
 	private Dragao dragao = new Dragao();
 
-	
+	public char[][] criarLabirinto(char[][] lab)
+	{
+		return lab;
+	};
 	public char[][] criarLabirinto(){
 		labirinto = new char[10][10];
 
