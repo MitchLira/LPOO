@@ -15,6 +15,7 @@ public class Heroi {
 		this.coluna = 1;
 		this.vitoria = false;
 	}
+	
 	public void setLinha(int linha) {
 		this.linha = linha;
 	}
@@ -22,6 +23,7 @@ public class Heroi {
 	public void setColuna(int coluna) {
 		this.coluna = coluna;
 	}
+	
 	public int getLinha() {
 		return this.linha;
 	}
@@ -74,16 +76,19 @@ public class Heroi {
 		this.setLinha(linha+1);
 		this.setColuna(coluna);
 	}
+	
 	public void moveHeroiDireita()
 	{
 		this.setLinha(linha);
 		this.setColuna(coluna+1);
 	}
+	
 	public void moveHeroiEsquerda()
 	{
 		this.setLinha(linha);
 		this.setColuna(coluna-1);
 	}
+	
 	public static void main(String[] args) {
 
 	}

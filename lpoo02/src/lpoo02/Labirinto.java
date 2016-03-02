@@ -8,11 +8,11 @@ import java.util.Scanner;
 
 public class Labirinto {
 
-	private static char[][] labirinto;
-	private static Heroi heroi = new Heroi();
-	private static Dragao dragao = new Dragao();
+	private char[][] labirinto;
+	private Heroi heroi = new Heroi();
+	private Dragao dragao = new Dragao();
 
-	public static char[][] criarLabirinto(){
+	public char[][] criarLabirinto(){
 		labirinto = new char[10][10];
 
 		labirinto[1][1] = 'H';
@@ -71,16 +71,16 @@ public class Labirinto {
 		return labirinto;
 	}
 
-	public static void displayLabirinto(char[][] lab){
+	public void displayLabirinto(){
 		for(int i=0; i<10; i++){
 			for(int j=0; j<10; j++){
-				System.out.print(lab[i][j] + " ");
+				System.out.print(labirinto[i][j] + " ");
 			}
 
 			System.out.print("\n");
 		}
 	}
-	public static void moverDragao(Dragao dragao, Heroi heroi, int t)
+	public void moverDragao(Dragao dragao, Heroi heroi, int t)
 	{   //0 - N; 1 - S; 2 - E; 3 - O
 		Random r = new Random();
 		if(dragao.getVida() == true) {
@@ -236,7 +236,7 @@ public class Labirinto {
 		}
 	}
 	
-	public static void moverHeroi(Heroi heroi, Dragao dragao, char coordenada)
+	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada)
 	{
 		if(coordenada == 'n')
 		{
@@ -281,7 +281,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
 				System.out.println("WINNER");
-				displayLabirinto(labirinto);
+				displayLabirinto();
 				System.exit(0);
 			}
 		}
@@ -327,7 +327,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
 				System.out.println("WINNER");
-				displayLabirinto(labirinto);
+				displayLabirinto();
 				System.exit(0);
 			}
 		}
@@ -373,7 +373,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = 'H';
 				System.out.println("WINNER");
-				displayLabirinto(labirinto);
+				displayLabirinto();
 				System.exit(0);
 			}
 		}
@@ -420,53 +420,13 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
 				System.out.println("WINNER");
-				displayLabirinto(labirinto);
+				displayLabirinto();
 				System.exit(0);
 			}
 		}
 	}
-	public static void main(String[] args) {
+	public void main(String[] args) {
 		
-		System.out.println("Modos de jogo:");
-		System.out.println("1 - Dragao parado");
-		System.out.println("2 - Dragao com movimento aleatorio");
-		System.out.println("3 - Dragao com movimento aleatorio intercalado com dormir");
-		System.out.print("Indique um modo de jogo: ");
-		Scanner T = new Scanner(System.in);
-		
-		int t = T.nextInt();
-		
-		while(t != 1 && t != 2 && t != 3){
-			System.out.print("Opcao invalida!");
-			System.out.print("\nIndique um modo de jogo: ");
-			T = new Scanner(System.in);
-		}
-		System.out.print("\n");
-		
-		labirinto = criarLabirinto();
-		displayLabirinto(labirinto);
-		int jogadas = 1;
-		while (heroi.getVida() == true) {
-			System.out.print("\nJogada " + jogadas);
-			System.out.print("\nIntroduza o comando: ");
-			Scanner S = new Scanner(System.in);
-			if (S.hasNext()) {
-				char coordenada = S.next().charAt(0);
-				moverHeroi(heroi, dragao, coordenada);
-				
-				if(t != 1)
-					moverDragao(dragao, heroi, t);
-				
-				if(heroi.getVida() == false)
-				{
-					System.out.println("GAME OVER! \n");
-					System.exit(1);
-				}
-				displayLabirinto(labirinto);
-			}
-			jogadas++;
-		}
-
 	}
 }
 
