@@ -12,6 +12,7 @@ public class Labirinto {
 	private Heroi heroi = new Heroi();
 	private Dragao dragao = new Dragao();
 
+	
 	public char[][] criarLabirinto(){
 		labirinto = new char[10][10];
 
@@ -86,148 +87,148 @@ public class Labirinto {
 		if(dragao.getVida() == true) {
 			int direcao = r.nextInt(8);		//para ter maior probabilidade de virar em certas direcoes
 			int adormecer = r.nextInt(4);	//decidir se adormece ou nao 0 -> Nao || 1 -> Sim
-			
+
 			if (direcao == 0) {									//NORTE
 				dragao.DragaoAcorda();
-				
+
 				labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
-				
+
 				if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == '.') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha() - 1][dragao.getColuna()] = 'D';
 					dragao.moveDragaoNorte();
-					
+
 				} else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == 'E') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha() - 1][dragao.getColuna()] = 'F';
 					dragao.moveDragaoNorte();
-					
+
 				} else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == 'H') {
-					
+
 					if (heroi.getArma() == true) {
 						dragao.DragaoMorre();
 						labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					} else
 						heroi.heroiMorre();
-					
+
 				} else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == 'S'
 						|| labirinto[dragao.getLinha() - 1][dragao.getColuna()] == 'X') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
 					dragao.mantemPosicaoDragao();
-					
+
 				}
-				
+
 				if(t == 3 && adormecer == 1){
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'd';
 					dragao.DragaoDorme();
 				}
-				
+
 			} else if (direcao == 1) {								//SUL
 				if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == '.') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha() + 1][dragao.getColuna()] = 'D';
 					dragao.moveDragaoSul();
-					
+
 				} else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == 'E') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha() + 1][dragao.getColuna()] = 'F';
 					dragao.moveDragaoSul();
-					
+
 				} else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == 'H') {
-					
+
 					if (heroi.getArma() == true) {
 						dragao.DragaoMorre();
 						labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					} else
 						heroi.heroiMorre();
-					
+
 				} else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == 'S'
 						|| labirinto[dragao.getLinha() + 1][dragao.getColuna()] == 'X') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
 					dragao.mantemPosicaoDragao();
-					
+
 				}
-				
+
 				if(t == 3 && adormecer == 1){
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'd';
 					dragao.DragaoDorme();
 				}
-				
+
 			} else if (direcao == 2 || direcao == 5 || direcao == 6) {			//ESTE
 				if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == '.') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha()][dragao.getColuna() + 1] = 'D';
 					dragao.moveDragaoDireita();
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == 'E') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha()][dragao.getColuna() + 1] = 'F';
 					dragao.moveDragaoDireita();
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == 'H') {
-					
+
 					if (heroi.getArma() == true) {
 						dragao.DragaoMorre();
 						labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					} else
 						heroi.heroiMorre();
-					
+
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == 'S'
 						|| labirinto[dragao.getLinha()][dragao.getColuna() + 1] == 'X') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
 					dragao.mudaPosicaoDragao(dragao.getLinha(),	dragao.getColuna());
 
 				}
-				
+
 				if(t == 3 && adormecer == 1){
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'd';
 					dragao.DragaoDorme();
 				}
-				
+
 			} else if (direcao == 3 || direcao == 7 || direcao == 8) {			//OESTE
 				if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == '.') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha()][dragao.getColuna() - 1] = 'D';
 					dragao.moveDragaoEsquerda();
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == 'E') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha()][dragao.getColuna() - 1] = 'F';
 					dragao.moveDragaoEsquerda();
 
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == 'H') {
-					
+
 					if (heroi.getArma() == true) {
 						dragao.DragaoMorre();
 						labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 
 					} else
 						heroi.heroiMorre();
-					
+
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == 'S'
 						|| labirinto[dragao.getLinha()][dragao.getColuna() - 1] == 'X') {
-					
+
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
 					dragao.mantemPosicaoDragao();
 				}
-				
+
 				if(t == 3 && adormecer == 1){
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'd';
 					dragao.DragaoDorme();
 				}
-				
+
 			} else if (direcao == 4) {
 				dragao.mudaPosicaoDragao(dragao.getLinha(), dragao.getColuna());
 				labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
-				
+
 				if(t == 3 && adormecer == 1){
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'd';
 					dragao.DragaoDorme();
@@ -235,7 +236,7 @@ public class Labirinto {
 			}
 		}
 	}
-	
+
 	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada)
 	{
 		if(coordenada == 'n')
@@ -425,8 +426,36 @@ public class Labirinto {
 			}
 		}
 	}
-	public void main(String[] args) {
+	public static void main(String[] args) {
+		Interface mm = new Interface();
 		
+		int t = mm.modojogo();
+
+		Labirinto labirinto = new Labirinto();
+		labirinto.criarLabirinto();
+		labirinto.displayLabirinto();
+
+		int jogadas = 1;
+		while(labirinto.heroi.getVida() == true){
+			System.out.print("\nJogada " + jogadas);
+			System.out.print("\nIntroduza o comando: ");
+			Scanner S = new Scanner(System.in);
+
+			if(S.hasNext()){
+				char coordenada = S.next().charAt(0);
+				labirinto.moverHeroi(labirinto.heroi, labirinto.dragao, coordenada);
+
+				if(t != 1)
+					labirinto.moverDragao(labirinto.dragao, labirinto.heroi, t);
+
+				if(labirinto.heroi.getVida() == false)
+				{
+					System.out.println("GAME OVER! \n");
+					System.exit(1);
+				}
+				labirinto.displayLabirinto();
+			}
+		}
 	}
 }
 
