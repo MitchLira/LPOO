@@ -242,7 +242,7 @@ public class Labirinto {
 		}
 	}
 
-	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada)
+	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada, Interface interf)
 	{
 		if(coordenada == 'n')
 		{
@@ -262,7 +262,7 @@ public class Labirinto {
 			else if(labirinto[heroi.getLinha()-1][heroi.getColuna()] == 'D' 
 					&& heroi.getArma() == false && dragao.getAdormecido() == false)
 			{
-				System.out.println("Heroi, sem arma, atacado!");
+				interf.heroiAtacado();
 				heroi.heroiMorre(); //ENDGAME
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 			}
@@ -277,7 +277,7 @@ public class Labirinto {
 			}
 			else if(labirinto[heroi.getLinha()-1][heroi.getColuna()] == 'F')
 			{
-				System.out.println("Heroi, sem arma, atacado!");
+				interf.heroiAtacado();
 				heroi.heroiMorre();//ENDGAME
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 			}
@@ -286,7 +286,7 @@ public class Labirinto {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
-				System.out.println("WINNER");
+				interf.venceu();
 				displayLabirinto();
 				System.exit(0);
 			}
@@ -308,7 +308,7 @@ public class Labirinto {
 			}
 			else if(labirinto[heroi.getLinha()+1][heroi.getColuna()] == 'D' && heroi.getArma() == false)
 			{
-				System.out.println("Heroi, sem arma, atacado!");
+				interf.heroiAtacado();
 				heroi.heroiMorre(); //ENDGAME
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 			}
@@ -323,7 +323,7 @@ public class Labirinto {
 			}
 			else if(labirinto[heroi.getLinha()+1][heroi.getColuna()] == 'F')
 			{
-				System.out.println("Heroi, sem arma, atacado!");
+				interf.heroiAtacado();
 				heroi.heroiMorre(); //ENDGAME
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 			}
@@ -332,7 +332,7 @@ public class Labirinto {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
-				System.out.println("WINNER");
+				interf.venceu();
 				displayLabirinto();
 				System.exit(0);
 			}
@@ -354,7 +354,7 @@ public class Labirinto {
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()+1] == 'D' && heroi.getArma() == false)
 			{
-				System.out.println("Heroi, sem arma, atacado!");
+				interf.heroiAtacado();
 				heroi.heroiMorre(); //ENDGAME
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 			}
@@ -369,7 +369,7 @@ public class Labirinto {
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()+1] == 'F')
 			{
-				System.out.println("Heroi, sem arma, atacado!");
+				interf.heroiAtacado();
 				heroi.heroiMorre(); //ENDGAME
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 			}
@@ -378,7 +378,7 @@ public class Labirinto {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = 'H';
-				System.out.println("WINNER");
+				interf.venceu();
 				displayLabirinto();
 				System.exit(0);
 			}
@@ -401,7 +401,7 @@ public class Labirinto {
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()-1] == 'D' 
 					&& heroi.getArma() == false && dragao.getAdormecido() == false)
 			{
-				System.out.println("Heroi, sem arma, atacado!");
+				interf.heroiAtacado();
 				heroi.heroiMorre(); //ENDGAME
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 			}
@@ -416,7 +416,7 @@ public class Labirinto {
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()-1] == 'F')
 			{
-				System.out.println("Heroi, sem arma, atacado!");
+				interf.heroiAtacado();
 				heroi.heroiMorre(); //ENDGAME
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 			}
@@ -425,37 +425,36 @@ public class Labirinto {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
-				System.out.println("WINNER");
+				interf.venceu();
 				displayLabirinto();
 				System.exit(0);
 			}
 		}
 	}
 	public static void main(String[] args) {
-		Interface mm = new Interface();
+		Interface interf = new Interface();
 		
-		int t = mm.modojogo();
+		int t = interf.modojogo();
 
 		Labirinto labirinto = new Labirinto();
 		labirinto.criarLabirinto();
 		labirinto.displayLabirinto();
 
-		int jogadas = 1;
-		while(labirinto.heroi.getVida() == true){
-			System.out.print("\nJogada " + jogadas);
-			System.out.print("\nIntroduza o comando: ");
-			Scanner S = new Scanner(System.in);
-
+		int jogada = 1;
+		while(labirinto.heroi.getVida() == true){			
+			Scanner S = interf.fazJogada(jogada);
+			jogada++;
+			
 			if(S.hasNext()){
 				char coordenada = S.next().charAt(0);
-				labirinto.moverHeroi(labirinto.heroi, labirinto.dragao, coordenada);
+				labirinto.moverHeroi(labirinto.heroi, labirinto.dragao, coordenada, interf);
 
 				if(t != 1)
 					labirinto.moverDragao(labirinto.dragao, labirinto.heroi, t);
 
 				if(labirinto.heroi.getVida() == false)
 				{
-					System.out.println("GAME OVER! \n");
+					interf.perdeu();
 					System.exit(1);
 				}
 				labirinto.displayLabirinto();
