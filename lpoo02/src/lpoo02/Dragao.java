@@ -18,12 +18,18 @@ public class Dragao {
 	{
 		return this.coluna;
 	}
-	
+	public void setColuna(int coluna)
+	{
+		this.coluna = coluna;
+	}
 	public int getLinha()
 	{
 		return this.linha;
 	}
-	
+	public void setLinha(int linha)
+	{
+		this.linha = linha;
+	}
 	public boolean  getVida()
 	{
 		return this.vida;
@@ -48,6 +54,26 @@ public class Dragao {
 	{
 		this.coluna = c;
 		this.linha = l;
+	}
+	public void moveDragaoNorte()
+	{
+		this.setLinha(linha-1);
+		this.setColuna(coluna);
+	}
+	public void moveDragaoSul()
+	{
+		this.setLinha(linha+1);
+		this.setColuna(coluna);
+	}
+	public void moveDragaoDireita()
+	{
+		this.setLinha(linha);
+		this.setColuna(coluna+1);
+	}
+	public void moveDragaoEsquerda()
+	{
+		this.setLinha(linha);
+		this.setColuna(coluna-1);
 	}
 	public static void main(String[] args) {
 
