@@ -96,13 +96,13 @@ public class Labirinto {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha() - 1][dragao.getColuna()] = 'D';
-					dragao.mudaPosicaoDragao(dragao.getLinha() - 1,	dragao.getColuna());
+					dragao.moveDragaoNorte();
 					
 				} else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == 'E') {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha() - 1][dragao.getColuna()] = 'F';
-					dragao.mudaPosicaoDragao(dragao.getLinha() - 1, dragao.getColuna());
+					dragao.moveDragaoNorte();
 					
 				} else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == 'H') {
 					
@@ -116,7 +116,7 @@ public class Labirinto {
 						|| labirinto[dragao.getLinha() - 1][dragao.getColuna()] == 'X') {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
-					dragao.mudaPosicaoDragao(dragao.getLinha(), dragao.getColuna());
+					dragao.mantemPosicaoDragao();
 					
 				}
 				
@@ -130,13 +130,13 @@ public class Labirinto {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha() + 1][dragao.getColuna()] = 'D';
-					dragao.mudaPosicaoDragao(dragao.getLinha() + 1,	dragao.getColuna());
+					dragao.moveDragaoSul();
 					
 				} else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == 'E') {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha() + 1][dragao.getColuna()] = 'F';
-					dragao.mudaPosicaoDragao(dragao.getLinha() + 1,	dragao.getColuna());
+					dragao.moveDragaoSul();
 					
 				} else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == 'H') {
 					
@@ -150,7 +150,7 @@ public class Labirinto {
 						|| labirinto[dragao.getLinha() + 1][dragao.getColuna()] == 'X') {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
-					dragao.mudaPosicaoDragao(dragao.getLinha(),	dragao.getColuna());
+					dragao.mantemPosicaoDragao();
 					
 				}
 				
@@ -164,14 +164,12 @@ public class Labirinto {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha()][dragao.getColuna() + 1] = 'D';
-					dragao.mudaPosicaoDragao(dragao.getLinha(),	dragao.getColuna() + 1);
-					
+					dragao.moveDragaoDireita();
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == 'E') {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha()][dragao.getColuna() + 1] = 'F';
-					dragao.mudaPosicaoDragao(dragao.getLinha(),	dragao.getColuna() + 1);
-
+					dragao.moveDragaoDireita();
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == 'H') {
 					
 					if (heroi.getArma() == true) {
@@ -198,13 +196,12 @@ public class Labirinto {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha()][dragao.getColuna() - 1] = 'D';
-					dragao.mudaPosicaoDragao(dragao.getLinha(), dragao.getColuna() - 1);
-
+					dragao.moveDragaoEsquerda();
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == 'E') {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 					labirinto[dragao.getLinha()][dragao.getColuna() - 1] = 'F';
-					dragao.mudaPosicaoDragao(dragao.getLinha(),	dragao.getColuna() - 1);
+					dragao.moveDragaoEsquerda();
 
 				} else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == 'H') {
 					
@@ -219,8 +216,7 @@ public class Labirinto {
 						|| labirinto[dragao.getLinha()][dragao.getColuna() - 1] == 'X') {
 					
 					labirinto[dragao.getLinha()][dragao.getColuna()] = 'D';
-					dragao.mudaPosicaoDragao(dragao.getLinha(),	dragao.getColuna());
-					
+					dragao.mantemPosicaoDragao();
 				}
 				
 				if(t == 3 && adormecer == 1){
@@ -248,14 +244,14 @@ public class Labirinto {
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()-1][heroi.getColuna()] = 'H';
-				heroi.mudaPosicaoHeroi(heroi.getLinha()-1, heroi.getColuna());
+				heroi.moveHeroiNorte();
 			}
 			else if(labirinto[heroi.getLinha()-1][heroi.getColuna()] == 'E')
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()-1][heroi.getColuna()] = 'H';
 				heroi.ativaArma();
-				heroi.mudaPosicaoHeroi(heroi.getLinha()-1, heroi.getColuna());
+				heroi.moveHeroiNorte();
 			}
 			else if(labirinto[heroi.getLinha()-1][heroi.getColuna()] == 'D' 
 					&& heroi.getArma() == false && dragao.getAdormecido() == false)
@@ -271,7 +267,7 @@ public class Labirinto {
 				labirinto[dragao.getLinha()][dragao.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()-1][heroi.getColuna()] = 'H';
-				heroi.mudaPosicaoHeroi(heroi.getLinha()-1, heroi.getColuna());
+				heroi.moveHeroiNorte();
 			}
 			else if(labirinto[heroi.getLinha()-1][heroi.getColuna()] == 'F')
 			{
@@ -295,14 +291,14 @@ public class Labirinto {
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
-				heroi.mudaPosicaoHeroi(heroi.getLinha()+1, heroi.getColuna());
+				heroi.moveHeroiSul();
 			}
 			else if(labirinto[heroi.getLinha()+1][heroi.getColuna()] == 'E')
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
 				heroi.ativaArma();
-				heroi.mudaPosicaoHeroi(heroi.getLinha()+1, heroi.getColuna());
+				heroi.moveHeroiSul();
 			}
 			else if(labirinto[heroi.getLinha()+1][heroi.getColuna()] == 'D' && heroi.getArma() == false)
 			{
@@ -317,7 +313,7 @@ public class Labirinto {
 				dragao.DragaoMorre();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
-				heroi.mudaPosicaoHeroi(heroi.getLinha()+1, heroi.getColuna());
+				heroi.moveHeroiSul();
 			}
 			else if(labirinto[heroi.getLinha()+1][heroi.getColuna()] == 'F')
 			{
@@ -341,14 +337,14 @@ public class Labirinto {
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = 'H';
-				heroi.mudaPosicaoHeroi(heroi.getLinha(), heroi.getColuna()+1);
+				heroi.moveHeroiDireita();
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()+1] == 'E')
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = 'H';
 				heroi.ativaArma();
-				heroi.mudaPosicaoHeroi(heroi.getLinha(), heroi.getColuna()+1);
+				heroi.moveHeroiDireita();
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()+1] == 'D' && heroi.getArma() == false)
 			{
@@ -363,7 +359,7 @@ public class Labirinto {
 				dragao.DragaoMorre();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = 'H';
-				heroi.mudaPosicaoHeroi(heroi.getLinha(), heroi.getColuna()+1);
+				heroi.moveHeroiDireita();
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()+1] == 'F')
 			{
@@ -387,14 +383,14 @@ public class Labirinto {
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
-				heroi.mudaPosicaoHeroi(heroi.getLinha(), heroi.getColuna()-1);
+				heroi.moveHeroiEsquerda();
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()-1] == 'E')
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
 				heroi.ativaArma();
-				heroi.mudaPosicaoHeroi(heroi.getLinha(), heroi.getColuna()-1);
+				heroi.moveHeroiEsquerda();
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()-1] == 'D' 
 					&& heroi.getArma() == false && dragao.getAdormecido() == false)
@@ -410,7 +406,7 @@ public class Labirinto {
 				dragao.DragaoMorre();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
-				heroi.mudaPosicaoHeroi(heroi.getLinha(), heroi.getColuna()-1);
+				heroi.moveHeroiEsquerda();
 			}
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()-1] == 'F')
 			{

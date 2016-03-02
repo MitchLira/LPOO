@@ -55,6 +55,11 @@ public class Dragao {
 		this.coluna = c;
 		this.linha = l;
 	}
+	public void mantemPosicaoDragao()
+	{
+		this.setLinha(linha);
+		this.setColuna(coluna);
+	}
 	public void moveDragaoNorte()
 	{
 		this.setLinha(linha-1);
