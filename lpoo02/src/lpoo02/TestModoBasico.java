@@ -39,7 +39,7 @@ public class TestModoBasico {
 	public void testMoverDragao() {
 		Labirinto maze = new Labirinto();
 		maze.criarLabirinto(m1);
-		//maze.moverDragao(dragao, heroi, 1);
+		maze.moverDragao(dragao, heroi, 1);
 		assertEquals(new Point(1, 3), new Point(dragao.getLinha(),dragao.getColuna()));
 	}
 
