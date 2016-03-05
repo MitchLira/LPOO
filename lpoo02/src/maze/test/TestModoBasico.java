@@ -1,7 +1,11 @@
-package maze.logic;
+package maze.test;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import maze.logic.Dragao;
+import maze.logic.Heroi;
+import maze.logic.Labirinto;
 
 public class TestModoBasico {
 	char[][] m1 = { { 'X', 'X', 'X', 'X', 'X' }, 
