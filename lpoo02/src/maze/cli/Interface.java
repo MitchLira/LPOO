@@ -13,18 +13,19 @@ public class Interface {
 		System.out.println("3 - Dragao com movimento aleatorio intercalado com dormir");
 		System.out.print("Indique um modo de jogo: ");
 
-		Scanner T = new Scanner(System.in);
 
+		Scanner T = new Scanner(System.in);
 		int t = T.nextInt();
 
 		while(t != 1 && t != 2 && t != 3){
 			System.out.print("Opcao invalida!");
 			System.out.print("\nIndique um modo de jogo: ");
-			T = new Scanner(System.in);
+			T.nextLine();
+			t = T.nextInt();
 		}
-
-		System.out.print("\n");
+		T.nextLine();
 		
+		System.out.print("\n");
 		return t;
 	}
 	

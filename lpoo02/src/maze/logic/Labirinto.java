@@ -285,11 +285,21 @@ public class Labirinto {
 				interf.venceu();
 				interf.displayLabirinto(labirinto);
 			}
+
 		}
 		else if(coordenada == 's')
 		{
+
 			if(labirinto[heroi.getLinha()+1][heroi.getColuna()] == '.')
 			{
+				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
+				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
+				heroi.moveHeroiSul();
+			}
+			else if ((labirinto[heroi.getLinha()+2][heroi.getColuna()] == 'D' ||labirinto[heroi.getLinha()+2][heroi.getColuna()] == 'd' ) && heroi.getArma() == true)
+			{
+				labirinto[dragao.getLinha()][heroi.getColuna()] = '.';
+				dragao.DragaoMorre();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
 				heroi.moveHeroiSul();
@@ -331,6 +341,7 @@ public class Labirinto {
 				interf.venceu();
 				interf.displayLabirinto(labirinto);
 			}
+
 		}
 		else if(coordenada == 'e')
 		{
@@ -340,6 +351,8 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = 'H';
 				heroi.moveHeroiDireita();
 			}
+			
+			
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()+1] == 'E')
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
@@ -380,12 +393,14 @@ public class Labirinto {
 		}
 		else if(coordenada == 'o')
 		{
+			
 			if(labirinto[heroi.getLinha()][heroi.getColuna()-1] == '.')
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
 				heroi.moveHeroiEsquerda();
 			}
+
 			else if(labirinto[heroi.getLinha()][heroi.getColuna()-1] == 'E')
 			{
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
