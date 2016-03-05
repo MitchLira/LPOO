@@ -13,6 +13,13 @@ public class Dragao {
 		this.vida = true;
 		this.adormecido = false;
 	}
+	public Dragao(int coluna, int linha)
+	{
+		this.linha = linha;
+		this.coluna = coluna;
+		this.vida = true;
+		this.adormecido = false;
+	}
 	
 	public int getColuna()
 	{
@@ -94,6 +101,13 @@ public class Dragao {
 		this.setLinha(linha);
 		this.setColuna(coluna-1);
 	}
+<<<<<<< HEAD
+=======
+	public Point getDragaoPosicao(){
+		Point point = new Point(coluna, linha);
+		return point;
+	}
+>>>>>>> origin/master
 	
 	public static void main(String[] args) {
 

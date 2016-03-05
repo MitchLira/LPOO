@@ -21,6 +21,27 @@ public class Point {
 		return Math.abs(p.x - this.x) + Math.abs(p.y - this.y) == 1;
 	}
 	
+<<<<<<< HEAD
+=======
+	public boolean iguais(Point p){
+		if(p.x == this.x && p.y == this.y)
+			return true;
+		else
+			return false;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+
+		if (this.getClass() != obj.getClass())
+			return false;
+
+		Point other = (Point) obj;
+		return (this.x == other.x && this.y == other.y);
+	}
+
+	
+>>>>>>> origin/master
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

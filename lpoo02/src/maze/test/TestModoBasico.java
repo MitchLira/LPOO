@@ -16,20 +16,33 @@ public class TestModoBasico {
 					{ 'X', 'X', 'X', 'X', 'X' } 
 				};
 	
-	Heroi heroi = new Heroi();
-	Dragao dragao = new Dragao();
+	Heroi heroi = new Heroi(3,1);
+	Dragao dragao = new Dragao(3,3);
 
 	@Test
 	public void testMoverHeroi() {
 		Labirinto maze = new Labirinto();
 		maze.criarLabirinto(m1);
 		maze.moverHeroi(heroi, dragao, 's');
-		assertEquals(new Point(1, 3), heroi.getHeroiPosicao());
-	}
+		assertEquals(new Point(3,2), heroi.getHeroiPosicao());
+		maze.moverHeroi(heroi, dragao, 'n');
+		assertEquals(new Point(3,1), heroi.getHeroiPosicao());
+		maze.moverHeroi(heroi, dragao, 'e');
+		assertEquals(new Point(3,1), heroi.getHeroiPosicao());
+		maze.moverHeroi(heroi, dragao, 'o');
+		assertEquals(new Point(2,1), heroi.getHeroiPosicao());
+		maze.moverHeroi(heroi, dragao, 'e');
+		assertEquals(new Point(3,1), heroi.getHeroiPosicao());
+		heroi.ativaArma();
+		}
 
 	@Test
 	public void testMoverDragao() {
-		fail("Not yet implemented");
+		Labirinto maze = new Labirinto();
+		maze.criarLabirinto(m1);
+		maze.moverDragao(dragao, heroi, 0);
+		Point p1 = new Point(1,3);
+		assertEquals(p1, dragao.getDragaoPosicao());
 	}
 
 }
