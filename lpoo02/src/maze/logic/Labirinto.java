@@ -281,9 +281,9 @@ public class Labirinto {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
+				heroi.moveHeroiNorte();
 				interf.venceu();
 				interf.displayLabirinto(labirinto);
-				System.exit(0);
 			}
 		}
 		else if(coordenada == 's')
@@ -327,9 +327,9 @@ public class Labirinto {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = 'H';
+				heroi.moveHeroiSul();
 				interf.venceu();
 				interf.displayLabirinto(labirinto);
-				System.exit(0);
 			}
 		}
 		else if(coordenada == 'e')
@@ -376,7 +376,6 @@ public class Labirinto {
 				heroi.moveHeroiDireita();
 				interf.venceu();
 				interf.displayLabirinto(labirinto);
-				System.exit(0);
 			}
 		}
 		else if(coordenada == 'o')
@@ -421,9 +420,9 @@ public class Labirinto {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = 'H';
+				heroi.moveHeroiEsquerda();
 				interf.venceu();
 				interf.displayLabirinto(labirinto);
-				System.exit(0);
 			}
 		}
 	}
@@ -446,6 +445,9 @@ public class Labirinto {
 
 				if(t != 1)
 					lab.moverDragao(dragao, heroi, t);
+				
+				if(heroi.getVitoria() == true)
+					System.exit(0);
 
 				if(heroi.getVida() == false)
 				{

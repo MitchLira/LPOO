@@ -54,8 +54,10 @@ public class Interface {
 	
 	//Faz display do labirinto
 	public void displayLabirinto(char[][] labirinto){
-		for(int i=0; i<labirinto[i].length; i++){
-			for(int j=0; j<labirinto[i].length; j++){
+		int tamanho = labirinto[0].length;
+		
+		for(int i=0; i< tamanho; i++){
+			for(int j=0; j< tamanho; j++){
 				System.out.print(labirinto[i][j] + " ");
 			}
 			

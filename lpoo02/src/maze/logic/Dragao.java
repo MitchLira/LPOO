@@ -101,13 +101,11 @@ public class Dragao {
 		this.setLinha(linha);
 		this.setColuna(coluna-1);
 	}
-<<<<<<< HEAD
-=======
+
 	public Point getDragaoPosicao(){
 		Point point = new Point(coluna, linha);
 		return point;
 	}
->>>>>>> origin/master
 	
 	public static void main(String[] args) {
 
