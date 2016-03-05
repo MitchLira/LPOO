@@ -54,8 +54,8 @@ public class Interface {
 	
 	//Faz display do labirinto
 	public void displayLabirinto(char[][] labirinto){
-		for(int i=0; i<10; i++){
-			for(int j=0; j<10; j++){
+		for(int i=0; i<labirinto[i].length; i++){
+			for(int j=0; j<labirinto[i].length; j++){
 				System.out.print(labirinto[i][j] + " ");
 			}
 			
@@ -63,6 +63,8 @@ public class Interface {
 		}
 
 	}
+	
+	
 	
 	public static void main(String[] args) {
 		

@@ -28,6 +28,17 @@ public class Point {
 			return false;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+
+		if (this.getClass() != obj.getClass())
+			return false;
+
+		Point other = (Point) obj;
+		return (this.x == other.x && this.y == other.y);
+	}
+
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

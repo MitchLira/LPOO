@@ -373,6 +373,7 @@ public class Labirinto {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = '.';
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = 'H';
+				heroi.moveHeroiDireita();
 				interf.venceu();
 				interf.displayLabirinto(labirinto);
 				System.exit(0);

@@ -15,6 +15,14 @@ public class Heroi {
 		this.coluna = 1;
 		this.vitoria = false;
 	}
+	public Heroi(int coluna, int linha)
+	{
+		this.arma = false;
+		this.vida = true;
+		this.linha = linha;
+		this.coluna = coluna;
+		this.vitoria = false;
+	}
 	
 	public void setLinha(int linha) {
 		this.linha = linha;
@@ -90,7 +98,8 @@ public class Heroi {
 	}
 	
 	public Point getHeroiPosicao(){
-		return (new Point(linha, coluna));
+		Point point = new Point(coluna, linha);
+		return point;
 	}
 	
 	public static void main(String[] args) {
