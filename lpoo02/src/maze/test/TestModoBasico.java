@@ -41,7 +41,7 @@ public class TestModoBasico {
 		Labirinto maze = new Labirinto();
 		maze.criarLabirinto(m1);
 		maze.moverDragao(dragao, heroi, 0);
-		Point p1 = new Point(1,3);
+		Point p1 = new Point(3,3);
 		assertEquals(p1, dragao.getDragaoPosicao());
 	}
 
