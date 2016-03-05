@@ -1,4 +1,4 @@
-package lpoo02;
+package maze.logic;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,15 +6,21 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Labirinto {
+import maze.cli.Interface;
 
-//	public char[][] criarLabirinto(char[][] lab)
-//	{
-//		return lab;
-//	};
+public class Labirinto {
 	
-	public char[][] criarLabirinto(char[][] labirinto){
-		//labirinto = new char[10][10];
+	private static char[][] labirinto;
+	private static Labirinto lab = new Labirinto();
+	private static Heroi heroi = new Heroi();
+	private static Dragao dragao = new Dragao();
+	
+	public void criarLabirinto(char[][] labir){
+		labirinto = labir;
+	}
+	
+	public char[][] criarLabirinto(){
+		labirinto = new char[10][10];
 
 		labirinto[1][1] = 'H';
 		labirinto[3][1] = 'D';
@@ -72,7 +78,7 @@ public class Labirinto {
 		return labirinto;
 	}
 	
-	public void moverDragao(Dragao dragao, Heroi heroi, int t, char[][] labirinto)
+	public void moverDragao(Dragao dragao, Heroi heroi, int t)
 	{   //0 - N; 1 - S; 2 - E; 3 - O
 		Random r = new Random();
 		if(dragao.getVida() == true) {
@@ -230,7 +236,7 @@ public class Labirinto {
 		}
 	}
 
-	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada, Interface interf, char[][] labirinto)
+	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada, Interface interf)
 	{
 		if(coordenada == 'n')
 		{
@@ -423,14 +429,9 @@ public class Labirinto {
 		Interface interf = new Interface();
 		
 		int t = interf.modojogo();
-		char[][] lab = new char[10][10];
-
-		Labirinto labirinto = new Labirinto();
-		Dragao dragao = new Dragao();
-		Heroi heroi = new Heroi();
 		
-		labirinto.criarLabirinto(lab);
-		interf.displayLabirinto(lab);
+		lab.criarLabirinto();
+		interf.displayLabirinto(labirinto);
 
 		int jogada = 1;
 		while(heroi.getVida() == true){			
@@ -439,17 +440,17 @@ public class Labirinto {
 			
 			if(S.hasNext()){
 				char coordenada = S.next().charAt(0);
-				labirinto.moverHeroi(heroi, dragao, coordenada, interf, lab);
+				lab.moverHeroi(heroi, dragao, coordenada, interf);
 
 				if(t != 1)
-					labirinto.moverDragao(dragao, heroi, t, lab);
+					lab.moverDragao(dragao, heroi, t);
 
 				if(heroi.getVida() == false)
 				{
 					interf.perdeu();
 					System.exit(1);
 				}
-				interf.displayLabirinto(lab);
+				interf.displayLabirinto(labirinto);
 			}
 		}
 	}

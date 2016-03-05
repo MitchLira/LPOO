@@ -1,4 +1,4 @@
-package lpoo02;
+package maze.cli;
 
 import java.util.Scanner;
 

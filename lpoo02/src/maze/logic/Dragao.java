@@ -1,4 +1,4 @@
-package lpoo02;
+package maze.logic;
 
 public class Dragao {
 	private int linha;
