@@ -89,6 +89,10 @@ public class Heroi {
 		this.setColuna(coluna-1);
 	}
 	
+	public Point getHeroiPosicao(){
+		return (new Point(linha, coluna));
+	}
+	
 	public static void main(String[] args) {
 	}
 

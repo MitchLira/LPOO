@@ -14,6 +14,7 @@ public class Labirinto {
 	private static Labirinto lab = new Labirinto();
 	private static Heroi heroi = new Heroi();
 	private static Dragao dragao = new Dragao();
+	private static Interface interf = new Interface();
 	
 	public void criarLabirinto(char[][] labir){
 		labirinto = labir;
@@ -236,7 +237,7 @@ public class Labirinto {
 		}
 	}
 
-	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada, Interface interf)
+	public void moverHeroi(Heroi heroi, Dragao dragao, char coordenada) 
 	{
 		if(coordenada == 'n')
 		{
@@ -426,7 +427,7 @@ public class Labirinto {
 		}
 	}
 	public static void main(String[] args) {
-		Interface interf = new Interface();
+		//Interface interf = new Interface();
 		
 		int t = interf.modojogo();
 		
@@ -440,7 +441,7 @@ public class Labirinto {
 			
 			if(S.hasNext()){
 				char coordenada = S.next().charAt(0);
-				lab.moverHeroi(heroi, dragao, coordenada, interf);
+				lab.moverHeroi(heroi, dragao, coordenada);
 
 				if(t != 1)
 					lab.moverDragao(dragao, heroi, t);
