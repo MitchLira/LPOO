@@ -21,13 +21,6 @@ public class Point {
 		return Math.abs(p.x - this.x) + Math.abs(p.y - this.y) == 1;
 	}
 	
-	public boolean iguais(Point p){
-		if(p.x == this.x && p.y == this.y)
-			return true;
-		else
-			return false;
-	}
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

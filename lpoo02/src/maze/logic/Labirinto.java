@@ -426,8 +426,8 @@ public class Labirinto {
 			}
 		}
 	}
+	
 	public static void main(String[] args) {
-		//Interface interf = new Interface();
 		
 		int t = interf.modojogo();
 		
