@@ -84,17 +84,7 @@ public class Labirinto {
 		return labirinto;
 	}
 
-	private boolean lutaPossivel(){
-		Point heroiPos = heroi.getHeroiPosicao();
-		Point DragaoPos = dragao.getDragaoPosicao();
-
-		if(heroiPos.x == DragaoPos.x && Math.abs(heroiPos.y - DragaoPos.y) <= 1)
-			return true;
-		else if(heroiPos.y == DragaoPos.y && Math.abs(heroiPos.x - DragaoPos.x) <= 1)
-			return true;
-
-		return false;
-	}
+	
 
 	public void moverDragao(Dragao dragao, Heroi heroi, int mode)
 	{   //0 - N; 1 - S; 2 - E; 3 - O
@@ -420,6 +410,17 @@ public class Labirinto {
 		}
 	}
 
+	private boolean lutaPossivel(){
+		Point heroiPos = heroi.getHeroiPosicao();
+		Point DragaoPos = dragao.getDragaoPosicao();
+
+		if(heroiPos.x == DragaoPos.x && Math.abs(heroiPos.y - DragaoPos.y) <= 1)
+			return true;
+		else if(heroiPos.y == DragaoPos.y && Math.abs(heroiPos.x - DragaoPos.x) <= 1)
+			return true;
+
+		return false;
+	}
 	
 	public void HeroivsDragao(){
 		if(lutaPossivel()){
@@ -429,7 +430,7 @@ public class Labirinto {
 				dragao.DragaoMorre();
 			}
 			else if(!dragao.getAdormecido()){
-				labirinto[heroi.getLinha()][heroi.getColuna()] = heroi.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
 				heroi.heroiMorre();
 				heroi.heroiPerde();
 			}
@@ -449,7 +450,6 @@ public class Labirinto {
 			if(S.hasNext()){
 				char coordenada = S.next().charAt(0);
 				lab.moverHeroi(heroi, dragao, coordenada,interf);
-
 				lab.HeroivsDragao();
 
 				if(mode != 1){
