@@ -120,7 +120,8 @@ public class Labirinto {
 					if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == P) {					
 
 						if(EspPos.equals(DragPos)){
-							esp.simbol = P;
+							esp.simbol = E;
+							esp.setEspada();
 							dragao.setSimbolo();
 							labirinto[dragao.getLinha()][dragao.getColuna()] = esp.simbol;
 						}
@@ -165,7 +166,8 @@ public class Labirinto {
 					if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == P) {
 
 						if(EspPos.equals(DragPos)){
-							esp.simbol = P;
+							esp.simbol = E;
+							esp.setEspada();
 							dragao.setSimbolo();
 							labirinto[dragao.getLinha()][dragao.getColuna()] = esp.simbol;
 						}
@@ -207,7 +209,8 @@ public class Labirinto {
 					if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == P) {
 
 						if(EspPos.equals(DragPos)){
-							esp.simbol = P;
+							esp.simbol = E;
+							esp.setEspada();
 							dragao.setSimbolo();
 							labirinto[dragao.getLinha()][dragao.getColuna()] = esp.simbol;
 						}
@@ -246,7 +249,8 @@ public class Labirinto {
 					if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == P) {
 
 						if(EspPos.equals(DragPos)){
-							esp.simbol = P;
+							esp.simbol = E;
+							esp.setEspada();
 							dragao.setSimbolo();
 							labirinto[dragao.getLinha()][dragao.getColuna()] = esp.simbol;
 						}
