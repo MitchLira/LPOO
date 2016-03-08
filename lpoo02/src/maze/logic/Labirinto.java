@@ -101,13 +101,17 @@ public class Labirinto {
 		Random r = new Random();
 
 		if(dragao.getVida() == true) {
-			int direcao = r.nextInt(2);		//para ter maior probabilidade de virar em certas direcoes
+			int direcao = r.nextInt(5);		//para ter maior probabilidade de virar em certas direcoes
 			int adormecer = r.nextInt(4);	//decidir se adormece ou nao || 0, 2, 3 -> Nao || 1 -> Sim
 
 			Point EspPos = esp.getEspPos();
 			Point DragPos = dragao.getDragaoPosicao();
 
-			if(mode == 3 && adormecer == 1){
+			if(dragao.getAdormecido()){
+				dragao.DragaoAcorda();
+				labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+			}
+			else if(mode == 3 && adormecer == 1){
 				dragao.DragaoDorme();
 				labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
 			}
@@ -149,7 +153,8 @@ public class Labirinto {
 						dragao.mantemPosicaoDragao();
 
 					}
-
+					
+					//a mais mas por precaucao vai ficar
 					if(mode == 3 && adormecer == 1){
 						if(EspPos.equals(DragPos))
 							dragao.DragEsp();
