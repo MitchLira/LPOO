@@ -6,6 +6,7 @@ public class Heroi {
 	private int linha;
 	private int coluna;
 	private boolean vitoria;
+	private char simbolo;
 
 	public Heroi()
 	{
@@ -14,7 +15,9 @@ public class Heroi {
 		this.linha = 1;
 		this.coluna = 1;
 		this.vitoria = false;
+		this.simbolo = 'H';
 	}
+	
 	public Heroi(int coluna, int linha)
 	{
 		this.arma = false;
@@ -22,6 +25,7 @@ public class Heroi {
 		this.linha = linha;
 		this.coluna = coluna;
 		this.vitoria = false;
+		this.simbolo = 'H';
 	}
 	
 	public void setLinha(int linha) {
@@ -53,6 +57,10 @@ public class Heroi {
 		return this.vida;
 	}
 
+	public char getSimbolo(){
+		return simbolo;
+	}
+	
 	public void mudaPosicaoHeroi(int l, int c)
 	{
 		this.coluna = c;
@@ -61,12 +69,14 @@ public class Heroi {
 	
 	public void ativaArma()
 	{
+		this.simbolo = 'A';
 		this.arma = true;
 	}
 	
 	public void heroiMorre()
 	{
 		this.vida = false;
+		this.vitoria = false;
 	}
 	
 	public void heroiGanha()
@@ -74,11 +84,17 @@ public class Heroi {
 		this.vitoria = true;
 	}
 	
+	public void heroiPerde(){
+		this.vida = false;
+		this.vitoria = false;
+	}
+	
 	public void moveHeroiNorte()
 	{
 		this.setLinha(linha-1);
 		this.setColuna(coluna);
 	}
+	
 	public void moveHeroiSul()
 	{
 		this.setLinha(linha+1);
