@@ -14,13 +14,13 @@ public class Labirinto {
 	private Heroi heroi = new Heroi();
 	private Dragao dragao = new Dragao();
 	public Espada esp = new Espada();
-	
+
 	public final char P = '.';
 	public final char E = 'E';
 	public final char S = 'S';
 	public final char F = 'F';
 	public final char X = 'X';
-	
+
 	public void criarLabirinto(char[][] labir){
 		labirinto = labir;
 	}
@@ -101,187 +101,204 @@ public class Labirinto {
 		Random r = new Random();
 
 		if(dragao.getVida() == true) {
-			int direcao = r.nextInt(5);		//para ter maior probabilidade de virar em certas direcoes
+			int direcao = r.nextInt(2);		//para ter maior probabilidade de virar em certas direcoes
 			int adormecer = r.nextInt(4);	//decidir se adormece ou nao || 0, 2, 3 -> Nao || 1 -> Sim
-			
+
 			Point EspPos = esp.getEspPos();
 			Point DragPos = dragao.getDragaoPosicao();
-			
-			if(mode == 3 && adormecer != 1)
-				dragao.DragaoAcorda();
-			
-			switch (direcao){
-			case 0:	//Norte
-			{
-				if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == P) {					
-					
-					if(EspPos.equals(DragPos)){
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = E;
-					}
-					else{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					}
-					
-					labirinto[dragao.getLinha() - 1][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.moveDragaoNorte();
 
-				} else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == E) {
-					dragao.DragEsp();
-					
-					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha() - 1][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.moveDragaoNorte();
-
-				} 
-				else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == S
-						|| labirinto[dragao.getLinha() - 1][dragao.getColuna()] == X) {
-					
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.mantemPosicaoDragao();
-
-				}
-
-				if(mode == 3 && adormecer == 1){
-					dragao.DragaoDorme();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-
-				break;
-			}
-			case 1:	//Sul
-			{
-				if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == P) {
-
-					if(EspPos.equals(DragPos)){
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = E;
-					}
-					else{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					}
-
-					labirinto[dragao.getLinha() + 1][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.moveDragaoSul();
-
-				} else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == E) {
-					dragao.DragEsp();
-					
-					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha() + 1][dragao.getColuna()] = F;
-					dragao.moveDragaoSul();
-
-				}
-				else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == S
-						|| labirinto[dragao.getLinha() + 1][dragao.getColuna()] == X) {
-
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.mantemPosicaoDragao();
-
-				}
-
-				if(mode == 3 && adormecer == 1){
-					dragao.DragaoDorme();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-
-				break;
-			}
-
-			case 2:	//Este
-			{
-				if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == P) {
-
-					if(EspPos.equals(DragPos)){
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = E;
-					}
-					else{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					}
-
-					labirinto[dragao.getLinha()][dragao.getColuna() + 1] = dragao.getSimbolo();
-					dragao.moveDragaoDireita();
-				} else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == E) {
-					dragao.DragEsp();
-					
-					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha()][dragao.getColuna() + 1] = F;
-					dragao.moveDragaoDireita();
-				}
-				else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == S
-						|| labirinto[dragao.getLinha()][dragao.getColuna() + 1] == X) {
-
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.mantemPosicaoDragao();
-
-				}
-
-				if(mode == 3 && adormecer == 1){
-					dragao.DragaoDorme();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-
-				break;
-			}
-			case 3: //Oeste
-			{
-				if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == P) {
-
-					if(EspPos.equals(DragPos)){
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = E;
-					}
-					else{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					}
-
-					labirinto[dragao.getLinha()][dragao.getColuna() - 1] = dragao.getSimbolo();
-					dragao.moveDragaoEsquerda();
-				} else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == E) {
-					dragao.DragEsp();
-					
-					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha()][dragao.getColuna() - 1] = F;
-					dragao.moveDragaoEsquerda();
-
-				} 
-				else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == S
-						|| labirinto[dragao.getLinha()][dragao.getColuna() - 1] == X) {
-
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.mantemPosicaoDragao();
-				}
-
-				if(mode == 3 && adormecer == 1){
-					dragao.DragaoDorme();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-
-				break;
-			}
-			case 4:	//Nao se move
-			{
-				if(EspPos.equals(DragPos))
-					dragao.DragEsp();
-				else
-					dragao.setSimbolo();
-				
-				dragao.mantemPosicaoDragao();
+			if(mode == 3 && adormecer == 1){
+				dragao.DragaoDorme();
 				labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+			}
+			else{
+				dragao.DragaoAcorda();
+				
+				switch (direcao){
+				case 0:	//Norte
+				{
+					if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == P) {					
 
-				if(mode == 3 && adormecer == 1){
-					dragao.DragaoDorme();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+						if(EspPos.equals(DragPos)){
+							esp.simbol = P;
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = esp.simbol;
+						}
+						else{
+							esp.simbol = E;
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						}
+
+						labirinto[dragao.getLinha() - 1][dragao.getColuna()] = dragao.getSimbolo();
+						dragao.moveDragaoNorte();
+
+					} else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == E) {
+						dragao.DragEsp();
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						labirinto[dragao.getLinha() - 1][dragao.getColuna()] = dragao.getSimbolo();
+						dragao.moveDragaoNorte();
+
+					} 
+					else if (labirinto[dragao.getLinha() - 1][dragao.getColuna()] == S
+							|| labirinto[dragao.getLinha() - 1][dragao.getColuna()] == X) {
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+						dragao.mantemPosicaoDragao();
+
+					}
+
+					if(mode == 3 && adormecer == 1){
+						if(EspPos.equals(DragPos))
+							dragao.DragEsp();
+						else
+							dragao.DragaoDorme();
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+
+					break;
+				}
+				case 1:	//Sul
+				{
+					if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == P) {
+
+						if(EspPos.equals(DragPos)){
+							esp.simbol = P;
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = esp.simbol;
+						}
+						else{
+							esp.simbol = E;
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						}
+
+						labirinto[dragao.getLinha() + 1][dragao.getColuna()] = dragao.getSimbolo();
+						dragao.moveDragaoSul();
+
+					} else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == E) {
+						dragao.DragEsp();
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						labirinto[dragao.getLinha() + 1][dragao.getColuna()] = F;
+						dragao.moveDragaoSul();
+
+					}
+					else if (labirinto[dragao.getLinha() + 1][dragao.getColuna()] == S
+							|| labirinto[dragao.getLinha() + 1][dragao.getColuna()] == X) {
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+						dragao.mantemPosicaoDragao();
+
+					}
+
+					if(mode == 3 && adormecer == 1){
+						dragao.DragaoDorme();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+
+					break;
 				}
 
-				break;
+				case 2:	//Este
+				{
+					if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == P) {
+
+						if(EspPos.equals(DragPos)){
+							esp.simbol = P;
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = esp.simbol;
+						}
+						else{
+							esp.simbol = E;
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						}
+
+						labirinto[dragao.getLinha()][dragao.getColuna() + 1] = dragao.getSimbolo();
+						dragao.moveDragaoDireita();
+					} else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == E) {
+						dragao.DragEsp();
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						labirinto[dragao.getLinha()][dragao.getColuna() + 1] = F;
+						dragao.moveDragaoDireita();
+					}
+					else if (labirinto[dragao.getLinha()][dragao.getColuna() + 1] == S
+							|| labirinto[dragao.getLinha()][dragao.getColuna() + 1] == X) {
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+						dragao.mantemPosicaoDragao();
+
+					}
+
+					if(mode == 3 && adormecer == 1){
+						dragao.DragaoDorme();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+
+					break;
+				}
+				case 3: //Oeste
+				{
+					if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == P) {
+
+						if(EspPos.equals(DragPos)){
+							esp.simbol = P;
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = esp.simbol;
+						}
+						else{
+							esp.simbol = E;
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						}
+
+						labirinto[dragao.getLinha()][dragao.getColuna() - 1] = dragao.getSimbolo();
+						dragao.moveDragaoEsquerda();
+					} else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == E) {
+						dragao.DragEsp();
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						labirinto[dragao.getLinha()][dragao.getColuna() - 1] = F;
+						dragao.moveDragaoEsquerda();
+
+					} 
+					else if (labirinto[dragao.getLinha()][dragao.getColuna() - 1] == S
+							|| labirinto[dragao.getLinha()][dragao.getColuna() - 1] == X) {
+
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+						dragao.mantemPosicaoDragao();
+					}
+
+					if(mode == 3 && adormecer == 1){
+						dragao.DragaoDorme();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+
+					break;
+				}
+				case 4:	//Nao se move
+				{
+					if(EspPos.equals(DragPos))
+						dragao.DragEsp();
+					else
+						dragao.setSimbolo();
+
+					dragao.mantemPosicaoDragao();
+					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+
+					if(mode == 3 && adormecer == 1){
+						dragao.DragaoDorme();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+
+					break;
+				}
+				}		
 			}
-			}		
 		}
 	}
 
@@ -310,7 +327,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = heroi.getSimbolo();
 				heroi.moveHeroiNorte();
 			}
-			
+
 			break;
 		}
 		case 's':
@@ -335,7 +352,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()+1][heroi.getColuna()] = heroi.getSimbolo();
 				heroi.moveHeroiSul();
 			}
-			
+
 			break;
 		}
 		case 'e':
@@ -362,7 +379,7 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()+1] = heroi.getSimbolo();
 				heroi.moveHeroiDireita();
 			}
-			
+
 			break;
 		}
 		case 'o':
@@ -388,12 +405,13 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()-1] = heroi.getSimbolo();
 				heroi.moveHeroiEsquerda();
 			}
-			
+
 			break;
 		}
 		}
 	}
 
+	
 	public void HeroivsDragao(){
 		if(lutaPossivel()){
 			if(heroi.getArma()){
@@ -408,8 +426,8 @@ public class Labirinto {
 			}
 		}
 	}
-	
-	
+
+
 	public void jogar(Labirinto lab, Interface interf, int mode){
 		lab.criarLabirinto();
 		interf.displayLabirinto(labirinto);
@@ -424,7 +442,7 @@ public class Labirinto {
 				lab.moverHeroi(heroi, dragao, coordenada,interf);
 
 				lab.HeroivsDragao();
-				
+
 				if(mode != 1){
 					lab.moverDragao(dragao, heroi, mode);
 					lab.HeroivsDragao();
@@ -432,7 +450,7 @@ public class Labirinto {
 
 				if(heroi.getVitoria() == true){
 					interf.venceu();
-					interf.displayLabirinto(labirinto);
+					//interf.displayLabirinto(labirinto);
 					System.exit(0);
 				}
 
