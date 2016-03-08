@@ -11,9 +11,9 @@ import maze.cli.Interface;
 public class Labirinto {
 
 	private char[][] labirinto;
-	private Heroi heroi = new Heroi();
-	private Dragao dragao = new Dragao();
-	public Espada esp = new Espada();
+	private Heroi heroi;
+	private Dragao dragao; 
+	public Espada esp;
 
 	public final char P = '.';
 	public final char E = 'E';
@@ -21,13 +21,22 @@ public class Labirinto {
 	public final char F = 'F';
 	public final char X = 'X';
 
-	public void criarLabirinto(char[][] labir){
+	public void criarLabirinto(char[][] labir, Heroi heroi, Dragao dragao, Espada espada){
 		labirinto = labir;
+		this.heroi = heroi;
+		this.dragao = dragao;
+		this.esp = espada;
+		
+		
 	}
 
 	public char[][] criarLabirinto(){
 		labirinto = new char[10][10];
-
+		
+		heroi = new Heroi();
+		dragao = new Dragao();
+		esp = new Espada();
+		
 		labirinto[1][1] = 'H';
 		labirinto[3][1] = 'D';
 		labirinto[8][1] = 'E';
