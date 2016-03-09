@@ -99,7 +99,7 @@ public class TestModoBasico {
 		hero.ativaArma();
 		maze.moverHeroi(hero, dragao, 's', interf);
 		maze.HeroivsDragao();
-		hero.mudaPosicaoHeroi(1, 3);
+		hero.setPosicaoHeroi(1, 3);
 		maze.moverHeroi(hero, dragao, 'e', interf);
 		assertEquals(new Point(4,1), hero.getHeroiPosicao());
 	}

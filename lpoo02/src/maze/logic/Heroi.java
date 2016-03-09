@@ -61,7 +61,7 @@ public class Heroi {
 		return simbolo;
 	}
 	
-	public void mudaPosicaoHeroi(int l, int c)
+	public void setPosicaoHeroi(int l, int c)
 	{
 		this.coluna = c;
 		this.linha = l;

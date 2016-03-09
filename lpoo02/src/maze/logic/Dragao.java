@@ -80,7 +80,7 @@ public class Dragao {
 		this.simbolo = 'F';
 	}
 	
-	public void mudaPosicaoDragao(int l, int c)
+	public void setPosicaoDragao(int l, int c)
 	{
 		this.y = c;
 		this.x = l;

@@ -5,11 +5,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import maze.cli.Interface;
 
 public class Labirinto {
-
 	private char[][] labirinto;
 	private Heroi heroi;
 	private Dragao dragao; 
@@ -20,16 +23,110 @@ public class Labirinto {
 	public final char S = 'S';
 	public final char F = 'F';
 	public final char X = 'X';
+	public final char H = 'H';
+	public final char D = 'D';
 
 	public void criarLabirinto(char[][] labir, Heroi heroi, Dragao dragao, Espada espada){
 		labirinto = labir;
 		this.heroi = heroi;
 		this.dragao = dragao;
 		this.esp = espada;
-		
-		
 	}
 
+	public void criarLabirintoDefault()
+	{
+		char[][] lab = {
+				{'X','X','X','X','X','X','X','X','X','X'},
+				{'X','.','X','.','.','.','X','X','.','X'},
+				{'X','.','X','.','X','.','X','X','.','X'},
+				{'X','.','.','.','X','.','X','X','.','X'},
+				{'X','X','X','X','X','.','.','.','.','X'},
+				{'X','.','X','X','X','X','.','.','.','.'},
+				{'X','.','.','.','X','X','.','X','.','X'},
+				{'X','.','X','.','X','X','.','X','.','X'},
+				{'X','X','X','.','.','.','.','X','.','X'},
+				{'X','X','X','X','X','X','X','X','X','X'}};
+		labirinto = lab;
+		labirinto[1][1] = H;
+		labirinto[7][1] = E;
+		labirinto[5][9] = S;
+		labirinto[1][8] = D;
+		heroi.setPosicaoHeroi(1, 1);
+		dragao.setPosicaoDragao(1, 8);
+		esp.setEspadaPosicao(7, 1);
+	}
+	
+	public void GeradorLabirintoInical(int n, ArrayDeque<Point> flags, ArrayList<Point> posLivres)
+	{
+		for(int i = 0; i < n; i++)
+		{
+			for(int j = 0; j < n; j++)
+			{
+				if((i%2!=0) && (j%2!=0) && (i < n-1) && (j < n-1))
+				{
+					labirinto[i][j] = P;
+					flags.addFirst(new Point(i,j));
+					posLivres.add(new Point(i,j));
+				}
+				else
+					labirinto[i][j] = X;
+			}
+		}
+	}
+	public ArrayList<Point> GerarLabirinto(int n) 
+	{
+		ArrayList<Point> posLivres = new ArrayList<Point>();  //guarda posicoes livres
+		labirinto = new char[n][n];
+		ArrayDeque<Point> flags = new ArrayDeque<Point>(); //guarda flags das posicoes visitadas
+		 
+		GeradorLabirintoInical(n, flags, posLivres);
+		
+		Random rand = new Random();
+		int randPos = rand.nextInt((n - 2) + 1);
+		Point posVizinha = null;
+	
+		
+		switch(rand.nextInt(4)){
+		//posicionar a saída numa das bordas sem colocar nos cantos
+		case 0:
+			labirinto[0][randPos] = S;
+			posVizinha = new Point(1, randPos);
+			break;
+		case 1:
+			labirinto[n-1][randPos] = S;
+			posVizinha = new Point(n-2, randPos);
+			break;
+		case 2:
+			labirinto[randPos][0] = S;
+			posVizinha = new Point(randPos, 1);
+			break;
+		case 3:
+			labirinto[randPos][n-1] = S;
+			posVizinha = new Point(randPos, n-2);
+			break;
+		}
+		labirinto[posVizinha.y][posVizinha.x] = P;
+		flags.add(posVizinha);
+		posLivres.add(posVizinha);
+		
+		
+		//escolher uma próxima casa e adicionar à flags
+		
+		do{
+			
+			int posicoesVizinhasLivres = 0;
+			
+			//vizinha em cima
+			if(posVizinha.y > 1 && labirinto[posVizinha.y-1][posVizinha.x] == X  )
+			
+		}while(!flags.isEmpty());
+		
+		return posLivres;
+	}
+	
+	
+	
+	
 	public char[][] criarLabirinto(){
 		labirinto = new char[10][10];
 		

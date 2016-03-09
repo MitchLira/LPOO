@@ -27,6 +27,11 @@ public class Espada {
 		this.x = 0;
 		this.y = 0;
 	}
+	public void setEspadaPosicao(int l, int c)
+	{
+		this.y = c;
+		this.x = l;
+	}
 	
 	public static void main(String[] args) {
 		
