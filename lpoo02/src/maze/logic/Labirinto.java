@@ -109,21 +109,97 @@ public class Labirinto {
 		flags.add(posVizinha);
 		posLivres.add(posVizinha);
 		
-		
-		//escolher uma próxima casa e adicionar à flags
-		
-		do{
-			
-			int posicoesVizinhasLivres = 0;
-			
-			//vizinha em cima
-			if(posVizinha.y > 1 && labirinto[posVizinha.y-1][posVizinha.x] == X  )
-			
-		}while(!flags.isEmpty());
-		
 		return posLivres;
 	}
 	
+	public boolean PodeMover(int n, char direcao, Point posVizinha)
+	{
+		int x = posVizinha.x;
+		int y = posVizinha.y;
+		switch(direcao){
+		case 'n':
+			if(x > 1)
+			{
+				if(labirinto[y][x-1] == P && labirinto[y-1][x-1] == P)
+					return false;
+				else if(labirinto[y-2][x] == P && labirinto[y-1][x-1] == P && labirinto[y-2][x-1] == P)
+					return false;
+				else if(labirinto[y-2][x] == X && labirinto[y-2][x-1] == P && labirinto[y-1][x-1] == X)
+					return false;
+			}
+			if(x < n-1)
+			{
+				if(labirinto[y][x+1] == P && labirinto[y-1][x+1] == P)
+					return false;
+				else if(labirinto[y-2][x] == P && labirinto[y-1][x+1] == P && labirinto[y-2][x+1] == P)
+					return false;
+				else if(labirinto[y-2][x] == X && labirinto[y-2][x+1] == P && labirinto[y-1][x+1] == X)
+					return false;
+			}
+		break;
+		case 's':
+			if(x > 1)
+			{
+				if(labirinto[y][x-1] == P && labirinto[y+1][x-1] == P)
+					return false;
+				else if(labirinto[y+2][x] == P && labirinto[y+1][x-1] == P && labirinto[y+2][x-1] == P)
+					return false;
+				else if(labirinto[y+2][x] == X && labirinto[y+2][x-1] == P && labirinto[y+1][x-1] == X)
+					return false;
+			}
+			if(x < n-1)
+			{
+				if(labirinto[y][x+1] == P && labirinto[y+1][x+1] == P)
+					return false;
+				else if(labirinto[y+2][x] == P && labirinto[y+1][x+1] == P && labirinto[y+2][x+1] == P)
+					return false;
+				else if(labirinto[y+2][x] == X && labirinto[y+2][x+1] == P && labirinto[y+1][x+1] == X)
+					return false;
+			}
+		break;
+		case 'e':
+			if(y > 1)
+			{
+				if(labirinto[y-1][x] == P && labirinto[y-1][x+1] == P)
+					return false;
+				else if(labirinto[y][x+2] == P && labirinto[y-1][x+2] == P && labirinto[y-1][x+1] == P)
+					return false;
+				else if(labirinto[y][x+2] == X && labirinto[y-1][x+2] == P && labirinto[y-1][x+1] == X)
+					return false;
+			}
+			if(y < n-1)
+			{
+				if(labirinto[y+1][x] == P && labirinto[y+1][x+1] == P)
+					return false;
+				else if(labirinto[y][x+2] == P && labirinto[y+1][x+2] == P && labirinto[y+1][x+1] == P)
+					return false;
+				else if(labirinto[y][x+2] == X && labirinto[y+1][x+2] == P && labirinto[y+1][x+1] == X)
+					return false;
+			}
+		break;
+		case 'o':
+			if(y > 1)
+			{
+				if(labirinto[y-1][x] == P && labirinto[y-1][x-1] == P)
+					return false;
+				else if(labirinto[y][x-2] == P && labirinto[y-1][x-2] == P && labirinto[y-1][x-1] == P)
+					return false;
+				else if(labirinto[y][x-2] == X && labirinto[y-1][x-2] == P && labirinto[y-1][x-1] == X)
+					return false;
+			}
+			if(y < n-1)
+			{
+				if(labirinto[y+1][x] == P && labirinto[y+1][x-1] == P)
+					return false;
+				else if(labirinto[y][x-2] == P && labirinto[y+1][x-2] == P && labirinto[y+1][x-1] == P)
+					return false;
+				else if(labirinto[y][x-2] == X && labirinto[y+1][x-2] == P && labirinto[y+1][x-1] == X)
+					return false;
+			}
+		break;
+		}
+		return true;
+	}
 	
 	
 	
