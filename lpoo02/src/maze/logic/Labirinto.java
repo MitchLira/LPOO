@@ -18,13 +18,13 @@ public class Labirinto {
 	private Dragao dragao; 
 	public Espada esp;
 
-	public final char P = '.';
-	public final char E = 'E';
-	public final char S = 'S';
-	public final char F = 'F';
-	public final char X = 'X';
-	public final char H = 'H';
-	public final char D = 'D';
+	private final char P = '.';
+	private final char E = 'E';
+	private final char S = 'S';
+	private final char F = 'F';
+	private final char X = 'X';
+	private final char H = 'H';
+	private final char D = 'D';
 
 	public void criarLabirinto(char[][] labir, Heroi heroi, Dragao dragao, Espada espada){
 		labirinto = labir;
@@ -115,7 +115,7 @@ public class Labirinto {
 		}
 		
 		labirinto[posVizinha.y][posVizinha.x] = P;
-		flags.add(posVizinha);
+		flags.addFirst(posVizinha);
 		posLivres.add(posVizinha);
 		
 		
@@ -124,22 +124,22 @@ public class Labirinto {
 			int posvizinhoslivres = 0;
 			
 			//vizinho de cima
-			if(posVizinha.y > 1 && labirinto[posVizinha.y-1][posVizinha.x] == 'X' && PodeMover(n, 'n', posVizinha) )
+			if(posVizinha.y > 1 && labirinto[posVizinha.y-1][posVizinha.x] == X && PodeMover(n, 'n', posVizinha) )
 			{
 				vizinhosDisponiveis[posvizinhoslivres++] = 'n';
 			}
 			//vizinho de baixo
-			if(posVizinha.y < n-2 && labirinto[posVizinha.y+1][posVizinha.x] == 'X' && PodeMover(n,'s', posVizinha))
+			if(posVizinha.y < n-2 && labirinto[posVizinha.y+1][posVizinha.x] == X && PodeMover(n,'s', posVizinha))
 			{
 				vizinhosDisponiveis[posvizinhoslivres++] = 's';
 			}
 			//vizinho da esquerda
-			if(posVizinha.x > 1 && labirinto[posVizinha.y][posVizinha.x-1] == 'X' && PodeMover(n, 'o', posVizinha))
+			if(posVizinha.x > 1 && labirinto[posVizinha.y][posVizinha.x-1] == X && PodeMover(n, 'o', posVizinha))
 			{
 				vizinhosDisponiveis[posvizinhoslivres++] = 'o';
 			}
 			//vizinho da direita
-			if(posVizinha.x < n-2 && labirinto[posVizinha.y][posVizinha.x+1] == 'X' && PodeMover(n, 'e', posVizinha))
+			if(posVizinha.x < n-2 && labirinto[posVizinha.y][posVizinha.x+1] == X && PodeMover(n, 'e', posVizinha))
 			{
 				vizinhosDisponiveis[posvizinhoslivres++] = 'e';
 			}
@@ -149,10 +149,10 @@ public class Labirinto {
 				switch(vizinhosDisponiveis[rand.nextInt(posvizinhoslivres)])
 				{
 				case 'n':
-					posVizinha.y++;
+					posVizinha.y--;
 					break;
 				case 's':
-					posVizinha.y--;
+					posVizinha.y++;
 					break;
 				case 'e':
 					posVizinha.x++;
@@ -165,8 +165,8 @@ public class Labirinto {
 				}
 				
 				labirinto[posVizinha.y][posVizinha.x] = P;
-				flags.addFirst(new Point(posVizinha.x,posVizinha.y));
-				posLivres.add(new Point(posVizinha.x,posVizinha.y));
+				flags.addFirst(new Point(posVizinha.y,posVizinha.x));
+				posLivres.add(new Point(posVizinha.y,posVizinha.x));
 			}
 			else
 			{
@@ -695,7 +695,7 @@ public class Labirinto {
 
 	public void jogar(Labirinto lab, Interface interf, int mode){
 		
-		lab.GerarLabirinto(10);
+		lab.GerarLabirinto(15);
 		interf.displayLabirinto(labirinto);
 
 		//interf.displayLabirinto(labirinto);
