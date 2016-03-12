@@ -33,11 +33,12 @@ public class Labirinto {
 		this.esp = espada;
 	}
 
-	public void criarLabirintoDefault()
+	public char[][] criarLabirintoDefault()
 	{
 
 		heroi = new Heroi();
 		dragao = new Dragao();
+		esp = new Espada();
 		
 		char[][] lab = {
 				{'X','X','X','X','X','X','X','X','X','X'},
@@ -53,12 +54,13 @@ public class Labirinto {
 		
 		labirinto = lab;
 		labirinto[1][1] = H;
-		labirinto[7][1] = E;
+		labirinto[6][1] = E;
 		labirinto[5][9] = S;
 		labirinto[1][8] = D;
 		heroi.setPosicaoHeroi(1, 1);
 		dragao.setPosicaoDragao(1, 8);
-		esp.setEspadaPosicao(7, 1);
+		esp.setEspadaPosicao(6,1);
+		return lab;
 	}
 	
 	public void GeradorLabirintoInical(int n, ArrayDeque<Point> flags, ArrayList<Point> posLivres)
@@ -88,7 +90,7 @@ public class Labirinto {
 		GeradorLabirintoInical(n, flags, posLivres);
 		
 		Random rand = new Random();
-		int randPos = rand.nextInt((n - 2) + 1);
+		int randPos = rand.nextInt(n - 2) + 1;
 		Point posVizinha = null;
 	
 		
@@ -111,9 +113,73 @@ public class Labirinto {
 			posVizinha = new Point(randPos, n-2);
 			break;
 		}
+		
 		labirinto[posVizinha.y][posVizinha.x] = P;
 		flags.add(posVizinha);
 		posLivres.add(posVizinha);
+		
+		
+		do{
+			char vizinhosDisponiveis[] = new char[4];
+			int posvizinhoslivres = 0;
+			
+			//vizinho de cima
+			if(posVizinha.y > 1 && labirinto[posVizinha.y-1][posVizinha.x] == 'X' && PodeMover(n, 'n', posVizinha) )
+			{
+				vizinhosDisponiveis[posvizinhoslivres++] = 'n';
+			}
+			//vizinho de baixo
+			if(posVizinha.y < n-2 && labirinto[posVizinha.y+1][posVizinha.x] == 'X' && PodeMover(n,'s', posVizinha))
+			{
+				vizinhosDisponiveis[posvizinhoslivres++] = 's';
+			}
+			//vizinho da esquerda
+			if(posVizinha.x > 1 && labirinto[posVizinha.y][posVizinha.x-1] == 'X' && PodeMover(n, 'o', posVizinha))
+			{
+				vizinhosDisponiveis[posvizinhoslivres++] = 'o';
+			}
+			//vizinho da direita
+			if(posVizinha.x < n-2 && labirinto[posVizinha.y][posVizinha.x+1] == 'X' && PodeMover(n, 'e', posVizinha))
+			{
+				vizinhosDisponiveis[posvizinhoslivres++] = 'e';
+			}
+			
+			if(posvizinhoslivres > 0)
+			{
+				switch(vizinhosDisponiveis[rand.nextInt(posvizinhoslivres)])
+				{
+				case 'n':
+					posVizinha.y++;
+					break;
+				case 's':
+					posVizinha.y--;
+					break;
+				case 'e':
+					posVizinha.x++;
+					break;
+				case 'o':
+					posVizinha.x--;
+					break;
+				default:
+					break;
+				}
+				
+				labirinto[posVizinha.y][posVizinha.x] = P;
+				flags.addFirst(new Point(posVizinha.x,posVizinha.y));
+				posLivres.add(new Point(posVizinha.x,posVizinha.y));
+			}
+			else
+			{
+				flags.removeFirst();
+				if(!flags.isEmpty())
+				{
+					posVizinha = flags.getFirst();
+				}
+			}
+			
+			
+		}while(!flags.isEmpty());
+		
 		
 		return posLivres;
 	}
@@ -145,6 +211,9 @@ public class Labirinto {
 			}
 		break;
 		case 's':
+			if ((n % 2 == 0) && posVizinha.temCoordImpares() && (y + 1 == n - 2) && labirinto[y-1][x] == X)
+				return false;
+			
 			if(x > 1)
 			{
 				if(labirinto[y][x-1] == P && labirinto[y+1][x-1] == P)
@@ -165,6 +234,8 @@ public class Labirinto {
 			}
 		break;
 		case 'e':
+			if ((n % 2 == 0) && posVizinha.temCoordImpares() && (x + 1 == n - 2) && labirinto[y][x-1] == X)
+				return false;
 			if(y > 1)
 			{
 				if(labirinto[y-1][x] == P && labirinto[y-1][x+1] == P)
@@ -624,12 +695,12 @@ public class Labirinto {
 
 	public void jogar(Labirinto lab, Interface interf, int mode){
 		
-		lab.criarLabirintoDefault();
+		lab.GerarLabirinto(10);
 		interf.displayLabirinto(labirinto);
-		
-//		lab.criarLabirinto();
-//		interf.displayLabirinto(labirinto);
-//
+
+		//interf.displayLabirinto(labirinto);
+		//lab.criarLabirinto();
+//		
 //		int jogada = 1;
 //		while(heroi.getVida() == true){			
 //			Scanner S = interf.fazJogada(jogada);
@@ -666,9 +737,10 @@ public class Labirinto {
 		Interface interf = new Interface();
 		//int mode = interf.modojogo();
 		Labirinto lab = new Labirinto();
-
+		lab.GerarLabirinto(12);
+		
 		//lab.jogar(lab, interf, mode);
-		lab.criarLabirintoDefault();
+		//lab.criarLabirintoDefault();
 		interf.displayLabirinto(labirinto);
 	}
 }

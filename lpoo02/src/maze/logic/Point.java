@@ -19,7 +19,11 @@ public class Point {
 		else
 			return false;
 	}
-	
+	boolean temCoordImpares() {
+
+		return ((x % 2 != 0) && (y % 2 != 0));
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 
