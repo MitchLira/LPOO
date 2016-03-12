@@ -13,7 +13,7 @@ import java.util.List;
 import maze.cli.Interface;
 
 public class Labirinto {
-	private char[][] labirinto;
+	private static char[][] labirinto;
 	private Heroi heroi;
 	private Dragao dragao; 
 	public Espada esp;
@@ -35,6 +35,10 @@ public class Labirinto {
 
 	public void criarLabirintoDefault()
 	{
+
+		heroi = new Heroi();
+		dragao = new Dragao();
+		
 		char[][] lab = {
 				{'X','X','X','X','X','X','X','X','X','X'},
 				{'X','.','X','.','.','.','X','X','.','X'},
@@ -46,6 +50,7 @@ public class Labirinto {
 				{'X','.','X','.','X','X','.','X','.','X'},
 				{'X','X','X','.','.','.','.','X','.','X'},
 				{'X','X','X','X','X','X','X','X','X','X'}};
+		
 		labirinto = lab;
 		labirinto[1][1] = H;
 		labirinto[7][1] = E;
@@ -73,6 +78,7 @@ public class Labirinto {
 			}
 		}
 	}
+	
 	public ArrayList<Point> GerarLabirinto(int n) 
 	{
 		ArrayList<Point> posLivres = new ArrayList<Point>();  //guarda posicoes livres
@@ -112,6 +118,7 @@ public class Labirinto {
 		return posLivres;
 	}
 	
+	//Implementa restricoes pedidas no enunciado
 	public boolean PodeMover(int n, char direcao, Point posVizinha)
 	{
 		int x = posVizinha.x;
@@ -201,8 +208,6 @@ public class Labirinto {
 		return true;
 	}
 	
-	
-	
 	public char[][] criarLabirinto(){
 		labirinto = new char[10][10];
 		
@@ -265,8 +270,6 @@ public class Labirinto {
 
 		return labirinto;
 	}
-
-	
 
 	public void moverDragao(Dragao dragao, Heroi heroi, int mode)
 	{   //0 - N; 1 - S; 2 - E; 3 - O
@@ -619,49 +622,54 @@ public class Labirinto {
 		}
 	}
 
-
 	public void jogar(Labirinto lab, Interface interf, int mode){
-		lab.criarLabirinto();
+		
+		lab.criarLabirintoDefault();
 		interf.displayLabirinto(labirinto);
-
-		int jogada = 1;
-		while(heroi.getVida() == true){			
-			Scanner S = interf.fazJogada(jogada);
-			jogada++;
-
-			if(S.hasNext()){
-				char coordenada = S.next().charAt(0);
-				lab.moverHeroi(heroi, dragao, coordenada,interf);
-				lab.HeroivsDragao();
-
-				if(mode != 1){
-					lab.moverDragao(dragao, heroi, mode);
-					lab.HeroivsDragao();
-				}
-
-				if(heroi.getVitoria() == true){
-					interf.venceu();
-					//interf.displayLabirinto(labirinto);
-					System.exit(0);
-				}
-
-				if(heroi.getVida() == false)
-				{
-					interf.perdeu();
-					//interf.displayLabirinto(labirinto);
-					System.exit(1);
-				}
-				interf.displayLabirinto(labirinto);
-			}
-		}
+		
+//		lab.criarLabirinto();
+//		interf.displayLabirinto(labirinto);
+//
+//		int jogada = 1;
+//		while(heroi.getVida() == true){			
+//			Scanner S = interf.fazJogada(jogada);
+//			jogada++;
+//
+//			if(S.hasNext()){
+//				char coordenada = S.next().charAt(0);
+//				lab.moverHeroi(heroi, dragao, coordenada,interf);
+//				lab.HeroivsDragao();
+//
+//				if(mode != 1){
+//					lab.moverDragao(dragao, heroi, mode);
+//					lab.HeroivsDragao();
+//				}
+//
+//				if(heroi.getVitoria() == true){
+//					interf.venceu();
+//					//interf.displayLabirinto(labirinto);
+//					System.exit(0);
+//				}
+//
+//				if(heroi.getVida() == false)
+//				{
+//					interf.perdeu();
+//					//interf.displayLabirinto(labirinto);
+//					System.exit(1);
+//				}
+//				interf.displayLabirinto(labirinto);
+//			}
+//		}
 	}
 
 	public static void main(String[] args) {
 		Interface interf = new Interface();
-		int mode = interf.modojogo();
+		//int mode = interf.modojogo();
 		Labirinto lab = new Labirinto();
 
-		lab.jogar(lab, interf, mode);
+		//lab.jogar(lab, interf, mode);
+		lab.criarLabirintoDefault();
+		interf.displayLabirinto(labirinto);
 	}
 }
 
