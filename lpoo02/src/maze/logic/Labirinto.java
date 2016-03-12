@@ -200,7 +200,7 @@ public class Labirinto {
 				else if(labirinto[y-2][x] == X && labirinto[y-2][x-1] == P && labirinto[y-1][x-1] == X)
 					return false;
 			}
-			if(x < n-2)
+			if(x < n-1)
 			{
 				if(labirinto[y][x+1] == P && labirinto[y-1][x+1] == P)
 					return false;
@@ -223,7 +223,7 @@ public class Labirinto {
 				else if(labirinto[y+2][x] == X && labirinto[y+2][x-1] == P && labirinto[y+1][x-1] == X)
 					return false;
 			}
-			if(x < n-2)
+			if(x < n-1)
 			{
 				if(labirinto[y][x+1] == P && labirinto[y+1][x+1] == P)
 					return false;
@@ -245,7 +245,7 @@ public class Labirinto {
 				else if(labirinto[y][x+2] == X && labirinto[y-1][x+2] == P && labirinto[y-1][x+1] == X)
 					return false;
 			}
-			if(y < n-2)
+			if(y < n-1)
 			{
 				if(labirinto[y+1][x] == P && labirinto[y+1][x+1] == P)
 					return false;
@@ -265,7 +265,7 @@ public class Labirinto {
 				else if(labirinto[y][x-2] == X && labirinto[y-1][x-2] == P && labirinto[y-1][x-1] == X)
 					return false;
 			}
-			if(y < n-2)
+			if(y < n-1)
 			{
 				if(labirinto[y+1][x] == P && labirinto[y+1][x-1] == P)
 					return false;
