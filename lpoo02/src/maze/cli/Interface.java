@@ -2,6 +2,8 @@ package maze.cli;
 
 import java.util.Scanner;
 
+import maze.logic.Labirinto;
+
 public class Interface {
 	
 	//Faz os prints para escolher o modo de jogo
@@ -54,17 +56,8 @@ public class Interface {
 	}
 	
 	//Faz display do labirinto
-	public void displayLabirinto(char[][] labirinto){
-		int tamanho = labirinto[0].length;
-		
-		for(int i=0; i< tamanho; i++){
-			for(int j=0; j< tamanho; j++){
-				System.out.print(labirinto[i][j] + " ");
-			}
-			
-			System.out.print("\n");
-		}
-
+	public void displayLabirinto(Labirinto lab){
+		System.out.print(lab);
 	}
 	
 	
