@@ -745,7 +745,8 @@ public class Labirinto {
 	public void jogar(Labirinto lab, Interface interf, int mode) {
 
 		ArrayList<Point> posLivres;
-		posLivres = lab.GerarLabirinto(15);
+		int n =interf.tamanhoLabirinto();
+		posLivres = lab.GerarLabirinto(n);
 		lab.ColocarCarateres(posLivres);
 		interf.displayLabirinto(lab);
 

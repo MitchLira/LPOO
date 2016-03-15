@@ -60,7 +60,25 @@ public class Interface {
 		System.out.print(lab);
 	}
 	
-	
+	public int tamanhoLabirinto()
+	{
+		System.out.println("Introduza o tamanho do labirinto: ");
+		Scanner T = new Scanner(System.in);
+		int t = T.nextInt();
+
+		while(t < 6){
+			System.out.print("Opcao invalida!");
+			System.out.print("\nIndique tamanho do labirinto superior a 6! ");
+			System.out.println("Introduza o tamanho do labirinto: ");
+			T.nextLine();
+			t = T.nextInt();
+		}
+		T.nextLine();
+		
+		System.out.print("\n");
+		return t;
+		
+	}
 	
 	public static void main(String[] args) {
 		
