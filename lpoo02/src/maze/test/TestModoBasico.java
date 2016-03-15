@@ -133,9 +133,10 @@ public class TestModoBasico {
 		}
 		
 		@Test
-		public void TestheroDefault(){
+		public void TestCarateresDefault(){
 			Heroi heroi = new Heroi();
 			Dragao drag = new Dragao();
+			Espada esp = new Espada(6,1);
 			
 			maze.criarLabirinto();
 			assertEquals(new Point(1,1), heroi.getHeroiPosicao());
@@ -144,15 +145,62 @@ public class TestModoBasico {
 			assertEquals('D', drag.getSimbolo());
 			
 			maze.moverHeroi(hero,  'n', interf);
-//			drag.moveDragaoNorte();
-//			assertEquals(new Point(1,2), drag.getDragaoPosicao());
-//			drag.DragaoMorre();
-//			assertEquals(false, drag.getVida());
-//			drag.moveDragaoSul();
-//			assertEquals(new Point(1,3), drag.getDragaoPosicao());
-//			drag.moveDragaoDireita();
-//			assertEquals(new Point(2,3), drag.getDragaoPosicao());
-//			drag.moveDragaoEsquerda();
-//			assertEquals(new Point(1,3), drag.getDragaoPosicao());
+			drag.moveDragaoNorte();
+			assertEquals(new Point(1,2), drag.getDragaoPosicao());
+			drag.DragaoMorre();
+			assertEquals(false, drag.getVida());
+			drag.moveDragaoSul();
+			assertEquals(new Point(1,3), drag.getDragaoPosicao());
+			drag.moveDragaoDireita();
+			assertEquals(new Point(2,3), drag.getDragaoPosicao());
+			drag.moveDragaoEsquerda();
+			assertEquals(new Point(1,3), drag.getDragaoPosicao());
+			drag.mantemPosicaoDragao();
+			assertEquals(new Point(1,3), drag.getDragaoPosicao());
+			drag.DragaoDorme();
+			assertEquals('d', drag.getSimbolo());
+			drag.DragaoAcorda();
+			assertEquals('D', drag.getSimbolo());
+			drag.DragEsp();
+			assertEquals('F', drag.getSimbolo());
+			drag.setPosicaoDragao(1, 1);
+			assertEquals(new Point(1,1), drag.getDragaoPosicao());
+			
+			
+			assertEquals(new Point(6,1), esp.getEspPos());
+			esp.setEspada();
+			assertEquals(new Point(0,0), esp.getEspPos());
 		}
+		@Test
+		public void TestPontos()
+		{
+			Point p = new Point(0,0);
+			assertEquals(true, p.adjacentTo(new Point(0,1)));
+			assertEquals(true, p.adjacentTo(new Point(0,-1)));
+			assertTrue(p.adjacentTo(new Point(1,0)));
+			assertTrue(p.adjacentTo(new Point(-1,0)));
+			assertFalse(p.adjacentTo(new Point(1,1)));
+			assertTrue(p.iguais(new Point(0,0)));
+			assertFalse(p.iguais(new Point(0,1)));
+			assertFalse(p.iguais(new Point(1,1)));
+			assertFalse(p.iguais(new Point(1,0)));
+			
+			assertEquals(true, p.equals(new Point(0,0)));
+			assertFalse(p.equals(new Point(0,1)));
+			assertFalse(p.equals(new Point(1,1)));
+			assertFalse(p.equals(new Point(1,0)));
+	
+			Point impar = new Point(1,1);
+			Point par = new Point(4,2);
+			Point ip = new Point(3,2);
+			Point ip1 = new Point(2,3);
+			assertTrue(impar.temCoordImpares());
+			assertFalse(p.temCoordImpares());
+			assertFalse(par.temCoordImpares());
+			assertFalse(ip.temCoordImpares());
+			assertFalse(ip1.temCoordImpares());
+			Heroi  h= new Heroi();
+			assertFalse(p.equals(h));
+		}
+		
 }

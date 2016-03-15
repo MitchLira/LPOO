@@ -126,8 +126,6 @@ public class Dragao {
 		this.simbolo = 'D';
 	}
 	
-	public static void main(String[] args) {
 
-	}
 
 }

@@ -19,7 +19,7 @@ public class Point {
 		else
 			return false;
 	}
-	boolean temCoordImpares() {
+	public boolean temCoordImpares() {
 
 		return ((x % 2 != 0) && (y % 2 != 0));
 	}
@@ -34,8 +34,4 @@ public class Point {
 		return (this.x == other.x && this.y == other.y);
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}	
 }

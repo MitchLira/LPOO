@@ -33,8 +33,6 @@ public class Espada {
 		this.x = l;
 	}
 	
-	public static void main(String[] args) {
-		
-	}
+
 
 }
