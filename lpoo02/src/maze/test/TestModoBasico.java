@@ -2,6 +2,8 @@ package maze.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import maze.cli.Interface;
@@ -28,19 +30,21 @@ public class TestModoBasico {
 	Labirinto maze = new Labirinto();
 	Heroi hero = new Heroi(3, 1);
 	Dragao dragao = new Dragao(3, 3);
+	ArrayList<Dragao> dragoes = new ArrayList<Dragao>();
 	Espada esp = new Espada(1, 3);
 
 	// alinea a
 	@Test
 	public void testMoverheroCelulalivre() {
-		maze.criarLabirinto(m1, hero, dragao, esp);
-		maze.moverHeroi(hero, dragao, 's', interf);
+		dragoes.add(dragao);
+		maze.criarLabirinto(m1, hero, dragoes, esp);
+		maze.moverHeroi(hero, 's', interf);
 		assertEquals(new Point(3, 2), hero.getHeroiPosicao());
-		maze.moverHeroi(hero, dragao, 'n', interf);
+		maze.moverHeroi(hero, 'n', interf);
 		assertEquals(new Point(3, 1), hero.getHeroiPosicao());
-		maze.moverHeroi(hero, dragao, 'o', interf);
+		maze.moverHeroi(hero,  'o', interf);
 		assertEquals(new Point(2, 1), hero.getHeroiPosicao());
-		maze.moverHeroi(hero, dragao, 'e', interf);
+		maze.moverHeroi(hero, 'e', interf);
 		assertEquals(new Point(3, 1), hero.getHeroiPosicao());
 
 	}
@@ -48,25 +52,27 @@ public class TestModoBasico {
 	// alinea b
 	@Test
 	public void testMoverheroParede() {
-		maze.criarLabirinto(m1, hero, dragao, esp);
-		maze.moverHeroi(hero, dragao, 'n', interf);
+		dragoes.add(dragao);
+		maze.criarLabirinto(m1, hero, dragoes, esp);
+		maze.moverHeroi(hero,  'n', interf);
 		assertEquals(new Point(3, 1), hero.getHeroiPosicao());
-		maze.moverHeroi(hero, dragao, 'e', interf);
+		maze.moverHeroi(hero, 'e', interf);
 		assertEquals(new Point(3, 1), hero.getHeroiPosicao());
-		maze.moverHeroi(hero, dragao, 's', interf);
-		maze.moverHeroi(hero, dragao, 'o', interf);
+		maze.moverHeroi(hero,  's', interf);
+		maze.moverHeroi(hero, 'o', interf);
 		assertEquals(new Point(3, 2), hero.getHeroiPosicao());
-		maze.moverHeroi(hero, dragao, 'e', interf);
+		maze.moverHeroi(hero, 'e', interf);
 		assertEquals(new Point(3, 2), hero.getHeroiPosicao());
 	}
 
 	// alinea c
 	@Test
 	public void testMoverheroEspada() {
-		maze.criarLabirinto(m1, hero, dragao, esp);
+		dragoes.add(dragao);
+		maze.criarLabirinto(m1, hero, dragoes, esp);
 		hero.setLinha(2);
 		hero.setColuna(1);
-		maze.moverHeroi(hero, dragao, 's', interf);
+		maze.moverHeroi(hero, 's', interf);
 		assertEquals(new Point(1, 3), hero.getHeroiPosicao());
 		assertEquals(true, hero.getArma());
 
@@ -75,19 +81,21 @@ public class TestModoBasico {
 	// alinea d
 	@Test
 	public void testMoverheroDragaosemArma() {
-		maze.criarLabirinto(m1, hero, dragao, esp);
-		maze.moverHeroi(hero, dragao, 's', interf);
-		maze.HeroivsDragao();
+		dragoes.add(dragao);
+		maze.criarLabirinto(m1, hero, dragoes, esp);
+		maze.moverHeroi(hero, 's', interf);
+		maze.HeroivsDragao(dragao);
 		assertEquals(false, hero.getVida());
 	}
 
 	// alinea e
 	@Test
 	public void testMoverheroDragacomArma() {
-		maze.criarLabirinto(m1, hero, dragao, esp);
+		dragoes.add(dragao);
+		maze.criarLabirinto(m1, hero, dragoes, esp);
 		hero.ativaArma();
-		maze.moverHeroi(hero, dragao, 's', interf);
-		maze.HeroivsDragao();
+		maze.moverHeroi(hero, 's', interf);
+		maze.HeroivsDragao(dragao);
 		assertEquals(true, hero.getVida());
 		assertEquals(false, dragao.getVida());
 	}
@@ -95,28 +103,31 @@ public class TestModoBasico {
 	// alinea f
 	@Test
 	public void testheroVitoria() {
-		maze.criarLabirinto(m1, hero, dragao, esp);
+		dragoes.add(dragao);
+		maze.criarLabirinto(m1, hero, dragoes, esp);
 		hero.ativaArma();
-		maze.moverHeroi(hero, dragao, 's', interf);
-		maze.HeroivsDragao();
+		maze.moverHeroi(hero, 's', interf);
+		maze.HeroivsDragao(dragao);
 		hero.setPosicaoHeroi(1, 3);
-		maze.moverHeroi(hero, dragao, 'e', interf);
+		maze.moverHeroi(hero, 'e', interf);
 		assertEquals(new Point(4,1), hero.getHeroiPosicao());
 	}
 	// alinea g
 	@Test
 	public void testheroVitoriaSemSucesso() {
-		maze.criarLabirinto(m1, hero, dragao, esp);
-		maze.moverHeroi(hero, dragao, 'e', interf);
+		dragoes.add(dragao);
+		maze.criarLabirinto(m1, hero, dragoes, esp);
+		maze.moverHeroi(hero, 'e', interf);
 		assertEquals(new Point(3,1), hero.getHeroiPosicao());
 		assertEquals(false, hero.getVitoria());
 	}
 	// alinea g
 		@Test
 		public void testheroVitoriaSemSucessoDragaoVivo() {
-			maze.criarLabirinto(m1, hero, dragao, esp);
+			dragoes.add(dragao);
+			maze.criarLabirinto(m1, hero, dragoes, esp);
 			hero.ativaArma();
-			maze.moverHeroi(hero, dragao, 'e', interf);
+			maze.moverHeroi(hero, 'e', interf);
 			assertEquals(new Point(3,1), hero.getHeroiPosicao());
 			assertEquals(false, hero.getVitoria());
 		}
@@ -132,7 +143,7 @@ public class TestModoBasico {
 			drag.setSimbolo();
 			assertEquals('D', drag.getSimbolo());
 			
-			maze.moverHeroi(hero, drag, 'n', interf);
+			maze.moverHeroi(hero,  'n', interf);
 //			drag.moveDragaoNorte();
 //			assertEquals(new Point(1,2), drag.getDragaoPosicao());
 //			drag.DragaoMorre();
