@@ -12,11 +12,18 @@ import java.util.List;
 
 import maze.cli.Interface;
 
+enum ModoJogo {
+	Basico, Aleatorio, Adormecido
+}
+
 public class Labirinto {
 	private char[][] labirinto;
 	private Heroi heroi;
-	public Espada esp;
+	private Espada esp;
 	private ArrayList<Dragao> dragoes;
+	private ModoJogo modoJogo;
+	
+	
 	
 	private static final char P = '.';
 	private static final char E = 'E';
@@ -298,11 +305,11 @@ public class Labirinto {
 		return true;
 	}
 
-	public void ColocarCarateres(ArrayList<Point> posLivres) {
+	public void ColocarCarateres(ArrayList<Point> posLivres, int nrDragoes) {
 		Random rand = new Random();
 		int nrPosLivres = posLivres.size();
 		dragoes = new ArrayList<Dragao>();
-		int nrDragoes = dragoes.size();
+		nrDragoes = dragoes.size();
 		
 		int HeroiPos = rand.nextInt(nrPosLivres);
 		Point HeroiP = new Point(posLivres.get(HeroiPos).y,
@@ -742,13 +749,27 @@ public class Labirinto {
 		return s;
 	}
 
+	public int modoJogotoInt(String modo)
+	{
+		switch(modoJogo)
+		{
+		case Basico:
+			return 0;
+		case Aleatorio:
+			return 1;
+		case Adormecido:
+			return 2;
+		}
+		
+		return 0;
+	}
 	public void jogar(Labirinto lab, Interface interf, int mode) {
 
 		ArrayList<Point> posLivres;
 		int n =interf.tamanhoLabirinto();
+		int nrdragoes = interf.nrDragoes();
 		posLivres = lab.GerarLabirinto(n);
-		lab.ColocarCarateres(posLivres);
-		interf.displayLabirinto(lab);
+		lab.ColocarCarateres(posLivres, nrdragoes);
 
 		int jogada = 1;
 		while (heroi.getVida() == true) {
@@ -792,4 +813,9 @@ public class Labirinto {
 		lab.jogar(lab, interf, mode);
 
 	}
+
+	public ModoJogo getModoJogo() {
+		return modoJogo;
+	}
+	
 }

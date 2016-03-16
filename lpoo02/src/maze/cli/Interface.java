@@ -80,6 +80,25 @@ public class Interface {
 		
 	}
 	
+	public int nrDragoes()
+	{
+		System.out.println("Introduza o numero de dragoes: ");
+		Scanner T = new Scanner(System.in);
+		int t = T.nextInt();
+
+		while(t <= 0){
+			System.out.print("Opcao invalida!");
+			System.out.print("\nIndique um numero superior a 0! ");
+			System.out.println("Introduza o numero de dragoes: ");
+			T.nextLine();
+			t = T.nextInt();
+		}
+		T.nextLine();
+		
+		System.out.print("\n");
+		return t;
+	}
+	
 	public static void main(String[] args) {
 		
 	}
