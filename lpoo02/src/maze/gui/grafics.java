@@ -20,6 +20,7 @@ import javax.swing.JProgressBar;
 import javax.swing.DefaultComboBoxModel;
 
 import maze.cli.Interface;
+import maze.logic.Heroi;
 import maze.logic.Labirinto;
 
 public class grafics {
@@ -70,7 +71,7 @@ public class grafics {
 		btnNewButton.setEnabled(true);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				lab.moverHeroi(lab.getHeroi(),'n', inter);
 			}
 		});
 		btnNewButton.setBounds(826, 442, 106, 52);
@@ -79,17 +80,32 @@ public class grafics {
 		JButton btnNewButton_1 = new JButton("Oeste");
 		btnNewButton_1.setBounds(756, 512, 106, 52);
 		btnNewButton_1.setEnabled(true);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lab.moverHeroi(lab.getHeroi(),'o', inter);
+			}
+		});
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Este");
 		btnNewButton_2.setBounds(878, 512, 106, 52);
 		btnNewButton_2.setEnabled(true);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lab.moverHeroi(lab.getHeroi(),'e', inter);
+			}
+		});
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnSul = new JButton("Sul");
 		btnSul.setEnabled(true);
 		btnSul.setBounds(826, 576, 106, 52);
 		frame.getContentPane().add(btnSul);
+		btnSul.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lab.moverHeroi(lab.getHeroi(),'s', inter);
+			}
+		});
 		
 		textField = new JTextField();
 		textField.setBounds(24, 130, 635, 498);
@@ -150,11 +166,9 @@ public class grafics {
 			public void actionPerformed(ActionEvent e) {
 				lab = new Labirinto();
 				int modoJogo =lab.modoJogotoInt(lblModoDeJogo.getText());
-				
-				lab.GerarLabirinto(Integer.parseInt(lblDimensoDoLabirinto.getText()));
+				lab.GerarLabirinto(Integer.parseInt((lblDimensoDoLabirinto.getText())));
 				//lab.jogar(lab, inter, modoJogo);
 				textField.setText(lab.toString());
-				
 			}
 		});
 		btnJogar.setBounds(899, 364, 140, 52);

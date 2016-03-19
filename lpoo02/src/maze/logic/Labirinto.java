@@ -751,17 +751,17 @@ public class Labirinto {
 
 	public int modoJogotoInt(String modo)
 	{
-		switch(modoJogo)
+		switch(modo)
 		{
-		case Basico:
-			return 0;
-		case Aleatorio:
+		case "Basico":
 			return 1;
-		case Adormecido:
+		case "Aleatorio":
 			return 2;
+		case "Adormecido":
+			return 3;
 		}
-		
-		return 0;
+		return -1;
+
 	}
 	public void jogar(Labirinto lab, Interface interf, int mode) {
 
@@ -804,7 +804,10 @@ public class Labirinto {
 			}
 		}
 	}
-
+	public Heroi getHeroi()
+	{
+		return this.heroi;
+	}
 	public static void main(String[] args) {
 		Interface interf = new Interface();
 		int mode = interf.modojogo();
@@ -817,5 +820,6 @@ public class Labirinto {
 	public ModoJogo getModoJogo() {
 		return modoJogo;
 	}
+
 	
 }
