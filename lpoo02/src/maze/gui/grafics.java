@@ -8,28 +8,35 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JTextField;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JProgressBar;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
 
 import maze.cli.Interface;
 import maze.logic.Heroi;
 import maze.logic.Labirinto;
+import maze.logic.Point;
+
+import javax.swing.SwingConstants;
 
 public class grafics {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextArea LabirintoField;
 	private JTextField txtLabirinto;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField DimensaoLabirinto;
+	private JTextField NrDragoes;
 	private Labirinto lab;
 	private Interface inter;
 
@@ -66,51 +73,54 @@ public class grafics {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Norte");
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setEnabled(true);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton ButtonNorte = new JButton("Norte");
+		ButtonNorte.setForeground(Color.BLACK);
+		ButtonNorte.setEnabled(true);
+		ButtonNorte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lab.moverHeroi(lab.getHeroi(),'n', inter);
 			}
 		});
-		btnNewButton.setBounds(826, 442, 106, 52);
-		frame.getContentPane().add(btnNewButton);
+		ButtonNorte.setBounds(826, 442, 106, 52);
+		frame.getContentPane().add(ButtonNorte);
 		
-		JButton btnNewButton_1 = new JButton("Oeste");
-		btnNewButton_1.setBounds(756, 512, 106, 52);
-		btnNewButton_1.setEnabled(true);
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton ButtonOeste = new JButton("Oeste");
+		ButtonOeste.setBounds(756, 512, 106, 52);
+		ButtonOeste.setEnabled(true);
+		ButtonOeste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lab.moverHeroi(lab.getHeroi(),'o', inter);
 			}
 		});
-		frame.getContentPane().add(btnNewButton_1);
+		frame.getContentPane().add(ButtonOeste);
 		
-		JButton btnNewButton_2 = new JButton("Este");
-		btnNewButton_2.setBounds(878, 512, 106, 52);
-		btnNewButton_2.setEnabled(true);
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton ButtonEste = new JButton("Este");
+		ButtonEste.setBounds(878, 512, 106, 52);
+		ButtonEste.setEnabled(true);
+		ButtonEste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lab.moverHeroi(lab.getHeroi(),'e', inter);
 			}
 		});
-		frame.getContentPane().add(btnNewButton_2);
+		frame.getContentPane().add(ButtonEste);
 		
-		JButton btnSul = new JButton("Sul");
-		btnSul.setEnabled(true);
-		btnSul.setBounds(826, 576, 106, 52);
-		frame.getContentPane().add(btnSul);
-		btnSul.addActionListener(new ActionListener() {
+		JButton ButtonSul = new JButton("Sul");
+		ButtonSul.setEnabled(true);
+		ButtonSul.setBounds(826, 576, 106, 52);
+		frame.getContentPane().add(ButtonSul);
+		ButtonSul.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lab.moverHeroi(lab.getHeroi(),'s', inter);
 			}
 		});
 		
-		textField = new JTextField();
-		textField.setBounds(24, 130, 635, 498);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		
+		LabirintoField = new JTextArea();
+		LabirintoField.setFont(new Font("Courier New", Font.PLAIN, 22));
+		LabirintoField.setEditable(false);
+		LabirintoField.setBounds(58, 213, 414, 414);
+		frame.getContentPane().add(LabirintoField);
+		
 		
 		txtLabirinto = new JTextField();
 		txtLabirinto.setFont(new Font("Swis721 BlkEx BT", Font.BOLD | Font.ITALIC, 17));
@@ -124,29 +134,29 @@ public class grafics {
 		lblDimensoDoLabirinto.setBounds(712, 158, 211, 43);
 		frame.getContentPane().add(lblDimensoDoLabirinto);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(935, 167, 131, 28);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		DimensaoLabirinto = new JTextField();
+		DimensaoLabirinto.setBounds(935, 167, 131, 28);
+		frame.getContentPane().add(DimensaoLabirinto);
+		DimensaoLabirinto.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(935, 223, 131, 28);
-		frame.getContentPane().add(textField_2);
+		NrDragoes = new JTextField();
+		NrDragoes.setColumns(10);
+		NrDragoes.setBounds(935, 223, 131, 28);
+		frame.getContentPane().add(NrDragoes);
 		
 		JLabel lblNmeroDeDrages = new JLabel("N\u00FAmero de drag\u00F5es");
 		lblNmeroDeDrages.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNmeroDeDrages.setBounds(712, 214, 211, 43);
 		frame.getContentPane().add(lblNmeroDeDrages);
 		
-		JButton btnNewButton_3 = new JButton("Sair");
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton ButtonSair = new JButton("Sair");
+		ButtonSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		btnNewButton_3.setBounds(686, 364, 140, 52);
-		frame.getContentPane().add(btnNewButton_3);
+		ButtonSair.setBounds(686, 364, 140, 52);
+		frame.getContentPane().add(ButtonSair);
 		
 		
 		
@@ -155,23 +165,29 @@ public class grafics {
 		lblModoDeJogo.setBounds(712, 273, 211, 43);
 		frame.getContentPane().add(lblModoDeJogo);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Basico", "Aleatorio", "Adormecido"}));
-		comboBox.setSelectedIndex(-1);
-		comboBox.setBounds(935, 281, 131, 35);
-		frame.getContentPane().add(comboBox);
+		JComboBox MododeJogo = new JComboBox();
+		MododeJogo.setModel(new DefaultComboBoxModel(new String[] {"Basico", "Aleatorio", "Adormecido"}));
+		MododeJogo.setSelectedIndex(-1);
+		MododeJogo.setBounds(935, 281, 131, 35);
+		frame.getContentPane().add(MododeJogo);
 		
-		JButton btnJogar = new JButton("Jogar");
-		btnJogar.addActionListener(new ActionListener() {
+		JButton ButtonJogar = new JButton("Jogar");
+		ButtonJogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lab = new Labirinto();
 				int modoJogo =lab.modoJogotoInt(lblModoDeJogo.getText());
-				lab.GerarLabirinto(Integer.parseInt((lblDimensoDoLabirinto.getText())));
-				//lab.jogar(lab, inter, modoJogo);
-				textField.setText(lab.toString());
+				int dimensaolab = Integer.parseInt(DimensaoLabirinto.getText());
+				int nrDragoes = Integer.parseInt(NrDragoes.getText());
+				ArrayList<Point> posLivres = lab.GerarLabirinto(dimensaolab);
+				lab.ColocarCarateres(posLivres, nrDragoes);
+				LabirintoField.setText(lab.toString());
+				ButtonEste.setEnabled(true);
+				ButtonNorte.setEnabled(true);
+				ButtonSul.setEnabled(true);
+				ButtonOeste.setEnabled(true);
 			}
 		});
-		btnJogar.setBounds(899, 364, 140, 52);
-		frame.getContentPane().add(btnJogar);
+		ButtonJogar.setBounds(899, 364, 140, 52);
+		frame.getContentPane().add(ButtonJogar);
 	}
 }

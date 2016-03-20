@@ -765,11 +765,6 @@ public class Labirinto {
 	}
 	public void jogar(Labirinto lab, Interface interf, int mode) {
 
-		ArrayList<Point> posLivres;
-		int n =interf.tamanhoLabirinto();
-		int nrdragoes = interf.nrDragoes();
-		posLivres = lab.GerarLabirinto(n);
-		lab.ColocarCarateres(posLivres, nrdragoes);
 
 		int jogada = 1;
 		while (heroi.getVida() == true) {
@@ -804,6 +799,8 @@ public class Labirinto {
 			}
 		}
 	}
+	
+
 	public Heroi getHeroi()
 	{
 		return this.heroi;
