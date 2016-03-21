@@ -22,9 +22,9 @@ public class Labirinto {
 	private Espada esp;
 	private ArrayList<Dragao> dragoes;
 	private ModoJogo modoJogo;
-	
-	
-	
+
+
+
 	private static final char P = '.';
 	private static final char E = 'E';
 	private static final char S = 'S';
@@ -127,7 +127,7 @@ public class Labirinto {
 			if (nrvizinhasDisponiveis > 0) {
 
 				char coordenada = vizinhasDisponiveis[rand
-						.nextInt(nrvizinhasDisponiveis)];
+				                                      .nextInt(nrvizinhasDisponiveis)];
 
 				if (coordenada == 'n') {
 					PosAtual.y--;
@@ -310,7 +310,7 @@ public class Labirinto {
 		int nrPosLivres = posLivres.size();
 		dragoes = new ArrayList<Dragao>();
 		nrDragoes = dragoes.size();
-		
+
 		int HeroiPos = rand.nextInt(nrPosLivres);
 		Point HeroiP = new Point(posLivres.get(HeroiPos).y,
 				posLivres.get(HeroiPos).x);
@@ -326,16 +326,16 @@ public class Labirinto {
 		labirinto[EspadaP.y][EspadaP.x] = E;
 		nrPosLivres--;
 		posLivres.remove(EspadaPos);
-		
+
 		for (int i = 0; i < (labirinto.length)/5; i++) {
 			Dragao dragao;
 			do {
 				int DragaoPos = rand.nextInt(nrPosLivres);
 				Point DragaoP = new Point(posLivres.get(DragaoPos).y,
-				posLivres.get(DragaoPos).x);
-				 dragao = new Dragao(DragaoP.x, DragaoP.y);
-				 nrPosLivres--;
-				 posLivres.remove(dragao);
+						posLivres.get(DragaoPos).x);
+				dragao = new Dragao(DragaoP.x, DragaoP.y);
+				nrPosLivres--;
+				posLivres.remove(dragao);
 			} while (lutaPossivel(dragao));
 			labirinto[dragao.getLinha()][dragao.getColuna()] = D;
 			dragoes.add(dragao);
@@ -365,15 +365,15 @@ public class Labirinto {
 	}
 
 	public void moverDragao(Dragao dragao, Heroi heroi, int mode) { // 0 - N; 1
-																	// - S; 2 -
-																	// E; 3 - O
+		// - S; 2 -
+		// E; 3 - O
 		Random r = new Random();
 
 		if (dragao.getVida() == true) {
 			int direcao = r.nextInt(5); // para ter maior probabilidade de virar
-										// em certas direcoes
+			// em certas direcoes
 			int adormecer = r.nextInt(4); // decidir se adormece ou nao || 0, 2,
-											// 3 -> Nao || 1 -> Sim
+			// 3 -> Nao || 1 -> Sim
 
 			Point EspPos = esp.getEspPos();
 			Point DragPos = dragao.getDragaoPosicao();
@@ -410,7 +410,7 @@ public class Labirinto {
 						dragao.moveDragaoNorte();
 
 					} else if (labirinto[dragao.getLinha() - 1][dragao
-							.getColuna()] == E) {
+					                                            .getColuna()] == E) {
 						dragao.DragEsp();
 
 						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
@@ -419,9 +419,9 @@ public class Labirinto {
 						dragao.moveDragaoNorte();
 
 					} else if (labirinto[dragao.getLinha() - 1][dragao
-							.getColuna()] == S
-							|| labirinto[dragao.getLinha() - 1][dragao
-									.getColuna()] == X) {
+					                                            .getColuna()] == S
+					                                            || labirinto[dragao.getLinha() - 1][dragao
+					                                                                                .getColuna()] == X) {
 
 						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao
 								.getSimbolo();
@@ -462,7 +462,7 @@ public class Labirinto {
 						dragao.moveDragaoSul();
 
 					} else if (labirinto[dragao.getLinha() + 1][dragao
-							.getColuna()] == E) {
+					                                            .getColuna()] == E) {
 						dragao.DragEsp();
 
 						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
@@ -470,9 +470,9 @@ public class Labirinto {
 						dragao.moveDragaoSul();
 
 					} else if (labirinto[dragao.getLinha() + 1][dragao
-							.getColuna()] == S
-							|| labirinto[dragao.getLinha() + 1][dragao
-									.getColuna()] == X) {
+					                                            .getColuna()] == S
+					                                            || labirinto[dragao.getLinha() + 1][dragao
+					                                                                                .getColuna()] == X) {
 
 						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao
 								.getSimbolo();
@@ -595,27 +595,22 @@ public class Labirinto {
 		}
 	}
 
-	public void moverHeroi(Heroi heroi, char coordenada,
-			Interface interf) {
+	public void moverHeroi(Heroi heroi, char coordenada) {
 		switch (coordenada) {
 		case 'n': {
 			if (labirinto[heroi.getLinha() - 1][heroi.getColuna()] == P) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
-				labirinto[heroi.getLinha() - 1][heroi.getColuna()] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha() - 1][heroi.getColuna()] = heroi.getSimbolo();
 				heroi.moveHeroiNorte();
 			} else if (labirinto[heroi.getLinha() - 1][heroi.getColuna()] == E) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
 				heroi.ativaArma();
-				labirinto[heroi.getLinha() - 1][heroi.getColuna()] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha() - 1][heroi.getColuna()] = heroi.getSimbolo();
 				heroi.moveHeroiNorte();
-			} else if (labirinto[heroi.getLinha() - 1][heroi.getColuna()] == S
-					&& this.DragoesTodosMortos()) {
+			} else if (labirinto[heroi.getLinha() - 1][heroi.getColuna()] == S && this.DragoesTodosMortos()) {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
-				labirinto[heroi.getLinha()][heroi.getColuna() - 1] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna() - 1] = heroi.getSimbolo();
 				heroi.moveHeroiNorte();
 			}
 
@@ -624,21 +619,17 @@ public class Labirinto {
 		case 's': {
 			if (labirinto[heroi.getLinha() + 1][heroi.getColuna()] == P) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
-				labirinto[heroi.getLinha() + 1][heroi.getColuna()] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha() + 1][heroi.getColuna()] = heroi.getSimbolo();
 				heroi.moveHeroiSul();
 			} else if (labirinto[heroi.getLinha() + 1][heroi.getColuna()] == E) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
 				heroi.ativaArma();
-				labirinto[heroi.getLinha() + 1][heroi.getColuna()] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha() + 1][heroi.getColuna()] = heroi.getSimbolo();
 				heroi.moveHeroiSul();
-			} else if (labirinto[heroi.getLinha() + 1][heroi.getColuna()] == S
-					&& this.DragoesTodosMortos()) {
+			} else if (labirinto[heroi.getLinha() + 1][heroi.getColuna()] == S && this.DragoesTodosMortos()) {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
-				labirinto[heroi.getLinha() + 1][heroi.getColuna()] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha() + 1][heroi.getColuna()] = heroi.getSimbolo();
 				heroi.moveHeroiSul();
 			}
 
@@ -647,23 +638,19 @@ public class Labirinto {
 		case 'e': {
 			if (labirinto[heroi.getLinha()][heroi.getColuna() + 1] == P) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
-				labirinto[heroi.getLinha()][heroi.getColuna() + 1] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna() + 1] = heroi.getSimbolo();
 				heroi.moveHeroiDireita();
 			}
 
 			else if (labirinto[heroi.getLinha()][heroi.getColuna() + 1] == E) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
 				heroi.ativaArma();
-				labirinto[heroi.getLinha()][heroi.getColuna() + 1] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna() + 1] = heroi.getSimbolo();
 				heroi.moveHeroiDireita();
-			} else if (labirinto[heroi.getLinha()][heroi.getColuna() + 1] == S
-					&& this.DragoesTodosMortos()) {
+			} else if (labirinto[heroi.getLinha()][heroi.getColuna() + 1] == S && this.DragoesTodosMortos()) {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
-				labirinto[heroi.getLinha()][heroi.getColuna() + 1] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna() + 1] = heroi.getSimbolo();
 				heroi.moveHeroiDireita();
 			}
 
@@ -672,23 +659,19 @@ public class Labirinto {
 		case 'o': {
 			if (labirinto[heroi.getLinha()][heroi.getColuna() - 1] == P) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
-				labirinto[heroi.getLinha()][heroi.getColuna() - 1] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna() - 1] = heroi.getSimbolo();
 				heroi.moveHeroiEsquerda();
 			}
 
 			else if (labirinto[heroi.getLinha()][heroi.getColuna() - 1] == E) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
 				heroi.ativaArma();
-				labirinto[heroi.getLinha()][heroi.getColuna() - 1] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna() - 1] = heroi.getSimbolo();
 				heroi.moveHeroiEsquerda();
-			} else if (labirinto[heroi.getLinha()][heroi.getColuna() - 1] == S
-					&& this.DragoesTodosMortos()) {
+			} else if (labirinto[heroi.getLinha()][heroi.getColuna() - 1] == S && this.DragoesTodosMortos()) {
 				heroi.heroiGanha();
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
-				labirinto[heroi.getLinha()][heroi.getColuna() - 1] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna() - 1] = heroi.getSimbolo();
 				heroi.moveHeroiEsquerda();
 			}
 
@@ -715,8 +698,7 @@ public class Labirinto {
 		if (lutaPossivel(dragao)) {
 			if (heroi.getArma()) {
 				labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-				labirinto[heroi.getLinha()][heroi.getColuna()] = heroi
-						.getSimbolo();
+				labirinto[heroi.getLinha()][heroi.getColuna()] = heroi.getSimbolo();
 				dragao.DragaoMorre();
 			} else if (!dragao.getAdormecido()) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
@@ -736,7 +718,7 @@ public class Labirinto {
 		}
 		return mortos;
 	}
-	
+
 	@Override
 	public String toString() {
 		String s = "";
@@ -763,6 +745,7 @@ public class Labirinto {
 		return -1;
 
 	}
+	
 	public void jogar(Labirinto lab, Interface interf, int mode) {
 
 
@@ -773,7 +756,7 @@ public class Labirinto {
 
 			if (S.hasNext()) {
 				char coordenada = S.next().charAt(0);
-				lab.moverHeroi(heroi, coordenada, interf);
+				lab.moverHeroi(heroi, coordenada);
 				for (Dragao dragao: dragoes) {
 					lab.HeroivsDragao(dragao);
 
@@ -795,16 +778,19 @@ public class Labirinto {
 					}
 				}
 				interf.displayLabirinto(lab);
-				
+
 			}
 		}
 	}
-	
 
-	public Heroi getHeroi()
-	{
+	public Heroi getHeroi(){
 		return this.heroi;
 	}
+	
+	public ArrayList<Dragao> getDragoes(){
+		return this.dragoes;
+	}
+	
 	public static void main(String[] args) {
 		Interface interf = new Interface();
 		int mode = interf.modojogo();
@@ -818,5 +804,4 @@ public class Labirinto {
 		return modoJogo;
 	}
 
-	
 }

@@ -25,6 +25,7 @@ import javax.swing.JTextArea;
 
 import maze.cli.Interface;
 import maze.logic.Heroi;
+import maze.logic.Dragao;
 import maze.logic.Labirinto;
 import maze.logic.Point;
 
@@ -39,6 +40,10 @@ public class grafics {
 	private JTextField NrDragoes;
 	private Labirinto lab;
 	private Interface inter;
+	private JButton ButtonNorte;
+	private JButton ButtonOeste;
+	private JButton ButtonSul;
+	private JButton ButtonEste;
 
 	/**
 	 * Launch the application.
@@ -78,7 +83,7 @@ public class grafics {
 		ButtonNorte.setEnabled(true);
 		ButtonNorte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lab.moverHeroi(lab.getHeroi(),'n', inter);
+				MoveHeroi('n');
 			}
 		});
 		ButtonNorte.setBounds(826, 442, 106, 52);
@@ -89,7 +94,7 @@ public class grafics {
 		ButtonOeste.setEnabled(true);
 		ButtonOeste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lab.moverHeroi(lab.getHeroi(),'o', inter);
+				MoveHeroi('o');
 			}
 		});
 		frame.getContentPane().add(ButtonOeste);
@@ -99,7 +104,7 @@ public class grafics {
 		ButtonEste.setEnabled(true);
 		ButtonEste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lab.moverHeroi(lab.getHeroi(),'e', inter);
+				MoveHeroi('e');
 			}
 		});
 		frame.getContentPane().add(ButtonEste);
@@ -110,7 +115,7 @@ public class grafics {
 		frame.getContentPane().add(ButtonSul);
 		ButtonSul.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lab.moverHeroi(lab.getHeroi(),'s', inter);
+				MoveHeroi('s');
 			}
 		});
 		
@@ -123,8 +128,9 @@ public class grafics {
 		
 		
 		txtLabirinto = new JTextField();
+		txtLabirinto.setEditable(false);
 		txtLabirinto.setFont(new Font("Swis721 BlkEx BT", Font.BOLD | Font.ITALIC, 17));
-		txtLabirinto.setText("         LABIRINTO");
+		txtLabirinto.setText("                     LABIRINTO");
 		txtLabirinto.setBounds(493, 37, 308, 60);
 		frame.getContentPane().add(txtLabirinto);
 		txtLabirinto.setColumns(10);
@@ -175,12 +181,16 @@ public class grafics {
 		ButtonJogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lab = new Labirinto();
+				
 				int modoJogo =lab.modoJogotoInt(lblModoDeJogo.getText());
 				int dimensaolab = Integer.parseInt(DimensaoLabirinto.getText());
 				int nrDragoes = Integer.parseInt(NrDragoes.getText());
+				
 				ArrayList<Point> posLivres = lab.GerarLabirinto(dimensaolab);
 				lab.ColocarCarateres(posLivres, nrDragoes);
 				LabirintoField.setText(lab.toString());
+				
+				//ativar botoes para mexer heroi
 				ButtonEste.setEnabled(true);
 				ButtonNorte.setEnabled(true);
 				ButtonSul.setEnabled(true);
@@ -189,5 +199,23 @@ public class grafics {
 		});
 		ButtonJogar.setBounds(899, 364, 140, 52);
 		frame.getContentPane().add(ButtonJogar);
+	}
+	
+	public void MoveHeroi(char c){
+		Heroi h = lab.getHeroi();
+		ArrayList<Dragao> d = lab.getDragoes();
+		lab.moverHeroi(h, c);
+
+		for(int i=0; i<d.size(); i++)
+			lab.HeroivsDragao(d.get(i));
+		
+		LabirintoField.setText(lab.toString());
+		
+		if(!h.getVida() || h.getVitoria()){
+			ButtonEste.setEnabled(false);
+			ButtonNorte.setEnabled(false);
+			ButtonSul.setEnabled(false);
+			ButtonOeste.setEnabled(false);
+		}
 	}
 }
