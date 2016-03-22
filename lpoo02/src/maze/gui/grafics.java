@@ -38,13 +38,17 @@ public class grafics {
 	private JTextField txtLabirinto;
 	private JTextField DimensaoLabirinto;
 	private JTextField NrDragoes;
+	
 	private Labirinto lab;
 	private Interface inter;
 	
+	//botoes
 	private JButton ButtonNorte;
 	private JButton ButtonOeste;
 	private JButton ButtonSul;
 	private JButton ButtonEste;
+	
+	private int modoJogo;
 
 	/**
 	 * Launch the application.
@@ -130,8 +134,9 @@ public class grafics {
 		
 		txtLabirinto = new JTextField();
 		txtLabirinto.setEditable(false);
+		txtLabirinto.setHorizontalAlignment(SwingConstants.CENTER);
 		txtLabirinto.setFont(new Font("Swis721 BlkEx BT", Font.BOLD | Font.ITALIC, 17));
-		txtLabirinto.setText("                     LABIRINTO");
+		txtLabirinto.setText(" LABIRINTO");
 		txtLabirinto.setBounds(493, 37, 308, 60);
 		frame.getContentPane().add(txtLabirinto);
 		txtLabirinto.setColumns(10);
@@ -183,7 +188,8 @@ public class grafics {
 			public void actionPerformed(ActionEvent e) {
 				lab = new Labirinto();
 				
-				int modoJogo =lab.modoJogotoInt(lblModoDeJogo.getText());
+				modoJogo = lab.modoJogotoInt(lblModoDeJogo.getText());
+				
 				int dimensaolab = Integer.parseInt(DimensaoLabirinto.getText());
 				int nrDragoes = Integer.parseInt(NrDragoes.getText());
 				
@@ -206,9 +212,17 @@ public class grafics {
 		Heroi h = lab.getHeroi();
 		ArrayList<Dragao> d = lab.getDragoes();
 		lab.moverHeroi(h, c);
+		
+		
 
-		for(int i=0; i<d.size(); i++)
+		for(int i=0; i<d.size(); i++){
 			lab.HeroivsDragao(d.get(i));
+			
+			if(modoJogo != -1){
+				lab.moverDragao(d.get(i), h, modoJogo);
+				lab.HeroivsDragao(d.get(i));
+			}
+		}
 		
 		LabirintoField.setText(lab.toString());
 		
