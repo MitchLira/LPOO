@@ -40,6 +40,7 @@ public class grafics {
 	private JTextField NrDragoes;
 	private Labirinto lab;
 	private Interface inter;
+	
 	private JButton ButtonNorte;
 	private JButton ButtonOeste;
 	private JButton ButtonSul;
@@ -78,7 +79,7 @@ public class grafics {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton ButtonNorte = new JButton("Norte");
+		ButtonNorte = new JButton("Norte");
 		ButtonNorte.setForeground(Color.BLACK);
 		ButtonNorte.setEnabled(true);
 		ButtonNorte.addActionListener(new ActionListener() {
@@ -89,7 +90,7 @@ public class grafics {
 		ButtonNorte.setBounds(826, 442, 106, 52);
 		frame.getContentPane().add(ButtonNorte);
 		
-		JButton ButtonOeste = new JButton("Oeste");
+		ButtonOeste = new JButton("Oeste");
 		ButtonOeste.setBounds(756, 512, 106, 52);
 		ButtonOeste.setEnabled(true);
 		ButtonOeste.addActionListener(new ActionListener() {
@@ -99,7 +100,7 @@ public class grafics {
 		});
 		frame.getContentPane().add(ButtonOeste);
 		
-		JButton ButtonEste = new JButton("Este");
+		ButtonEste = new JButton("Este");
 		ButtonEste.setBounds(878, 512, 106, 52);
 		ButtonEste.setEnabled(true);
 		ButtonEste.addActionListener(new ActionListener() {
@@ -109,7 +110,7 @@ public class grafics {
 		});
 		frame.getContentPane().add(ButtonEste);
 		
-		JButton ButtonSul = new JButton("Sul");
+		ButtonSul = new JButton("Sul");
 		ButtonSul.setEnabled(true);
 		ButtonSul.setBounds(826, 576, 106, 52);
 		frame.getContentPane().add(ButtonSul);
@@ -211,7 +212,7 @@ public class grafics {
 		
 		LabirintoField.setText(lab.toString());
 		
-		if(!h.getVida() || h.getVitoria()){
+		if(h.getVida() == false || h.getVitoria() == true){
 			ButtonEste.setEnabled(false);
 			ButtonNorte.setEnabled(false);
 			ButtonSul.setEnabled(false);
