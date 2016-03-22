@@ -48,6 +48,8 @@ public class grafics {
 	private JButton ButtonSul;
 	private JButton ButtonEste;
 	
+	private JLabel lblEtiquetaEstado;
+	
 	private int modoJogo;
 
 	/**
@@ -85,7 +87,7 @@ public class grafics {
 		
 		ButtonNorte = new JButton("Norte");
 		ButtonNorte.setForeground(Color.BLACK);
-		ButtonNorte.setEnabled(true);
+		ButtonNorte.setEnabled(false);
 		ButtonNorte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MoveHeroi('n');
@@ -96,7 +98,7 @@ public class grafics {
 		
 		ButtonOeste = new JButton("Oeste");
 		ButtonOeste.setBounds(756, 512, 106, 52);
-		ButtonOeste.setEnabled(true);
+		ButtonOeste.setEnabled(false);
 		ButtonOeste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MoveHeroi('o');
@@ -106,7 +108,7 @@ public class grafics {
 		
 		ButtonEste = new JButton("Este");
 		ButtonEste.setBounds(878, 512, 106, 52);
-		ButtonEste.setEnabled(true);
+		ButtonEste.setEnabled(false);
 		ButtonEste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MoveHeroi('e');
@@ -115,7 +117,7 @@ public class grafics {
 		frame.getContentPane().add(ButtonEste);
 		
 		ButtonSul = new JButton("Sul");
-		ButtonSul.setEnabled(true);
+		ButtonSul.setEnabled(false);
 		ButtonSul.setBounds(826, 576, 106, 52);
 		frame.getContentPane().add(ButtonSul);
 		ButtonSul.addActionListener(new ActionListener() {
@@ -128,7 +130,7 @@ public class grafics {
 		LabirintoField = new JTextArea();
 		LabirintoField.setFont(new Font("Courier New", Font.PLAIN, 22));
 		LabirintoField.setEditable(false);
-		LabirintoField.setBounds(58, 213, 414, 414);
+		LabirintoField.setBounds(58, 200, 414, 414);
 		frame.getContentPane().add(LabirintoField);
 		
 		
@@ -188,7 +190,8 @@ public class grafics {
 			public void actionPerformed(ActionEvent e) {
 				lab = new Labirinto();
 				
-				modoJogo = lab.modoJogotoInt(lblModoDeJogo.getText());
+				String mode = (String)MododeJogo.getSelectedItem();
+				modoJogo = lab.modoJogotoInt(mode);
 				
 				int dimensaolab = Integer.parseInt(DimensaoLabirinto.getText());
 				int nrDragoes = Integer.parseInt(NrDragoes.getText());
@@ -202,10 +205,17 @@ public class grafics {
 				ButtonNorte.setEnabled(true);
 				ButtonSul.setEnabled(true);
 				ButtonOeste.setEnabled(true);
+				
+				lblEtiquetaEstado.setText("Pode Jogar!");
 			}
 		});
 		ButtonJogar.setBounds(899, 364, 140, 52);
 		frame.getContentPane().add(ButtonJogar);
+		
+		lblEtiquetaEstado = new JLabel("Inicio!");
+		lblEtiquetaEstado.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblEtiquetaEstado.setBounds(58, 637, 106, 44);
+		frame.getContentPane().add(lblEtiquetaEstado);
 	}
 	
 	public void MoveHeroi(char c){
@@ -227,6 +237,11 @@ public class grafics {
 		LabirintoField.setText(lab.toString());
 		
 		if(h.getVida() == false || h.getVitoria() == true){
+			if(h.getVida() == false)
+				lblEtiquetaEstado.setText("Perdeu!");
+			else
+				lblEtiquetaEstado.setText("Venceu!");
+			
 			ButtonEste.setEnabled(false);
 			ButtonNorte.setEnabled(false);
 			ButtonSul.setEnabled(false);
