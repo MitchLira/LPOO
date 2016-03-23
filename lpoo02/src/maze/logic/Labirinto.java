@@ -785,7 +785,14 @@ public class Labirinto {
 		return this.dragoes;
 	}
 	
+	public ModoJogo getModoJogo() {
+		return modoJogo;
+	}
+	
 	public static void main(String[] args) {
+		
+		/*Fazer aqui para pessoa escolher consola ou aplicação*/
+		
 		Interface interf = new Interface();
 		int mode = interf.modojogo();
 
@@ -793,9 +800,4 @@ public class Labirinto {
 		lab.jogar(lab, interf, mode);
 
 	}
-
-	public ModoJogo getModoJogo() {
-		return modoJogo;
-	}
-
 }
