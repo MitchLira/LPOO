@@ -31,7 +31,7 @@ import maze.logic.Point;
 
 import javax.swing.SwingConstants;
 
-public class grafics {
+public class Grafics {
 
 	private JFrame frame;
 	private JTextArea LabirintoField;
@@ -59,7 +59,7 @@ public class grafics {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					grafics window = new grafics();
+					Grafics window = new Grafics();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,8 +71,12 @@ public class grafics {
 	/**
 	 * Create the application.
 	 */
-	public grafics() {
+	public Grafics() {
 		initialize();
+	}
+	
+	public void setVisible(boolean visible) {
+		frame.setVisible(visible);
 	}
 
 	/**

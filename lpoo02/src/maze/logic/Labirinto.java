@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import maze.cli.Interface;
+import maze.gui.Grafics;
 
 enum ModoJogo {
 	Basico, Aleatorio, Adormecido
@@ -367,9 +368,9 @@ public class Labirinto {
 
 		if (dragao.getVida() == true) {
 			int direcao = r.nextInt(5);		 	// para ter maior probabilidade de virar
-												// em certas direcoes
+			// em certas direcoes
 			int adormecer = r.nextInt(4);		// decidir se adormece ou nao || 0, 2,
-												// 3 -> Nao || 1 -> Sim
+			// 3 -> Nao || 1 -> Sim
 
 			Point EspPos = esp.getEspPos();
 			Point DragPos = dragao.getDragaoPosicao();
@@ -739,7 +740,7 @@ public class Labirinto {
 		return -1;
 
 	}
-	
+
 	public void jogar(Labirinto lab, Interface interf, int mode) {
 
 
@@ -780,24 +781,33 @@ public class Labirinto {
 	public Heroi getHeroi(){
 		return this.heroi;
 	}
-	
+
 	public ArrayList<Dragao> getDragoes(){
 		return this.dragoes;
 	}
-	
+
 	public ModoJogo getModoJogo() {
 		return modoJogo;
 	}
-	
-	public static void main(String[] args) {
-		
-		/*Fazer aqui para pessoa escolher consola ou aplicação*/
-		
-		Interface interf = new Interface();
-		int mode = interf.modojogo();
 
-		Labirinto lab = new Labirinto();
-		lab.jogar(lab, interf, mode);
+	public static void main(String[] args) {
+
+		/*
+		 * Fazer aqui para pessoa escolher consola ou aplicação
+		 * */
+
+		Interface interf = new Interface();
+		int mode = interf.nrModo();
+
+		if(mode == 1){
+			Grafics gra = new Grafics();
+			gra.setVisible(true);
+		}
+		else{
+			int nivel = interf.modojogo();
+			Labirinto lab = new Labirinto();
+			lab.jogar(lab, interf, nivel);
+		}
 
 	}
 }
