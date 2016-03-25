@@ -9,19 +9,18 @@ public class Interface {
 	//Faz os prints para escolher o modo de jogo
 	public int modojogo()
 	{
-		System.out.println("Modos de jogo: ");
+		System.out.println("Niveis de jogo: ");
 		System.out.println("1 - Dragao parado");
 		System.out.println("2 - Dragao com movimento aleatorio");
 		System.out.println("3 - Dragao com movimento aleatorio intercalado com dormir");
-		System.out.print("Indique um modo de jogo: ");
-
+		System.out.print("Indique um nivel de jogo: ");
 
 		Scanner T = new Scanner(System.in);
 		int t = T.nextInt();
 
 		while(t != 1 && t != 2 && t != 3){
 			System.out.print("Opcao invalida!");
-			System.out.print("\nIndique um modo de jogo: ");
+			System.out.print("\nIndique um nivel de jogo: ");
 			T.nextLine();
 			t = T.nextInt();
 		}
@@ -60,6 +59,7 @@ public class Interface {
 		System.out.print(lab);
 	}
 	
+	//tamanho labirinto
 	public int tamanhoLabirinto()
 	{
 		System.out.println("Introduza o tamanho do labirinto: ");
@@ -80,6 +80,7 @@ public class Interface {
 		
 	}
 	
+	//numero de dragoes
 	public int nrDragoes()
 	{
 		System.out.println("Introduza o numero de dragoes: ");
@@ -99,8 +100,26 @@ public class Interface {
 		return t;
 	}
 	
-	public static void main(String[] args) {
+	public int nrModo(){
+		int m;
 		
+		System.out.println("Modo de jogo: ");
+		System.out.println("1 - Grafica");
+		System.out.println("2 - Consola");
+		System.out.print("Escolha uma opcao: ");
+		Scanner T = new Scanner(System.in);
+		m = T.nextInt();
+		
+		while(m != 1 && m != 2){
+			System.out.println("Opcao invalida!");
+			System.out.print("Escolha opcao valida:  ");
+			T.nextLine();
+			m = T.nextInt();
+		}
+		T.nextLine();
+		System.out.println("");
+		
+		return m;
 	}
 }
 
