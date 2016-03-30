@@ -312,7 +312,7 @@ public class Labirinto {
 
 		int HeroiPos = rand.nextInt(nrPosLivres);
 		Point HeroiP = new Point(posLivres.get(HeroiPos).y, posLivres.get(HeroiPos).x);
-		heroi = new Heroi(HeroiP.x, HeroiP.y);
+		heroi = new Heroi(HeroiP.y, HeroiP.x);
 		labirinto[HeroiP.y][HeroiP.x] = H;
 		nrPosLivres--;
 		posLivres.remove(HeroiPos);
@@ -330,7 +330,7 @@ public class Labirinto {
 				int DragaoPos = rand.nextInt(nrPosLivres);
 				Point DragaoP = new Point(posLivres.get(DragaoPos).y,
 						posLivres.get(DragaoPos).x);
-				dragao = new Dragao(DragaoP.x, DragaoP.y);
+				dragao = new Dragao(DragaoP.y, DragaoP.x);
 				nrPosLivres--;
 				posLivres.remove(dragao);
 			} while (lutaPossivel(dragao));
