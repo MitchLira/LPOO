@@ -13,6 +13,7 @@ import java.util.List;
 import maze.cli.Interface;
 import maze.gui.Grafics;
 
+
 enum ModoJogo {
 	Basico, Aleatorio, Adormecido
 }
