@@ -232,7 +232,7 @@ public class Grafics {
 		for(int i=0; i<d.size(); i++){
 			lab.HeroivsDragao(d.get(i));
 			
-			if(modoJogo != -1){
+			if(modoJogo != -1 && modoJogo != 1){
 				lab.moverDragao(d.get(i), h, modoJogo);
 				lab.HeroivsDragao(d.get(i));
 			}
