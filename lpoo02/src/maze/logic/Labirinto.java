@@ -743,9 +743,10 @@ public class Labirinto {
 	}
 
 	public void jogar(Labirinto lab, Interface interf, int mode) {
-
+		
 
 		int jogada = 1;
+		interf.displayLabirinto(lab);
 		while (heroi.getVida() == true) {
 			Scanner S = interf.fazJogada(jogada);
 			jogada++;
@@ -753,6 +754,7 @@ public class Labirinto {
 			if (S.hasNext()) {
 				char coordenada = S.next().charAt(0);
 				lab.moverHeroi(heroi, coordenada);
+				
 				for (Dragao dragao: dragoes) {
 					lab.HeroivsDragao(dragao);
 
@@ -793,10 +795,6 @@ public class Labirinto {
 
 	public static void main(String[] args) {
 
-		/*
-		 * Fazer aqui para pessoa escolher consola ou aplicação
-		 * */
-
 		Interface interf = new Interface();
 		int mode = interf.nrModo();
 
@@ -807,6 +805,7 @@ public class Labirinto {
 		else{
 			int nivel = interf.modojogo();
 			Labirinto lab = new Labirinto();
+			lab.criarLabirinto();
 			lab.jogar(lab, interf, nivel);
 		}
 
