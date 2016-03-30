@@ -135,18 +135,20 @@ public class TestModoBasico {
 		@Test
 		public void TestCarateresDefault(){
 			Heroi heroi = new Heroi();
-			Dragao drag = new Dragao();
+			
 			Espada esp = new Espada(6,1);
 			
 			maze.criarLabirinto();
 			assertEquals(new Point(1,1), heroi.getHeroiPosicao());
 			
+			Dragao drag = maze.getDragoes().get(0);
+			
 			drag.setSimbolo();
 			assertEquals('D', drag.getSimbolo());
 			
 			maze.moverHeroi(hero,  'n');
-			drag.moveDragaoNorte();
-//			assertEquals(new Point(8,1), drag.getDragaoPosicao());
+
+
 //			drag.DragaoMorre();
 //			assertEquals(false, drag.getVida());
 //			drag.moveDragaoSul();
