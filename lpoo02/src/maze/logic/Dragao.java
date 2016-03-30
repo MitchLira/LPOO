@@ -16,10 +16,10 @@ public class Dragao {
 		this.simbolo = 'D';
 	}
 	
-	public Dragao(int coluna, int linha)
+	public Dragao(int linha, int coluna)
 	{
-		this.x = linha;
-		this.y = coluna;
+		this.y = linha;
+		this.x = coluna;
 		this.vida = true;
 		this.adormecido = false;
 		this.simbolo = 'D';
@@ -31,22 +31,22 @@ public class Dragao {
 	
 	public int getColuna()
 	{
-		return this.y;
+		return this.x;
 	}
 	
 	public void setColuna(int coluna)
 	{
-		this.y = coluna;
+		this.x = coluna;
 	}
 	
 	public int getLinha()
 	{
-		return this.x;
+		return this.y;
 	}
 	
 	public void setLinha(int linha)
 	{
-		this.x = linha;
+		this.y = linha;
 	}
 	
 	public boolean  getVida()
@@ -82,38 +82,38 @@ public class Dragao {
 	
 	public void setPosicaoDragao(int l, int c)
 	{
-		this.y = c;
-		this.x = l;
+		this.y = l;
+		this.x = c;
 	}
 	
 	public void mantemPosicaoDragao()
 	{
-		this.setLinha(x);
-		this.setColuna(y);
+		this.setLinha(y);
+		this.setColuna(x);
 	}
 	
 	public void moveDragaoNorte()
 	{
-		this.setLinha(x-1);
-		this.setColuna(y);
+		this.setColuna(x-1);
+		this.setLinha(y);
 	}
 	
 	public void moveDragaoSul()
 	{
-		this.setLinha(x+1);
-		this.setColuna(y);
+		this.setLinha(y);
+		this.setColuna(x+1);
 	}
 	
 	public void moveDragaoDireita()
 	{
-		this.setLinha(x);
-		this.setColuna(y+1);
+		this.setLinha(y+1);
+		this.setColuna(x);
 	}
 	
 	public void moveDragaoEsquerda()
 	{
-		this.setLinha(x);
-		this.setColuna(y-1);
+		this.setLinha(y-1);
+		this.setColuna(x);
 	}
 
 	public Point getDragaoPosicao(){

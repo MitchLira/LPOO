@@ -45,7 +45,6 @@ public class Labirinto {
 
 	public char[][] criarLabirinto() {
 
-		heroi = new Heroi();
 		dragoes = new ArrayList<Dragao>();
 		esp = new Espada();
 
@@ -61,14 +60,14 @@ public class Labirinto {
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 		labirinto = lab;
-		labirinto[1][1] = H;
-		labirinto[6][1] = E;
+		labirinto[4][8] = H;
+		labirinto[3][8] = E;
 		labirinto[5][9] = S;
 		labirinto[1][8] = D;
-		heroi.setPosicaoHeroi(1, 1);
+		heroi = new Heroi(4,8);
 		Dragao dragao = new Dragao(1,8);
 		dragoes.add(dragao);
-		esp.setEspadaPosicao(6, 1);
+		esp.setEspadaPosicao(3, 8);
 		return lab;
 	}
 
@@ -693,9 +692,10 @@ public class Labirinto {
 	public void HeroivsDragao(Dragao dragao) {
 		if (lutaPossivel(dragao)) {
 			if (heroi.getArma()) {
+				dragao.DragaoMorre();
 				labirinto[dragao.getLinha()][dragao.getColuna()] = P;
 				labirinto[heroi.getLinha()][heroi.getColuna()] = heroi.getSimbolo();
-				dragao.DragaoMorre();
+
 			} else if (!dragao.getAdormecido()) {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
 				heroi.heroiMorre();

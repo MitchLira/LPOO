@@ -3,8 +3,8 @@ package maze.logic;
 public class Heroi {
 	private boolean arma;
 	private boolean vida;
-	private int linha;
-	private int coluna;
+	private int x;
+	private int y;
 	private boolean vitoria;
 	private char simbolo;
 
@@ -12,32 +12,32 @@ public class Heroi {
 	{
 		this.arma = false;
 		this.vida = true;
-		this.linha = 1;
-		this.coluna = 1;
+		this.y = 1;
+		this.x = 1;
 		this.vitoria = false;
 		this.simbolo = 'H';
 	}
 	
-	public Heroi(int coluna, int linha)
+	public Heroi(int linha, int coluna)
 	{
 		this.arma = false;
 		this.vida = true;
-		this.linha = linha;
-		this.coluna = coluna;
+		this.y = linha;
+		this.x = coluna;
 		this.vitoria = false;
 		this.simbolo = 'H';
 	}
 	
 	public void setLinha(int linha) {
-		this.linha = linha;
+		this.y = linha;
 	}
 
 	public void setColuna(int coluna) {
-		this.coluna = coluna;
+		this.x = coluna;
 	}
 	
 	public int getLinha() {
-		return this.linha;
+		return this.y;
 	}
 	
 	public boolean getVitoria()
@@ -46,7 +46,7 @@ public class Heroi {
 	}
 
 	public int getColuna(){
-		return this.coluna;
+		return this.x;
 	}
 
 	public boolean getArma() {
@@ -63,8 +63,8 @@ public class Heroi {
 	
 	public void setPosicaoHeroi(int l, int c)
 	{
-		this.coluna = c;
-		this.linha = l;
+		this.x = c;
+		this.y = l;
 	}
 	
 	public void ativaArma()
@@ -91,30 +91,30 @@ public class Heroi {
 	
 	public void moveHeroiNorte()
 	{
-		this.setLinha(linha-1);
-		this.setColuna(coluna);
+		this.setLinha(y-1);
+		this.setColuna(x);
 	}
 	
 	public void moveHeroiSul()
 	{
-		this.setLinha(linha+1);
-		this.setColuna(coluna);
+		this.setLinha(y+1);
+		this.setColuna(x);
 	}
 	
 	public void moveHeroiDireita()
 	{
-		this.setLinha(linha);
-		this.setColuna(coluna+1);
+		this.setLinha(y);
+		this.setColuna(x+1);
 	}
 	
 	public void moveHeroiEsquerda()
 	{
-		this.setLinha(linha);
-		this.setColuna(coluna-1);
+		this.setLinha(y);
+		this.setColuna(x-1);
 	}
 	
 	public Point getHeroiPosicao(){
-		Point point = new Point(coluna, linha);
+		Point point = new Point(y, x);
 		return point;
 	}
 	
