@@ -60,14 +60,14 @@ public class Labirinto {
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 		labirinto = lab;
-		labirinto[4][8] = H;
-		labirinto[3][8] = E;
+		labirinto[1][1] = H;
+		labirinto[6][1] = E;
 		labirinto[5][9] = S;
 		labirinto[1][8] = D;
-		heroi = new Heroi(4,8);
+		heroi = new Heroi(1,1);
 		Dragao dragao = new Dragao(1,8);
 		dragoes.add(dragao);
-		esp.setEspadaPosicao(3, 8);
+		esp.setEspadaPosicao(6, 1);
 		return lab;
 	}
 

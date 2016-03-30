@@ -94,26 +94,27 @@ public class Dragao {
 	
 	public void moveDragaoNorte()
 	{
-		this.setColuna(x-1);
-		this.setLinha(y);
+		this.setLinha(y-1);
+		this.setColuna(x);
+		
 	}
 	
 	public void moveDragaoSul()
-	{
-		this.setLinha(y);
-		this.setColuna(x+1);
-	}
-	
-	public void moveDragaoDireita()
 	{
 		this.setLinha(y+1);
 		this.setColuna(x);
 	}
 	
+	public void moveDragaoDireita()
+	{
+		this.setLinha(y);
+		this.setColuna(x+1);
+	}
+	
 	public void moveDragaoEsquerda()
 	{
-		this.setLinha(y-1);
-		this.setColuna(x);
+		this.setLinha(y);
+		this.setColuna(x-1);
 	}
 
 	public Point getDragaoPosicao(){
