@@ -94,6 +94,7 @@ public class Grafics {
 		frame.getContentPane().add(panel_final);
 		
 		
+		
 		ButtonNorte = new JButton("Norte");
 		ButtonNorte.setForeground(Color.BLACK);
 		ButtonNorte.setEnabled(false);
