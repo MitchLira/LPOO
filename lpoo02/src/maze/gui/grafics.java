@@ -34,7 +34,6 @@ import javax.swing.SwingConstants;
 public class Grafics {
 
 	private JFrame frame;
-	private JTextArea LabirintoField;
 	private JTextField txtLabirinto;
 	private JTextField DimensaoLabirinto;
 	private JTextField NrDragoes;
@@ -89,12 +88,17 @@ public class Grafics {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		LabirintoPanel panel_final = new LabirintoPanel();
+		panel_final.setBounds(58, 167, 517, 465);
+		frame.getContentPane().add(panel_final);
+		
 		ButtonNorte = new JButton("Norte");
 		ButtonNorte.setForeground(Color.BLACK);
 		ButtonNorte.setEnabled(false);
 		ButtonNorte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MoveHeroi('n');
+				panel_final.repaint();
 			}
 		});
 		ButtonNorte.setBounds(826, 442, 106, 52);
@@ -106,6 +110,7 @@ public class Grafics {
 		ButtonOeste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MoveHeroi('o');
+				panel_final.repaint();
 			}
 		});
 		frame.getContentPane().add(ButtonOeste);
@@ -116,6 +121,7 @@ public class Grafics {
 		ButtonEste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MoveHeroi('e');
+				panel_final.repaint();
 			}
 		});
 		frame.getContentPane().add(ButtonEste);
@@ -127,15 +133,9 @@ public class Grafics {
 		ButtonSul.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MoveHeroi('s');
+				panel_final.repaint();
 			}
 		});
-		
-		
-		LabirintoField = new JTextArea();
-		LabirintoField.setFont(new Font("Courier New", Font.PLAIN, 22));
-		LabirintoField.setEditable(false);
-		LabirintoField.setBounds(58, 200, 414, 414);
-		frame.getContentPane().add(LabirintoField);
 		
 		
 		txtLabirinto = new JTextField();
@@ -175,9 +175,7 @@ public class Grafics {
 		});
 		ButtonSair.setBounds(686, 364, 140, 52);
 		frame.getContentPane().add(ButtonSair);
-		
-		
-		
+				
 		JLabel lblModoDeJogo = new JLabel("Modo de jogo");
 		lblModoDeJogo.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblModoDeJogo.setBounds(712, 273, 211, 43);
@@ -202,7 +200,7 @@ public class Grafics {
 				
 				ArrayList<Point> posLivres = lab.GerarLabirinto(dimensaolab);
 				lab.ColocarCarateres(posLivres, nrDragoes);
-				LabirintoField.setText(lab.toString());
+				panel_final.setLabirinto(lab);
 				
 				//ativar botoes para mexer heroi
 				ButtonEste.setEnabled(true);
@@ -211,6 +209,8 @@ public class Grafics {
 				ButtonOeste.setEnabled(true);
 				
 				lblEtiquetaEstado.setText("Pode Jogar!");
+
+				panel_final.repaint();
 			}
 		});
 		ButtonJogar.setBounds(899, 364, 140, 52);
@@ -220,7 +220,10 @@ public class Grafics {
 		lblEtiquetaEstado.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblEtiquetaEstado.setBounds(58, 637, 106, 44);
 		frame.getContentPane().add(lblEtiquetaEstado);
+		
+		panel_final.repaint();
 	}
+	
 	
 	public void MoveHeroi(char c){
 		Heroi h = lab.getHeroi();
@@ -238,7 +241,7 @@ public class Grafics {
 			}
 		}
 		
-		LabirintoField.setText(lab.toString());
+		
 		
 		if(h.getVida() == false || h.getVitoria() == true){
 			if(h.getVida() == false)

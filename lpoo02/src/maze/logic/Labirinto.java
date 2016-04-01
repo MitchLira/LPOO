@@ -25,18 +25,18 @@ public class Labirinto {
 	private ArrayList<Dragao> dragoes;
 	private ModoJogo modoJogo;
 
+	//caracteres
+	public static final char P = '.';
+	public static final char E = 'E';
+	public static final char S = 'S';
+	public static final char F = 'F';
+	public static final char X = 'X';
+	public static final char H = 'H';
+	public static final char D = 'D';
+	public static final char d = 'd';
+	public static final char A = 'A';
 
-
-	private static final char P = '.';
-	private static final char E = 'E';
-	private static final char S = 'S';
-	private static final char F = 'F';
-	private static final char X = 'X';
-	private static final char H = 'H';
-	private static final char D = 'D';
-
-	public void criarLabirinto(char[][] labir, Heroi heroi, ArrayList<Dragao> dragoes,
-			Espada espada) {
+	public void criarLabirinto(char[][] labir, Heroi heroi, ArrayList<Dragao> dragoes, Espada espada) {
 		labirinto = labir;
 		this.heroi = heroi;
 		this.dragoes = dragoes;
@@ -64,6 +64,7 @@ public class Labirinto {
 		labirinto[6][1] = E;
 		labirinto[5][9] = S;
 		labirinto[1][8] = D;
+		
 		heroi = new Heroi(1,1);
 		Dragao dragao = new Dragao(1,8);
 		dragoes.add(dragao);
@@ -793,6 +794,14 @@ public class Labirinto {
 		return modoJogo;
 	}
 
+	public int getDimensao(){
+		return labirinto.length;
+	}
+	
+	public char getSimboloPosicao(int i, int j){
+		return labirinto[i][j];
+	}
+	
 	public static void main(String[] args) {
 
 		Interface interf = new Interface();
@@ -803,6 +812,8 @@ public class Labirinto {
 			gra.setVisible(true);
 		}
 		else{
+			//colocar try e catch
+			
 			int nivel = interf.modojogo();
 			Labirinto lab = new Labirinto();
 			lab.criarLabirinto();

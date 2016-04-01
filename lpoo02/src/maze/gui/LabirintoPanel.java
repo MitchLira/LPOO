@@ -1,0 +1,72 @@
+package maze.gui;
+
+import java.awt.Graphics;
+import java.io.IOException;
+import java.awt.Color;
+import javax.swing.JPanel;
+import maze.logic.Labirinto;
+
+public class LabirintoPanel extends LabirintoPanelImagens{
+
+	private Labirinto lab;
+
+	public LabirintoPanel(){
+		super();
+		
+		
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+		g.setColor(Color.white);
+
+		if(lab != null){
+			int dimensao = lab.getDimensao();
+			int Y = this.getHeight()/dimensao;
+			int X = this.getWidth()/dimensao;
+
+			for(int i = 0; i < dimensao; i++){
+				int Yini = i*Y;
+				int Yfim = Y + Yini;
+
+				for(int j = 0; j < dimensao; j++){
+					int Xini = j*X ;
+					int Xfim = X + Xini;
+
+					if(lab.getSimboloPosicao(i, j) == lab.X)
+						g.drawImage(parede, Xini, Yini, Xfim, Yfim, 0, 0, parede.getWidth(), parede.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.P)
+						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.S)
+						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.H)
+						g.drawImage(heroi, Xini, Yini, Xfim, Yfim, 0, 0, heroi.getWidth(), heroi.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.A)
+						g.drawImage(heroi, Xini, Yini, Xfim, Yfim, 0, 0, heroi.getWidth(), heroi.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.E)
+						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, espada.getWidth(), espada.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.D)
+						g.drawImage(dragao, Xini, Yini, Xfim, Yfim, 0, 0, dragao.getWidth(), dragao.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.F)
+						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.d)
+						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
+				}
+			}
+		}
+	}
+
+	public void setLabirinto(Labirinto lab){
+		this.lab = lab;
+	}
+}
