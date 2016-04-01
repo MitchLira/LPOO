@@ -8,6 +8,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
@@ -91,6 +93,37 @@ public class Grafics {
 		LabirintoPanel panel_final = new LabirintoPanel();
 		panel_final.setBounds(58, 167, 517, 465);
 		panel_final.setFocusable(true);
+		panel_final.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch(e.getKeyCode()){
+
+				case KeyEvent.VK_LEFT: MoveHeroi('o');
+				break;
+				case KeyEvent.VK_RIGHT: MoveHeroi('e');
+				break;
+				case KeyEvent.VK_UP:  MoveHeroi('n');
+				break;
+				case KeyEvent.VK_DOWN: MoveHeroi('s'); 
+				break;
+
+				}
+				
+				panel_final.repaint(); 
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}});
 		frame.getContentPane().add(panel_final);
 		
 		
@@ -232,6 +265,11 @@ public class Grafics {
 	}
 	
 	
+	private Object stener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public void MoveHeroi(char c){
 		Heroi h = lab.getHeroi();
 		ArrayList<Dragao> d = lab.getDragoes();
