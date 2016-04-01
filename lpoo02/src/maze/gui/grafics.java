@@ -90,7 +90,9 @@ public class Grafics {
 		
 		LabirintoPanel panel_final = new LabirintoPanel();
 		panel_final.setBounds(58, 167, 517, 465);
+		panel_final.setFocusable(true);
 		frame.getContentPane().add(panel_final);
+		
 		
 		ButtonNorte = new JButton("Norte");
 		ButtonNorte.setForeground(Color.BLACK);
@@ -190,6 +192,7 @@ public class Grafics {
 		JButton ButtonJogar = new JButton("Jogar");
 		ButtonJogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				lab = new Labirinto();
 				
 				String mode = (String)MododeJogo.getSelectedItem();
@@ -202,12 +205,15 @@ public class Grafics {
 				lab.ColocarCarateres(posLivres, nrDragoes);
 				panel_final.setLabirinto(lab);
 				
+				panel_final.requestFocus();
+				
+				
 				//ativar botoes para mexer heroi
 				ButtonEste.setEnabled(true);
 				ButtonNorte.setEnabled(true);
 				ButtonSul.setEnabled(true);
 				ButtonOeste.setEnabled(true);
-				
+		
 				lblEtiquetaEstado.setText("Pode Jogar!");
 
 				panel_final.repaint();
