@@ -92,6 +92,7 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 		
 		}
 		
+		
 	}
 
 	@Override
