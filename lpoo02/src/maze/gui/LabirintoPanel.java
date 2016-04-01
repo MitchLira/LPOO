@@ -3,17 +3,25 @@ package maze.gui;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.awt.Color;
+
 import javax.swing.JPanel;
+
 import maze.logic.Labirinto;
 
-public class LabirintoPanel extends LabirintoPanelImagens{
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener{
 
 	private Labirinto lab;
 
 	public LabirintoPanel(){
 		super();
-		
-		
+
+
+
 	}
 
 	@Override
@@ -37,28 +45,28 @@ public class LabirintoPanel extends LabirintoPanelImagens{
 
 					if(lab.getSimboloPosicao(i, j) == lab.X)
 						g.drawImage(parede, Xini, Yini, Xfim, Yfim, 0, 0, parede.getWidth(), parede.getHeight(), null);
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.P)
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.S)
 						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.H)
 						g.drawImage(heroi, Xini, Yini, Xfim, Yfim, 0, 0, heroi.getWidth(), heroi.getHeight(), null);
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.A)
 						g.drawImage(heroi, Xini, Yini, Xfim, Yfim, 0, 0, heroi.getWidth(), heroi.getHeight(), null);
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.E)
 						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, espada.getWidth(), espada.getHeight(), null);
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.D)
 						g.drawImage(dragao, Xini, Yini, Xfim, Yfim, 0, 0, dragao.getWidth(), dragao.getHeight(), null);
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.F)
 						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.d)
 						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
 				}
@@ -68,5 +76,34 @@ public class LabirintoPanel extends LabirintoPanelImagens{
 
 	public void setLabirinto(Labirinto lab){
 		this.lab = lab;
+	}
+
+	public void keyPressed(KeyEvent e) {
+		switch(e.getKeyCode()){
+		
+		case KeyEvent.VK_LEFT: lab.moverHeroi(lab.getHeroi(), 'o'); repaint(); 
+		break;
+		case KeyEvent.VK_RIGHT:  lab.moverHeroi(lab.getHeroi(), 'e'); repaint(); 
+		break;
+		case KeyEvent.VK_UP:  lab.moverHeroi(lab.getHeroi(), 'n'); repaint(); 
+		break;
+		case KeyEvent.VK_DOWN: lab.moverHeroi(lab.getHeroi(), 's'); repaint(); 
+		break;
+		
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 }
