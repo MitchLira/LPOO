@@ -631,7 +631,7 @@ public class Labirinto {
 		}
 	}
 
-	private boolean lutaPossivel(Dragao dragao) {
+	public boolean lutaPossivel(Dragao dragao) {
 		Point heroiPos = heroi.getHeroiPosicao();
 		Point DragaoPos = dragao.getDragaoPosicao();
 
