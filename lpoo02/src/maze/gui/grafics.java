@@ -199,13 +199,17 @@ public class Grafics {
 			public void keyPressed(KeyEvent e) {
 				switch(e.getKeyCode()){
 
-				case KeyEvent.VK_LEFT: MoveHeroi('o');
+				case KeyEvent.VK_LEFT: 
+					MoveHeroi('o');
 				break;
-				case KeyEvent.VK_RIGHT: MoveHeroi('e');
+				case KeyEvent.VK_RIGHT: 
+					MoveHeroi('e');
 				break;
-				case KeyEvent.VK_UP:  MoveHeroi('n');
+				case KeyEvent.VK_UP:  
+					MoveHeroi('n');
 				break;
-				case KeyEvent.VK_DOWN: MoveHeroi('s'); 
+				case KeyEvent.VK_DOWN: 
+					MoveHeroi('s'); 
 				break;
 
 				}
@@ -231,8 +235,6 @@ public class Grafics {
 		lblEtiquetaEstado.setBounds(62, 555, 106, 44);
 		RandomLab.getContentPane().add(lblEtiquetaEstado);
 
-
-
 		ButtonNorte = new JButton("Norte");
 		ButtonNorte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -240,6 +242,7 @@ public class Grafics {
 			}
 		});
 		ButtonNorte.setBounds(585, 117, 120, 49);
+		ButtonNorte.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonNorte);
 
 		ButtonOeste = new JButton("Oeste");
@@ -249,6 +252,7 @@ public class Grafics {
 			}
 		});
 		ButtonOeste.setBounds(523, 177, 120, 49);
+		ButtonOeste.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonOeste);
 
 		ButtonEste = new JButton("Este");
@@ -258,6 +262,7 @@ public class Grafics {
 			}
 		});
 		ButtonEste.setBounds(649, 177, 120, 49);
+		ButtonEste.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonEste);
 
 		ButtonSul = new JButton("Sul");
@@ -267,6 +272,7 @@ public class Grafics {
 			}
 		});
 		ButtonSul.setBounds(585, 237, 120, 49);
+		ButtonSul.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonSul);
 
 		ButtonJogar = new JButton("Novo Jogo");
@@ -286,13 +292,9 @@ public class Grafics {
 
 				//ativar botoes para mexer heroi
 				ButtonEste.setEnabled(true);
-				ButtonEste.setFocusable(false);
 				ButtonNorte.setEnabled(true);
-				ButtonNorte.setFocusable(false);
 				ButtonSul.setEnabled(true);
-				ButtonSul.setFocusable(false);
 				ButtonOeste.setEnabled(true);
-				ButtonOeste.setFocusable(false);
 
 				lblEtiquetaEstado.setText("Pode Jogar!");
 
@@ -300,6 +302,7 @@ public class Grafics {
 			}
 		});
 		ButtonJogar.setBounds(553, 337, 100, 49);
+		ButtonJogar.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonJogar);
 		
 		ButtonMenu = new JButton("Menu");
@@ -310,6 +313,7 @@ public class Grafics {
 			}
 		});
 		ButtonMenu.setBounds(653, 337, 100, 49);
+		ButtonMenu.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonMenu);
 
 		panel_final.repaint();
@@ -337,8 +341,6 @@ public class Grafics {
 		ArrayList<Dragao> d = lab.getDragoes();
 		lab.moverHeroi(h, c);
 
-
-
 		for(int i=0; i<d.size(); i++){
 			lab.HeroivsDragao(d.get(i));
 
@@ -348,7 +350,6 @@ public class Grafics {
 			}
 		}
 
-
 		if(h.getVida() == false || h.getVitoria() == true){
 			if(h.getVida() == false)
 			{
@@ -357,13 +358,13 @@ public class Grafics {
 			else
 				lblEtiquetaEstado.setText("Venceu!");
 
-			panel_final.repaint();
-
 			panel_final.setFocusable(false);
 			ButtonEste.setEnabled(false);
 			ButtonNorte.setEnabled(false);
 			ButtonSul.setEnabled(false);
 			ButtonOeste.setEnabled(false);
+			
+			panel_final.repaint();
 		}
 	}
 }
