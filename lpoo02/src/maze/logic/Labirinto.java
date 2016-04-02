@@ -362,6 +362,10 @@ public class Labirinto {
 		return labirinto;
 	}
 
+	public void criarLabirintoP(char[][] lab){
+		this.labirinto = lab;
+	}
+	
 	public void moverDragao(Dragao dragao, Heroi heroi, int mode) { // 0 - N; 1
 		// - S; 2 -
 		// E; 3 - O

@@ -64,18 +64,18 @@ public class Grafics {
 	private JButton ButtonSaida;
 	private JButton ButtonMenu2;
 	private JButton ButtonJogar2;
+	private JButton ButtonJogar3;
 
 	private JTextField DimensaoLabirinto;
 	private JTextField NrDragoes;
-	
+
 	private Labirinto lab;
 	private Interface inter;
 	private char labirinto[][];
 
 	private LabirintoPanel panel_final;
+	private LabirintoBuilder panel_create;
 
-	private LabirintoPanel panel_create;
-	
 	private JLabel lblEtiquetaEstado;
 
 	private int modoJogo;
@@ -120,7 +120,7 @@ public class Grafics {
 		menu.getContentPane().setLayout(null);
 		menu.setVisible(true);
 		menu.setResizable(false);
-		
+
 		//janela de jogar com tabuleiro aleatorio
 		RandomLab = new JFrame();
 		RandomLab.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 34));
@@ -138,6 +138,8 @@ public class Grafics {
 		/*
 		 * Configuracao do menu
 		 * */
+		
+		
 		JLabel lblDimensoDoLabirinto = new JLabel("Dimens\u00E3o do labirinto");
 		lblDimensoDoLabirinto.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblDimensoDoLabirinto.setBounds(100, 40, 211, 43);
@@ -177,6 +179,10 @@ public class Grafics {
 		Iniciar.setEnabled(true);
 		Iniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				lab = new Labirinto();
+				ArrayList<Point> posLivres = lab.GerarLabirinto(Integer.parseInt(DimensaoLabirinto.getText()));
+				lab.ColocarCarateres(posLivres, Integer.parseInt(NrDragoes.getText()));
+				
 				RandomLab.setVisible(true);
 				ButtonJogar.doClick();
 				menu.setVisible(false);
@@ -194,6 +200,7 @@ public class Grafics {
 				menu.setVisible(false);
 				newLab.setVisible(true);
 				ButtonJogar2.doClick();
+				ButtonParede.doClick();
 			}
 		});
 		CriarLabirinto.setBounds(220, 300, 150, 52);
@@ -212,7 +219,7 @@ public class Grafics {
 		menu.getContentPane().add(Sair);
 
 		panel_final = new LabirintoPanel();
-		panel_final.setBounds(0, 0, 497, 492);
+		panel_final.setBounds(5, 5, 497, 492);
 		panel_final.setFocusable(true);
 		panel_final.addKeyListener(new KeyListener() {
 
@@ -302,14 +309,9 @@ public class Grafics {
 		ButtonJogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				lab = new Labirinto();
-
 				modoJogo = lab.modoJogotoInt((String)MododeJogo.getSelectedItem());
 
-				ArrayList<Point> posLivres = lab.GerarLabirinto(Integer.parseInt(DimensaoLabirinto.getText()));
-				lab.ColocarCarateres(posLivres, Integer.parseInt(NrDragoes.getText()));
 				panel_final.setLabirinto(lab);
-
 				panel_final.setFocusable(true);
 				panel_final.requestFocus();
 
@@ -338,22 +340,21 @@ public class Grafics {
 		ButtonMenu.setBounds(653, 337, 100, 49);
 		ButtonMenu.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonMenu);
-		
-		
-		
-		
-		
+
+
+
+
+
 		/*
 		 * Configuracao da Criacao do Labirinto
 		 *
 		 * */
-		
-		panel_create = new LabirintoPanel();
+		panel_create = new LabirintoBuilder();
 		panel_create.setBounds(5, 5, 497, 500);
 		panel_create.setBackground(Color.BLACK);
 		panel_create.setFocusable(true);
-		
-		
+
+
 		ButtonCaminho = new JButton("Caminho");
 		ButtonCaminho.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -367,7 +368,7 @@ public class Grafics {
 		});
 		ButtonCaminho.setBounds(540, 10, 100, 49);
 		newLab.getContentPane().add(ButtonCaminho);
-		
+
 		ButtonSaida = new JButton("Saida");
 		ButtonSaida.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -381,7 +382,7 @@ public class Grafics {
 		});
 		ButtonSaida.setBounds(650, 10, 100, 49);
 		newLab.getContentPane().add(ButtonSaida);
-		
+
 		ButtonHeroi = new JButton("Heroi");
 		ButtonHeroi.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -395,7 +396,7 @@ public class Grafics {
 		});
 		ButtonHeroi.setBounds(540, 65, 100, 49);
 		newLab.getContentPane().add(ButtonHeroi);
-		
+
 		ButtonDragao = new JButton("Dragao");
 		ButtonDragao.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -409,7 +410,7 @@ public class Grafics {
 		});
 		ButtonDragao.setBounds(650, 65, 100, 49);
 		newLab.getContentPane().add(ButtonDragao);
-		
+
 		ButtonEspada = new JButton("Espada");
 		ButtonEspada.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -423,7 +424,7 @@ public class Grafics {
 		});
 		ButtonEspada.setBounds(540, 119, 100, 49);
 		newLab.getContentPane().add(ButtonEspada);
-		
+
 		ButtonParede = new JButton("Parede");
 		ButtonParede.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -437,64 +438,75 @@ public class Grafics {
 		});
 		ButtonParede.setBounds(650, 119, 100, 49);
 		newLab.getContentPane().add(ButtonParede);
-		
+
+		ButtonJogar3 = new JButton("Jogar");
+		ButtonJogar3.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ButtonParede.setEnabled(false);
+				ButtonCaminho.setEnabled(false);
+				ButtonHeroi.setEnabled(false);
+				ButtonDragao.setEnabled(false);
+				ButtonEspada.setEnabled(false);
+				ButtonSaida.setEnabled(false);
+				
+				newLab.setVisible(false);
+				RandomLab.setVisible(true);
+				ButtonJogar.doClick();
+			}
+		});
+		ButtonJogar3.setBounds(595, 395, 100, 49);
+		newLab.getContentPane().add(ButtonJogar3);
+
 		ButtonJogar2 = new JButton("Criar Novo");
 		ButtonJogar2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				lab = new Labirinto();
+
 				int dim = Integer.parseInt(DimensaoLabirinto.getText());
 				labirinto = new char[dim][dim];
-				
-				
+
+				for(int i=0; i<dim; i++){
+					for(int j=0; j<dim; j++){
+						if (i == 0)
+							labirinto[i][j] = 'X';
+						else if(i == dim-1)
+							labirinto[i][j] = 'X';
+						else if(j == 0)
+							labirinto[i][j] = 'X';
+						else if(j == dim-1)
+							labirinto[i][j] = 'X';
+						else 
+							labirinto[i][j] = '.';
+					}
+				}
+
+				//tirar quando estiver a funcionar o rato
+				lab.criarLabirintoP(labirinto);
+				panel_create.setLabirinto(lab);
 			}
 		});
 		ButtonJogar2.setBounds(540, 450, 100, 49);
 		newLab.getContentPane().add(ButtonJogar2);
-		
+
 		ButtonMenu2 = new JButton("Menu");
 		ButtonMenu2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
+				menu.setVisible(true);
+				newLab.setVisible(false);
 			}
 		});
 		ButtonMenu2.setBounds(650, 450, 100, 49);
 		newLab.getContentPane().add(ButtonMenu2);
-		
-		
-		
-//		panel_create.addMouseListener(new MouseListener(){
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//
-//			@Override
-//			public void mousePressed(MouseEvent e) {
-//				x = e.getX();
-//				y = e.getY();
-//				panel_create.repaint();
-//				
-//			}
-//
-//			@Override
-//			public void mouseReleased(MouseEvent e) {
-//			}
-//
-//			@Override
-//			public void mouseEntered(MouseEvent e) {
-//			}
-//
-//			@Override
-//			public void mouseExited(MouseEvent e) {
-//			}	
-//		});
+
 		newLab.getContentPane().add(panel_create);
-		
+
 	}
 
 	private Object stener() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	/*
 	 * Funcao responsavel pelos movimentos do dragao e do heroi
 	 * 

@@ -1,24 +1,52 @@
 package maze.gui;
 
-import java.awt.Graphics;
-import java.io.IOException;
 import java.awt.Color;
-
-import javax.swing.JPanel;
+import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import maze.logic.Labirinto;
+import maze.logic.Point;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-
-public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener{
+public class LabirintoBuilder extends LabirintoPanelImagens implements MouseListener{
 
 	private Labirinto lab;
+	public int Xinicial = 5;
+	private char s;
 
-	public LabirintoPanel(){
+	private boolean heroiExiste;
+	private boolean espadaExiste;
+	
+	private Point heroiAnt;
+	private Point espadaAnt;
+	
+	private Point PosParede;
+	private Point PosEspada;
+	private Point PosHeroi;
+	private Point PosDragao;
+	private Point PosCaminho;
+	private int dimBotaoX;
+	private int dimBotaoY;
+	
+	public LabirintoBuilder(){
 		super();
+		dimBotaoX = 100;
+		dimBotaoY = 49;
+		
+		heroiExiste = false;
+		espadaExiste = false;
+		s = 'X';
+		
+		PosParede = new Point(650, 119);
+		PosCaminho = new Point(540, 10);
+		PosEspada = new Point(650, 10);
+		PosHeroi = new Point(540, 65);
+		PosDragao = new Point(650, 65);
+		
+		
+		addMouseListener(this);
 	}
 
 	@Override
@@ -70,27 +98,53 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 				}
 			}
 		}
-	}
-
+	}	
+	
 	public void setLabirinto(Labirinto lab){
 		this.lab = lab;
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
+	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
+	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent g) {
+		int x = g.getX();
+		int y = g.getY();
+		
+		if(x > Xinicial){
+			
+		}
+		else{
+			
+		}
+
+		repaint();		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private boolean between(int x, int xi, int xf) {
+
+		return (x >= xi && x <= xf);
 	}
 }
