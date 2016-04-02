@@ -3,7 +3,9 @@ package maze.gui;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import javax.swing.JPanel;
 
 import maze.logic.Labirinto;
@@ -78,19 +80,24 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 		this.lab = lab;
 	}
 
-
 	@Override
-	public void keyTyped(KeyEvent e) {
-
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-	
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
+
+
 
 }
