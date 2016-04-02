@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
@@ -34,29 +36,46 @@ import maze.logic.Point;
 
 import javax.swing.SwingConstants;
 
+import com.sun.org.apache.xalan.internal.xsltc.dom.AbsoluteIterator;
+
 public class Grafics {
 
 	private JFrame menu;
 	private JFrame RandomLab;
 	private JFrame newLab;
 
+	//janelas
 	private JButton Iniciar;
 	private JButton CriarLabirinto;
 	private JButton Sair;
 
+	//botoes
 	private JButton ButtonNorte;
 	private JButton ButtonSul;
 	private JButton ButtonEste;
 	private JButton ButtonOeste;
 	private JButton ButtonJogar;
 	private JButton ButtonMenu;
+	private JButton ButtonParede;
+	private JButton ButtonHeroi;
+	private JButton ButtonDragao;
+	private JButton ButtonEspada;
+	private JButton ButtonCaminho;
+	private JButton ButtonSaida;
+	private JButton ButtonMenu2;
+	private JButton ButtonJogar2;
 
 	private JTextField DimensaoLabirinto;
 	private JTextField NrDragoes;
-	private LabirintoPanel panel_final;
+	
 	private Labirinto lab;
 	private Interface inter;
+	private char labirinto[][];
 
+	private LabirintoPanel panel_final;
+
+	private LabirintoPanel panel_create;
+	
 	private JLabel lblEtiquetaEstado;
 
 	private int modoJogo;
@@ -92,13 +111,6 @@ public class Grafics {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		//janela de jogar com tabuleiro aleatorio
-		RandomLab = new JFrame();
-		RandomLab.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 34));
-		RandomLab.setBounds(100, 100, 795, 538);
-		RandomLab.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		RandomLab.getContentPane().setLayout(null);
-
 		//janela de menu inicial
 		menu = new JFrame();
 		menu.setAlwaysOnTop(true);
@@ -108,14 +120,24 @@ public class Grafics {
 		menu.getContentPane().setLayout(null);
 		menu.setVisible(true);
 		menu.setResizable(false);
+		
+		//janela de jogar com tabuleiro aleatorio
+		RandomLab = new JFrame();
+		RandomLab.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 34));
+		RandomLab.setBounds(100, 100, 795, 538);
+		RandomLab.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		RandomLab.getContentPane().setLayout(null);
 
 		//janela de criacao de labirinto
-		JFrame newLab = new JFrame();
+		newLab = new JFrame();
 		newLab.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 34));
-		newLab.setBounds(100, 100, 1256, 720);
+		newLab.setBounds(100, 100, 800, 550);
 		newLab.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		newLab.getContentPane().setLayout(null);
 
+		/*
+		 * Configuracao do menu
+		 * */
 		JLabel lblDimensoDoLabirinto = new JLabel("Dimens\u00E3o do labirinto");
 		lblDimensoDoLabirinto.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblDimensoDoLabirinto.setBounds(100, 40, 211, 43);
@@ -149,7 +171,6 @@ public class Grafics {
 		MododeJogo.setBounds(321, 170, 131, 35);
 		menu.getContentPane().add(MododeJogo);
 
-
 		//botao de iniciar na janela menu
 		Iniciar = new JButton("Iniciar");
 		Iniciar.setForeground(Color.BLACK);
@@ -172,6 +193,7 @@ public class Grafics {
 			public void actionPerformed(ActionEvent arg0) {
 				menu.setVisible(false);
 				newLab.setVisible(true);
+				ButtonJogar2.doClick();
 			}
 		});
 		CriarLabirinto.setBounds(220, 300, 150, 52);
@@ -201,16 +223,16 @@ public class Grafics {
 
 				case KeyEvent.VK_LEFT: 
 					ButtonOeste.doClick();
-				break;
+					break;
 				case KeyEvent.VK_RIGHT: 
 					ButtonEste.doClick();
-				break;
+					break;
 				case KeyEvent.VK_UP:  
 					ButtonNorte.doClick();
-				break;
+					break;
 				case KeyEvent.VK_DOWN: 
 					ButtonSul.doClick();
-				break;
+					break;
 
 				}
 			}
@@ -233,6 +255,9 @@ public class Grafics {
 		lblEtiquetaEstado.setBounds(62, 555, 106, 44);
 		RandomLab.getContentPane().add(lblEtiquetaEstado);
 
+		/*
+		 * Configuracao de Jogo Aleatorio
+		 * */
 		ButtonNorte = new JButton("Norte");
 		ButtonNorte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -278,7 +303,7 @@ public class Grafics {
 			public void actionPerformed(ActionEvent e) {
 
 				lab = new Labirinto();
-				
+
 				modoJogo = lab.modoJogotoInt((String)MododeJogo.getSelectedItem());
 
 				ArrayList<Point> posLivres = lab.GerarLabirinto(Integer.parseInt(DimensaoLabirinto.getText()));
@@ -302,7 +327,7 @@ public class Grafics {
 		ButtonJogar.setBounds(553, 337, 100, 49);
 		ButtonJogar.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonJogar);
-		
+
 		ButtonMenu = new JButton("Menu");
 		ButtonMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -313,28 +338,168 @@ public class Grafics {
 		ButtonMenu.setBounds(653, 337, 100, 49);
 		ButtonMenu.setFocusable(false);
 		RandomLab.getContentPane().add(ButtonMenu);
-
-		panel_final.repaint();
+		
+		
+		
+		
+		
+		/*
+		 * Configuracao da Criacao do Labirinto
+		 *
+		 * */
+		
+		panel_create = new LabirintoPanel();
+		panel_create.setBounds(5, 5, 497, 500);
+		panel_create.setBackground(Color.BLACK);
+		panel_create.setFocusable(true);
+		
+		
+		ButtonCaminho = new JButton("Caminho");
+		ButtonCaminho.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ButtonParede.setBackground(Color.LIGHT_GRAY);
+				ButtonCaminho.setBackground(Color.BLUE);
+				ButtonHeroi.setBackground(Color.LIGHT_GRAY);
+				ButtonDragao.setBackground(Color.LIGHT_GRAY);
+				ButtonEspada.setBackground(Color.LIGHT_GRAY);
+				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+			}
+		});
+		ButtonCaminho.setBounds(540, 10, 100, 49);
+		newLab.getContentPane().add(ButtonCaminho);
+		
+		ButtonSaida = new JButton("Saida");
+		ButtonSaida.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ButtonParede.setBackground(Color.LIGHT_GRAY);
+				ButtonCaminho.setBackground(Color.LIGHT_GRAY);
+				ButtonHeroi.setBackground(Color.LIGHT_GRAY);
+				ButtonDragao.setBackground(Color.LIGHT_GRAY);
+				ButtonEspada.setBackground(Color.LIGHT_GRAY);
+				ButtonSaida.setBackground(Color.BLUE);
+			}
+		});
+		ButtonSaida.setBounds(650, 10, 100, 49);
+		newLab.getContentPane().add(ButtonSaida);
+		
+		ButtonHeroi = new JButton("Heroi");
+		ButtonHeroi.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ButtonParede.setBackground(Color.LIGHT_GRAY);
+				ButtonCaminho.setBackground(Color.LIGHT_GRAY);
+				ButtonHeroi.setBackground(Color.BLUE);
+				ButtonDragao.setBackground(Color.LIGHT_GRAY);
+				ButtonEspada.setBackground(Color.LIGHT_GRAY);
+				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+			}
+		});
+		ButtonHeroi.setBounds(540, 65, 100, 49);
+		newLab.getContentPane().add(ButtonHeroi);
+		
+		ButtonDragao = new JButton("Dragao");
+		ButtonDragao.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ButtonParede.setBackground(Color.LIGHT_GRAY);
+				ButtonCaminho.setBackground(Color.LIGHT_GRAY);
+				ButtonHeroi.setBackground(Color.LIGHT_GRAY);
+				ButtonDragao.setBackground(Color.BLUE);
+				ButtonEspada.setBackground(Color.LIGHT_GRAY);
+				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+			}
+		});
+		ButtonDragao.setBounds(650, 65, 100, 49);
+		newLab.getContentPane().add(ButtonDragao);
+		
+		ButtonEspada = new JButton("Espada");
+		ButtonEspada.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ButtonParede.setBackground(Color.LIGHT_GRAY);
+				ButtonCaminho.setBackground(Color.LIGHT_GRAY);
+				ButtonHeroi.setBackground(Color.LIGHT_GRAY);
+				ButtonDragao.setBackground(Color.LIGHT_GRAY);
+				ButtonEspada.setBackground(Color.BLUE);
+				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+			}
+		});
+		ButtonEspada.setBounds(540, 119, 100, 49);
+		newLab.getContentPane().add(ButtonEspada);
+		
+		ButtonParede = new JButton("Parede");
+		ButtonParede.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ButtonParede.setBackground(Color.BLUE);
+				ButtonCaminho.setBackground(Color.LIGHT_GRAY);
+				ButtonHeroi.setBackground(Color.LIGHT_GRAY);
+				ButtonDragao.setBackground(Color.LIGHT_GRAY);
+				ButtonEspada.setBackground(Color.LIGHT_GRAY);
+				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+			}
+		});
+		ButtonParede.setBounds(650, 119, 100, 49);
+		newLab.getContentPane().add(ButtonParede);
+		
+		ButtonJogar2 = new JButton("Criar Novo");
+		ButtonJogar2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				int dim = Integer.parseInt(DimensaoLabirinto.getText());
+				labirinto = new char[dim][dim];
+				
+				
+			}
+		});
+		ButtonJogar2.setBounds(540, 450, 100, 49);
+		newLab.getContentPane().add(ButtonJogar2);
+		
+		ButtonMenu2 = new JButton("Menu");
+		ButtonMenu2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+		});
+		ButtonMenu2.setBounds(650, 450, 100, 49);
+		newLab.getContentPane().add(ButtonMenu2);
+		
+		
+		
+//		panel_create.addMouseListener(new MouseListener(){
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//			}
+//
+//			@Override
+//			public void mousePressed(MouseEvent e) {
+//				x = e.getX();
+//				y = e.getY();
+//				panel_create.repaint();
+//				
+//			}
+//
+//			@Override
+//			public void mouseReleased(MouseEvent e) {
+//			}
+//
+//			@Override
+//			public void mouseEntered(MouseEvent e) {
+//			}
+//
+//			@Override
+//			public void mouseExited(MouseEvent e) {
+//			}	
+//		});
+		newLab.getContentPane().add(panel_create);
+		
 	}
 
 	private Object stener() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	/* Configuracao da janela de criacao de labirinto */
-
-
-
-
-
-
-
-
-
-	/*
-	 * Funcao responsavel pelos movimentos do dragao e do heroi*/
 	
+	/*
+	 * Funcao responsavel pelos movimentos do dragao e do heroi
+	 * 
+	 * */
+
 	public void MoveHeroi(char c){
 		Heroi h = lab.getHeroi();
 		ArrayList<Dragao> d = lab.getDragoes();
@@ -363,7 +528,7 @@ public class Grafics {
 			ButtonSul.setEnabled(false);
 			ButtonOeste.setEnabled(false);
 		}
-		
+
 		panel_final.repaint();
 	}
 }
