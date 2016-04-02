@@ -200,21 +200,19 @@ public class Grafics {
 				switch(e.getKeyCode()){
 
 				case KeyEvent.VK_LEFT: 
-					MoveHeroi('o');
+					ButtonOeste.doClick();
 				break;
 				case KeyEvent.VK_RIGHT: 
-					MoveHeroi('e');
+					ButtonEste.doClick();
 				break;
 				case KeyEvent.VK_UP:  
-					MoveHeroi('n');
+					ButtonNorte.doClick();
 				break;
 				case KeyEvent.VK_DOWN: 
-					MoveHeroi('s'); 
+					ButtonSul.doClick();
 				break;
 
 				}
-
-				panel_final.repaint(); 
 			}
 
 			@Override
@@ -336,6 +334,7 @@ public class Grafics {
 
 	/*
 	 * Funcao responsavel pelos movimentos do dragao e do heroi*/
+	
 	public void MoveHeroi(char c){
 		Heroi h = lab.getHeroi();
 		ArrayList<Dragao> d = lab.getDragoes();
@@ -363,8 +362,8 @@ public class Grafics {
 			ButtonNorte.setEnabled(false);
 			ButtonSul.setEnabled(false);
 			ButtonOeste.setEnabled(false);
-			
-			panel_final.repaint();
 		}
+		
+		panel_final.repaint();
 	}
 }
