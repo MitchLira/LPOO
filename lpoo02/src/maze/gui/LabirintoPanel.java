@@ -67,10 +67,10 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 						g.drawImage(dragao, Xini, Yini, Xfim, Yfim, 0, 0, dragao.getWidth(), dragao.getHeight(), null);
 
 					else if(lab.getSimboloPosicao(i, j) == lab.F)
-						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
+						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
 
 					else if(lab.getSimboloPosicao(i, j) == lab.d)
-						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
+						g.drawImage(dragao, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
 				}
 			}
 		}
