@@ -339,7 +339,6 @@ public class Grafics {
 		}
 		
 		
-		
 		if(h.getVida() == false || h.getVitoria() == true){
 			if(h.getVida() == false)
 			{
