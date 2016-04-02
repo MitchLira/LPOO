@@ -63,10 +63,10 @@ public class Labirinto {
 		labirinto[1][1] = H;
 		labirinto[6][1] = E;
 		labirinto[5][9] = S;
-		labirinto[7][1] = D;
+		labirinto[1][8] = D;
 
 		heroi = new Heroi(1,1);
-		Dragao dragao = new Dragao(7,1);
+		Dragao dragao = new Dragao(1,8);
 		dragoes.add(dragao);
 		esp.setEspadaPosicao(6, 1);
 		return lab;
