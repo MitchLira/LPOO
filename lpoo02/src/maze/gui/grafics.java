@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package maze.gui;
 
 import java.awt.EventQueue;
@@ -38,51 +41,112 @@ import javax.swing.SwingConstants;
 
 import com.sun.org.apache.xalan.internal.xsltc.dom.AbsoluteIterator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Grafics.
+ */
 public class Grafics {
 
+	/** The menu. */
 	private JFrame menu;
+	
+	/** The Random lab. */
 	private JFrame RandomLab;
+	
+	/** The new lab. */
 	private JFrame newLab;
 
+	/** The Iniciar. */
 	//janelas
 	private JButton Iniciar;
+	
+	/** The Criar labirinto. */
 	private JButton CriarLabirinto;
+	
+	/** The Sair. */
 	private JButton Sair;
 
+	/** The Button norte. */
 	//botoes
 	private JButton ButtonNorte;
+	
+	/** The Button sul. */
 	private JButton ButtonSul;
+	
+	/** The Button este. */
 	private JButton ButtonEste;
+	
+	/** The Button oeste. */
 	private JButton ButtonOeste;
+	
+	/** The Button jogar. */
 	private JButton ButtonJogar;
+	
+	/** The Button menu. */
 	private JButton ButtonMenu;
+	
+	/** The Button parede. */
 	private JButton ButtonParede;
+	
+	/** The Button heroi. */
 	private JButton ButtonHeroi;
+	
+	/** The Button dragao. */
 	private JButton ButtonDragao;
+	
+	/** The Button espada. */
 	private JButton ButtonEspada;
+	
+	/** The Button caminho. */
 	private JButton ButtonCaminho;
+	
+	/** The Button saida. */
 	private JButton ButtonSaida;
+	
+	/** The Button menu2. */
 	private JButton ButtonMenu2;
+	
+	/** The Button jogar2. */
 	private JButton ButtonJogar2;
+	
+	/** The Button jogar3. */
 	private JButton ButtonJogar3;
 
+	/** The Dimensao labirinto. */
 	private JTextField DimensaoLabirinto;
+	
+	/** The Nr dragoes. */
 	private JTextField NrDragoes;
+	
+	/** The lbl etiqueta estado. */
 	private JLabel lblEtiquetaEstado;
 
+	/** The panel_final. */
 	private LabirintoPanel panel_final;
+	
+	/** The panel_create. */
 	private LabirintoBuilder panel_create;
 
+	/** The lab. */
 	private Labirinto lab;
+	
+	/** The inter. */
 	private Interface inter;
+	
+	/** The labirinto. */
 	private char labirinto[][];
+	
+	/** The n vezes. */
 	private int nVezes;
 
 
+	/** The modo jogo. */
 	private int modoJogo;
 
 	/**
 	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -104,6 +168,11 @@ public class Grafics {
 		initialize();
 	}
 
+	/**
+	 * Sets the visible.
+	 *
+	 * @param visible the new visible
+	 */
 	public void setVisible(boolean visible) {
 		menu.setVisible(visible);
 	}
@@ -512,6 +581,11 @@ public class Grafics {
 
 	}
 
+	/**
+	 * Stener.
+	 *
+	 * @return the object
+	 */
 	private Object stener() {
 		// TODO Auto-generated method stub
 		return null;
@@ -522,6 +596,11 @@ public class Grafics {
 	 * 
 	 * */
 
+	/**
+	 * Move heroi.
+	 *
+	 * @param c the c
+	 */
 	public void MoveHeroi(char c){
 		Heroi h = lab.getHeroi();
 		ArrayList<Dragao> d = lab.getDragoes();
@@ -554,6 +633,9 @@ public class Grafics {
 		panel_final.repaint();
 	}
 
+	/**
+	 * Criar outro lab.
+	 */
 	public void criarOutroLab(){
 		lab = new Labirinto();
 		ArrayList<Point> posLivres = lab.GerarLabirinto(Integer.parseInt(DimensaoLabirinto.getText()));
