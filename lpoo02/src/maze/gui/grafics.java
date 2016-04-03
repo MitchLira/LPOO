@@ -68,15 +68,16 @@ public class Grafics {
 
 	private JTextField DimensaoLabirinto;
 	private JTextField NrDragoes;
-
-	private Labirinto lab;
-	private Interface inter;
-	private char labirinto[][];
+	private JLabel lblEtiquetaEstado;
 
 	private LabirintoPanel panel_final;
 	private LabirintoBuilder panel_create;
 
-	private JLabel lblEtiquetaEstado;
+	private Labirinto lab;
+	private Interface inter;
+	private char labirinto[][];
+	private int nVezes;
+
 
 	private int modoJogo;
 
@@ -137,9 +138,9 @@ public class Grafics {
 
 		/*
 		 * Configuracao do menu
-		 * */
-		
-		
+		 * */ 
+
+
 		JLabel lblDimensoDoLabirinto = new JLabel("Dimens\u00E3o do labirinto");
 		lblDimensoDoLabirinto.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblDimensoDoLabirinto.setBounds(100, 40, 211, 43);
@@ -179,10 +180,7 @@ public class Grafics {
 		Iniciar.setEnabled(true);
 		Iniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lab = new Labirinto();
-				ArrayList<Point> posLivres = lab.GerarLabirinto(Integer.parseInt(DimensaoLabirinto.getText()));
-				lab.ColocarCarateres(posLivres, Integer.parseInt(NrDragoes.getText()));
-				
+				nVezes = 0;
 				RandomLab.setVisible(true);
 				ButtonJogar.doClick();
 				menu.setVisible(false);
@@ -309,6 +307,9 @@ public class Grafics {
 		ButtonJogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				if(nVezes == 0)
+					criarOutroLab();
+
 				modoJogo = lab.modoJogotoInt((String)MododeJogo.getSelectedItem());
 
 				panel_final.setLabirinto(lab);
@@ -349,6 +350,7 @@ public class Grafics {
 		 * Configuracao da Criacao do Labirinto
 		 *
 		 * */
+
 		panel_create = new LabirintoBuilder();
 		panel_create.setBounds(5, 5, 497, 500);
 		panel_create.setBackground(Color.BLACK);
@@ -364,6 +366,7 @@ public class Grafics {
 				ButtonDragao.setBackground(Color.LIGHT_GRAY);
 				ButtonEspada.setBackground(Color.LIGHT_GRAY);
 				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+				
 			}
 		});
 		ButtonCaminho.setBounds(540, 10, 100, 49);
@@ -448,9 +451,12 @@ public class Grafics {
 				ButtonDragao.setEnabled(false);
 				ButtonEspada.setEnabled(false);
 				ButtonSaida.setEnabled(false);
-				
+
 				newLab.setVisible(false);
 				RandomLab.setVisible(true);
+				nVezes++;
+				panel_create.setLabirinto(labirinto);
+				lab.criarLabirintoP(labirinto);
 				ButtonJogar.doClick();
 			}
 		});
@@ -479,10 +485,9 @@ public class Grafics {
 							labirinto[i][j] = '.';
 					}
 				}
-
-				//tirar quando estiver a funcionar o rato
-				lab.criarLabirintoP(labirinto);
-				panel_create.setLabirinto(lab);
+				
+				panel_create.setLabirinto(labirinto);
+				panel_create.requestFocus();
 			}
 		});
 		ButtonJogar2.setBounds(540, 450, 100, 49);
@@ -542,5 +547,11 @@ public class Grafics {
 		}
 
 		panel_final.repaint();
+	}
+
+	public void criarOutroLab(){
+		lab = new Labirinto();
+		ArrayList<Point> posLivres = lab.GerarLabirinto(Integer.parseInt(DimensaoLabirinto.getText()));
+		lab.ColocarCarateres(posLivres, Integer.parseInt(NrDragoes.getText()));
 	}
 }
