@@ -1,152 +1,140 @@
-/*
- * 
- */
 package maze.gui;
-
 import java.awt.EventQueue;
+import java.awt.Font;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+
+import java.awt.Color;
+
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-
-import javax.swing.JTextField;
-
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Color;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JProgressBar;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextArea;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager;
 
 import maze.cli.Interface;
-import maze.logic.Heroi;
 import maze.logic.Dragao;
+import maze.logic.Heroi;
 import maze.logic.Labirinto;
 import maze.logic.Point;
 
-import javax.swing.SwingConstants;
 
-import com.sun.org.apache.xalan.internal.xsltc.dom.AbsoluteIterator;
-
-// TODO: Auto-generated Javadoc
-/**
- * The Class Grafics.
- */
 public class Grafics {
 
 	/** The menu. */
 	private JFrame menu;
-	
+
 	/** The Random lab. */
 	private JFrame RandomLab;
-	
+
 	/** The new lab. */
 	private JFrame newLab;
 
 	/** The Iniciar. */
 	//janelas
 	private JButton Iniciar;
-	
+
 	/** The Criar labirinto. */
 	private JButton CriarLabirinto;
-	
+
 	/** The Sair. */
 	private JButton Sair;
 
+	/** The Panel Buttons */
+	private JPanel panelButtons;
+	
 	/** The Button norte. */
 	//botoes
 	private JButton ButtonNorte;
-	
+
 	/** The Button sul. */
 	private JButton ButtonSul;
-	
+
 	/** The Button este. */
 	private JButton ButtonEste;
-	
+
 	/** The Button oeste. */
 	private JButton ButtonOeste;
-	
-	/** The Button jogar. */
-	private JButton ButtonJogar;
-	
+
 	/** The Button menu. */
 	private JButton ButtonMenu;
-	
+
 	/** The Button parede. */
 	private JButton ButtonParede;
-	
+
 	/** The Button heroi. */
 	private JButton ButtonHeroi;
-	
+
 	/** The Button dragao. */
 	private JButton ButtonDragao;
-	
+
 	/** The Button espada. */
 	private JButton ButtonEspada;
-	
+
 	/** The Button caminho. */
 	private JButton ButtonCaminho;
-	
+
 	/** The Button saida. */
 	private JButton ButtonSaida;
-	
+
 	/** The Button menu2. */
 	private JButton ButtonMenu2;
+
+	/** The Button jogar Novo Jogo. */
+	private JButton ButtonNovoJogo;
 	
-	/** The Button jogar2. */
-	private JButton ButtonJogar2;
-	
+	private JButton ButtonCriarLabirinto;
+
 	/** The Button jogar3. */
 	private JButton ButtonJogar3;
 
 	/** The Dimensao labirinto. */
 	private JTextField DimensaoLabirinto;
-	
+
 	/** The Nr dragoes. */
 	private JTextField NrDragoes;
-	
+
 	/** The lbl etiqueta estado. */
 	private JLabel lblEtiquetaEstado;
 
 	/** The panel_final. */
 	private LabirintoPanel panel_final;
-	
+
 	/** The panel_create. */
 	private LabirintoBuilder panel_create;
 
 	/** The lab. */
 	private Labirinto lab;
-	
+
 	/** The inter. */
 	private Interface inter;
-	
+
 	/** The labirinto. */
 	private char labirinto[][];
-	
+
 	/** The n vezes. */
 	private int nVezes;
 
 
 	/** The modo jogo. */
 	private int modoJogo;
-
 	/**
 	 * Launch the application.
-	 *
-	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -167,20 +155,17 @@ public class Grafics {
 	public Grafics() {
 		initialize();
 	}
-
-	/**
-	 * Sets the visible.
-	 *
-	 * @param visible the new visible
-	 */
-	public void setVisible(boolean visible) {
-		menu.setVisible(visible);
+	
+	
+	public void setVisible(boolean b) {
+		menu.setVisible(b);
+		
 	}
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
 		//janela de menu inicial
 		menu = new JFrame();
 		menu.setAlwaysOnTop(true);
@@ -190,25 +175,43 @@ public class Grafics {
 		menu.getContentPane().setLayout(null);
 		menu.setVisible(true);
 		menu.setResizable(false);
-
-		//janela de jogar com tabuleiro aleatorio
+		
+		
+		
+		//janela jogar aleatorio
 		RandomLab = new JFrame();
-		RandomLab.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 34));
-		RandomLab.setBounds(100, 100, 795, 538);
+		RandomLab.setBounds(100, 100, 1186, 763);
 		RandomLab.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		RandomLab.getContentPane().setLayout(null);
+		RandomLab.setVisible(false);
+		JPanel panelGeneral = new JPanel();
+		RandomLab.getContentPane().add(panelGeneral, BorderLayout.CENTER);
 
+		
+		//janela de criar labirinto
 		//janela de criacao de labirinto
 		newLab = new JFrame();
 		newLab.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 34));
 		newLab.setBounds(100, 100, 800, 550);
 		newLab.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		newLab.getContentPane().setLayout(null);
-
-		/*
-		 * Configuracao do menu
-		 * */ 
-
+		
+		
+		//** Configuracao menu **//
+		
+		//botao criar labirinto
+		ButtonCriarLabirinto = new JButton("Criar Labirinto");
+		ButtonCriarLabirinto.setForeground(Color.BLACK);
+		ButtonCriarLabirinto.setEnabled(true);
+		ButtonCriarLabirinto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				menu.setVisible(false);
+				newLab.setVisible(true);
+				ButtonCriarLabirinto.doClick();
+				ButtonParede.doClick();
+			}
+		});
+		ButtonCriarLabirinto.setBounds(220, 300, 150, 52);
+		menu.getContentPane().add(ButtonCriarLabirinto);
 
 		JLabel lblDimensoDoLabirinto = new JLabel("Dimens\u00E3o do labirinto");
 		lblDimensoDoLabirinto.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -250,29 +253,21 @@ public class Grafics {
 		Iniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				nVezes = 0;
-				RandomLab.setVisible(true);
-				ButtonJogar.doClick();
 				menu.setVisible(false);
+				RandomLab.setVisible(true);
+				
+				ButtonNovoJogo.doClick();
+
 			}
 		});
 		Iniciar.setBounds(50, 300, 150, 52);
 		menu.getContentPane().add(Iniciar);
 
-		//botao de criacao de labirinto no menu
-		CriarLabirinto = new JButton("Criar Labirinto");
-		CriarLabirinto.setForeground(Color.BLACK);
-		CriarLabirinto.setEnabled(true);
-		CriarLabirinto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				menu.setVisible(false);
-				newLab.setVisible(true);
-				ButtonJogar2.doClick();
-				ButtonParede.doClick();
-			}
-		});
-		CriarLabirinto.setBounds(220, 300, 150, 52);
-		menu.getContentPane().add(CriarLabirinto);
 
+	
+		
+		
+		
 		//botao de saida na janela menu
 		Sair = new JButton("Sair");
 		Sair.setForeground(Color.BLACK);
@@ -285,8 +280,10 @@ public class Grafics {
 		Sair.setBounds(390, 300, 150, 52);
 		menu.getContentPane().add(Sair);
 
+	
+
 		panel_final = new LabirintoPanel();
-		panel_final.setBounds(5, 5, 497, 492);
+		panel_final.setBackground(Color.WHITE);
 		panel_final.setFocusable(true);
 		panel_final.addKeyListener(new KeyListener() {
 
@@ -322,65 +319,87 @@ public class Grafics {
 				// TODO Auto-generated method stub
 
 			}});
-		RandomLab.getContentPane().add(panel_final);
 
+		
+		panelButtons = new JPanel();
+		panelButtons.setBackground(UIManager.getColor("Button.background"));
+		panelButtons.setFocusable(true);
+		panelButtons.addKeyListener(new KeyListener() {
+
+			/* Código para teclado */
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch(e.getKeyCode()){
+
+				case KeyEvent.VK_LEFT: 
+					ButtonOeste.doClick();
+					break;
+				case KeyEvent.VK_RIGHT: 
+					ButtonEste.doClick();
+					break;
+				case KeyEvent.VK_UP:  
+					ButtonNorte.doClick();
+					break;
+				case KeyEvent.VK_DOWN: 
+					ButtonSul.doClick();
+					break;
+
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}});
+		
 		lblEtiquetaEstado = new JLabel("Inicio!");
 		lblEtiquetaEstado.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblEtiquetaEstado.setBounds(62, 555, 106, 44);
-		RandomLab.getContentPane().add(lblEtiquetaEstado);
+		GroupLayout gl_panelGeneral = new GroupLayout(panelGeneral);
+		gl_panelGeneral.setHorizontalGroup(
+			gl_panelGeneral.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelGeneral.createSequentialGroup()
+					.addGap(24)
+					.addComponent(panel_final, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panelButtons, GroupLayout.PREFERRED_SIZE, 387, GroupLayout.PREFERRED_SIZE)
+					.addGap(21))
+				.addGroup(gl_panelGeneral.createSequentialGroup()
+					.addGap(69)
+					.addComponent(lblEtiquetaEstado, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(602, Short.MAX_VALUE))
+		);
+		gl_panelGeneral.setVerticalGroup(
+			gl_panelGeneral.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelGeneral.createSequentialGroup()
+					.addGap(27)
+					.addComponent(panel_final, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblEtiquetaEstado, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+					.addGap(6))
+				.addGroup(Alignment.LEADING, gl_panelGeneral.createSequentialGroup()
+					.addGap(137)
+					.addComponent(panelButtons, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+					.addGap(171))
+		);
 
-		/*
-		 * Configuracao de Jogo Aleatorio
-		 * */
-		ButtonNorte = new JButton("Norte");
-		ButtonNorte.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MoveHeroi('n');
-			}
-		});
-		ButtonNorte.setBounds(585, 117, 120, 49);
-		ButtonNorte.setFocusable(false);
-		RandomLab.getContentPane().add(ButtonNorte);
-
-		ButtonOeste = new JButton("Oeste");
-		ButtonOeste.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MoveHeroi('o');
-			}
-		});
-		ButtonOeste.setBounds(523, 177, 120, 49);
-		ButtonOeste.setFocusable(false);
-		RandomLab.getContentPane().add(ButtonOeste);
-
-		ButtonEste = new JButton("Este");
-		ButtonEste.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MoveHeroi('e');
-			}
-		});
-		ButtonEste.setBounds(649, 177, 120, 49);
-		ButtonEste.setFocusable(false);
-		RandomLab.getContentPane().add(ButtonEste);
-
-		ButtonSul = new JButton("Sul");
-		ButtonSul.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MoveHeroi('s');
-			}
-		});
-		ButtonSul.setBounds(585, 237, 120, 49);
-		ButtonSul.setFocusable(false);
-		RandomLab.getContentPane().add(ButtonSul);
-
-		ButtonJogar = new JButton("Novo Jogo");
-		ButtonJogar.addActionListener(new ActionListener() {
+		ButtonNovoJogo = new JButton("NovoJogo");
+		ButtonNovoJogo.setBounds(73, 243, 94, 51);
+		ButtonNovoJogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if(nVezes == 0)
 					criarOutroLab();
 
 				modoJogo = lab.modoJogotoInt((String)MododeJogo.getSelectedItem());
-
+				panel_final.repaint();
 				panel_final.setLabirinto(lab);
 				panel_final.setFocusable(true);
 				panel_final.requestFocus();
@@ -394,31 +413,82 @@ public class Grafics {
 				lblEtiquetaEstado.setText("Pode Jogar!");
 
 				panel_final.repaint();
+				
+				
 			}
 		});
-		ButtonJogar.setBounds(553, 337, 100, 49);
-		ButtonJogar.setFocusable(false);
-		RandomLab.getContentPane().add(ButtonJogar);
+		
+		ButtonNorte = new JButton("Norte");
+		ButtonNorte.setBounds(150, 53, 94, 51);
+		ButtonNorte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MoveHeroi('n');
+			}
+		});
+		ButtonNorte.setFocusable(false);
+		panelButtons.setLayout(null);
+		panelButtons.add(ButtonNorte);
 
-		ButtonMenu = new JButton("Menu");
+		ButtonSul = new JButton("Sul");
+		ButtonSul.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MoveHeroi('s');
+			}
+		});
+		ButtonSul.setBounds(150, 179, 94, 51);
+		ButtonSul.setFocusable(false);
+		panelButtons.add(ButtonSul);
+
+		ButtonOeste = new JButton("Oeste");
+		ButtonOeste.setBounds(73, 117, 94, 51);
+		ButtonOeste.setFocusable(false);
+		panelButtons.add(ButtonOeste);
+		ButtonOeste.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MoveHeroi('o');
+			}
+		});
+
+		ButtonEste = new JButton("Este");
+		ButtonEste.setBounds(229, 115, 94, 51);
+		ButtonEste.setFocusable(false);
+		ButtonEste.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MoveHeroi('e');
+			}
+		});
+		
+		panelButtons.add(ButtonEste);
+
+		JButton ButtonMenu = new JButton("Menu");
+		ButtonMenu.setBounds(229, 243, 94, 51);
 		ButtonMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				menu.setVisible(true);
 				RandomLab.setVisible(false);
+				menu.setVisible(true);
 			}
 		});
-		ButtonMenu.setBounds(653, 337, 100, 49);
-		ButtonMenu.setFocusable(false);
-		RandomLab.getContentPane().add(ButtonMenu);
-
-
-
-
-
-		/*
-		 * Configuracao da Criacao do Labirinto
-		 *
-		 * */
+		panelButtons.add(ButtonMenu);
+		
+		
+		
+		
+		
+		panelButtons.add(ButtonNovoJogo);
+		GroupLayout gl_panelLabirinto = new GroupLayout(panel_final);
+		gl_panelLabirinto.setHorizontalGroup(
+			gl_panelLabirinto.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 300, Short.MAX_VALUE)
+		);
+		gl_panelLabirinto.setVerticalGroup(
+			gl_panelLabirinto.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 480, Short.MAX_VALUE)
+		);
+		panel_final.setLayout(gl_panelLabirinto);
+		panelGeneral.setLayout(gl_panelGeneral);
+		
+		
+		//** Configuracao Cria Labirinto **//
 
 		panel_create = new LabirintoBuilder();
 		panel_create.setBounds(5, 5, 497, 500);
@@ -531,14 +601,14 @@ public class Grafics {
 				nVezes++;
 				panel_create.setLabirinto(labirinto);
 				lab.criarLabirintoP(labirinto);
-				ButtonJogar.doClick();
+				ButtonNovoJogo.doClick();
 			}
 		});
 		ButtonJogar3.setBounds(595, 395, 100, 49);
 		newLab.getContentPane().add(ButtonJogar3);
 
-		ButtonJogar2 = new JButton("Criar Novo");
-		ButtonJogar2.addActionListener(new ActionListener(){
+		ButtonCriarLabirinto = new JButton("Criar Novo");
+		ButtonCriarLabirinto.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				lab = new Labirinto();
 
@@ -564,8 +634,8 @@ public class Grafics {
 				panel_create.requestFocus();
 			}
 		});
-		ButtonJogar2.setBounds(540, 450, 100, 49);
-		newLab.getContentPane().add(ButtonJogar2);
+		ButtonCriarLabirinto.setBounds(540, 450, 100, 49);
+		newLab.getContentPane().add(ButtonCriarLabirinto);
 
 		ButtonMenu2 = new JButton("Menu");
 		ButtonMenu2.addActionListener(new ActionListener(){
@@ -580,7 +650,7 @@ public class Grafics {
 		newLab.getContentPane().add(panel_create);
 
 	}
-
+	
 	/**
 	 * Stener.
 	 *
@@ -590,7 +660,7 @@ public class Grafics {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	/*
 	 * Funcao responsavel pelos movimentos do dragao e do heroi
 	 * 
@@ -632,7 +702,7 @@ public class Grafics {
 
 		panel_final.repaint();
 	}
-
+	
 	/**
 	 * Criar outro lab.
 	 */
@@ -641,4 +711,6 @@ public class Grafics {
 		ArrayList<Point> posLivres = lab.GerarLabirinto(Integer.parseInt(DimensaoLabirinto.getText()));
 		lab.ColocarCarateres(posLivres, Integer.parseInt(NrDragoes.getText()));
 	}
+
+
 }
