@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package maze.test;
 
 import static org.junit.Assert.*;
@@ -13,43 +16,68 @@ import maze.logic.Labirinto;
 import maze.logic.Point;
 import maze.logic.Espada;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TestModoBasico.
+ */
 public class TestModoBasico {
+	
+	/** The m1. */
 	char[][] m1 = { { 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', '.', '.', 'H', 'S' },
 			{ 'X', '.', 'X', '.', 'X' },
 			{ 'X', 'E', '.', 'D', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X' } };
 
+	/** The m2. */
 	char[][] m2 = { { 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', 'H', '.', '.', 'S' },
 			{ 'X', '.', 'X', '.', 'X' },
 			{ 'X', 'E', '.', 'D', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X' } };
 
+	/** The m3. */
 	char[][] m3 = { { 'X', 'X', 'X', 'S', 'X' },
 			{ 'X', '.', '.', 'H', 'X' },
 			{ 'X', '.', 'X', '.', 'X' },
 			{ 'X', 'E', '.', 'D', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X' } };
+	
+	/** The m4. */
 	char[][] m4 = { { 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', '.', '.', 'H', 'X' },
 			{ 'X', '.', 'X', '.', 'X' },
 			{ 'X', 'E', '.', 'D', 'X' },
 			{ 'X', 'X', 'S', 'X', 'X' } };
 	
+	/** The m5. */
 	char[][] m5 = { { 'X', 'X', 'X', 'X', 'X' },
 			{ 'X', '.', '.', 'H', 'X' },
 			{ 'X', '.', 'X', '.', 'X' },
 			{ 'S', '.', 'E', 'D', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X' } };
 
+	/** The interf. */
 	Interface interf = new Interface();
+	
+	/** The maze. */
 	Labirinto maze = new Labirinto();
+	
+	/** The hero. */
 	Heroi hero = new Heroi(1, 3);
+	
+	/** The dragao. */
 	Dragao dragao = new Dragao(3, 3);
+	
+	/** The dragoes. */
 	ArrayList<Dragao> dragoes = new ArrayList<Dragao>();
+	
+	/** The esp. */
 	Espada esp = new Espada(1, 3);
 
+	/**
+	 * Test moverhero celulalivre.
+	 */
 	// alinea a
 	@Test
 	public void testMoverheroCelulalivre() {
@@ -70,6 +98,9 @@ public class TestModoBasico {
 
 	}
 
+	/**
+	 * Test moverhero parede.
+	 */
 	// alinea b
 	@Test
 	public void testMoverheroParede() {
@@ -91,6 +122,9 @@ public class TestModoBasico {
 		assertEquals(new Point(2, 3), hero.getHeroiPosicao());
 	}
 
+	/**
+	 * Test moverhero espada.
+	 */
 	// alinea c
 	@Test
 	public void testMoverheroEspada() {
@@ -105,6 +139,9 @@ public class TestModoBasico {
 
 	}
 
+	/**
+	 * Test moverhero dragaosem arma.
+	 */
 	// alinea d
 	@Test
 	public void testMoverheroDragaosemArma() {
@@ -115,6 +152,9 @@ public class TestModoBasico {
 		assertEquals(false, hero.getVida());
 	}
 
+	/**
+	 * Test moverhero dragacom arma.
+	 */
 	// alinea e
 	@Test
 	public void testMoverheroDragacomArma() {
@@ -127,6 +167,9 @@ public class TestModoBasico {
 		assertEquals(false, dragao.getVida());
 	}
 
+	/**
+	 * Testhero vitoria.
+	 */
 	// alinea f
 	@Test
 	public void testheroVitoria() {
@@ -139,6 +182,10 @@ public class TestModoBasico {
 		maze.moverHeroi(hero, 'e');
 		assertEquals(new Point(1,4), hero.getHeroiPosicao());
 	}
+	
+	/**
+	 * Testhero vitoria sem sucesso.
+	 */
 	// alinea g
 	@Test
 	public void testheroVitoriaSemSucesso() {
@@ -148,6 +195,10 @@ public class TestModoBasico {
 		assertEquals(new Point(1,3), hero.getHeroiPosicao());
 		assertEquals(false, hero.getVitoria());
 	}
+	
+	/**
+	 * Testhero vitoria sem sucesso dragao vivo.
+	 */
 	// alinea g
 	@Test
 	public void testheroVitoriaSemSucessoDragaoVivo() {
@@ -159,6 +210,9 @@ public class TestModoBasico {
 		assertEquals(false, hero.getVitoria());
 	}
 
+	/**
+	 * Test carateres default.
+	 */
 	@Test
 	public void TestCarateresDefault(){
 		maze.criarLabirinto();
@@ -185,6 +239,10 @@ public class TestModoBasico {
 
 
 	}
+	
+	/**
+	 * Test pontos.
+	 */
 	@Test
 	public void TestPontos()
 	{
@@ -218,6 +276,9 @@ public class TestModoBasico {
 	}
 
 
+	/**
+	 * Test dragao.
+	 */
 	@Test
 	public void TestDragao()
 	{
@@ -258,6 +319,9 @@ public class TestModoBasico {
 		assertEquals(1,drag.getLinha());
 	}
 
+	/**
+	 * Test lab default.
+	 */
 	@Test
 	public void TestLabDefault()
 	{
@@ -286,6 +350,9 @@ public class TestModoBasico {
 
 	}
 
+	/**
+	 * Test modo jogo to int.
+	 */
 	@Test
 	public void TestModoJogoToInt()
 	{
@@ -295,6 +362,9 @@ public class TestModoBasico {
 		assertEquals(-1,maze.modoJogotoInt("Basi"));
 	}
 	
+	/**
+	 * Test lab3.
+	 */
 	@Test public void TestLab3()
 	{
 		dragoes.add(dragao);
@@ -306,6 +376,9 @@ public class TestModoBasico {
 		
 	}
 	
+	/**
+	 * Test lab4.
+	 */
 	@Test public void TestLab4()
 	{
 		dragoes.add(dragao);
@@ -319,6 +392,9 @@ public class TestModoBasico {
 		
 	}
 	
+	/**
+	 * Test lab5.
+	 */
 	@Test public void TestLab5()
 	{
 		dragoes.add(dragao);

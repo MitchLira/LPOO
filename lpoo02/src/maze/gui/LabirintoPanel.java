@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package maze.gui;
 
 import java.awt.Graphics;
@@ -13,15 +16,28 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LabirintoPanel.
+ */
 public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener{
 
+	/** The lab. */
 	private Labirinto lab;
+	
+	/** The labirinto. */
 	private char labirinto[][];
 
+	/**
+	 * Instantiates a new labirinto panel.
+	 */
 	public LabirintoPanel(){
 		super();
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -73,28 +89,47 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 		}
 	}
 
+	/**
+	 * Sets the labirinto.
+	 *
+	 * @param lab the new labirinto
+	 */
 	public void setLabirinto(Labirinto lab){
 		this.lab = lab;
 	}
 	
+	/**
+	 * Sets the labirinto.
+	 *
+	 * @param lab the new labirinto
+	 */
 	public void setLabirinto(char[][] lab){
 		this.labirinto = lab;
 		this.lab.criarLabirintoP(labirinto);
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub

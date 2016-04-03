@@ -1,3 +1,7 @@
+/**  
+* Labirinto.java - classe labirinto
+* @author  Miguel Lira e Miriam Goncalves 
+*/
 package maze.logic;
 
 import java.util.ArrayList;
@@ -16,28 +20,67 @@ import maze.gui.Grafics;
 
 
 
+// TODO: Auto-generated Javadoc
 enum ModoJogo {
 	Basico, Aleatorio, Adormecido
 }
 
+/**
+ * The Class Labirinto.
+ */
 public class Labirinto {
+	
+	/** The labirinto. */
 	private char[][] labirinto;
+	
+	/** The heroi. */
 	private Heroi heroi;
+	
+	/** The esp. */
 	private Espada esp;
+	
+	/** The dragoes. */
 	private ArrayList<Dragao> dragoes;
+	
+	/** The modo jogo. */
 	private ModoJogo modoJogo;
 
+	/** The Constant P. */
 	//caracteres
 	public static final char P = '.';
+	
+	/** The Constant E. */
 	public static final char E = 'E';
+	
+	/** The Constant S. */
 	public static final char S = 'S';
+	
+	/** The Constant F. */
 	public static final char F = 'F';
+	
+	/** The Constant X. */
 	public static final char X = 'X';
+	
+	/** The Constant H. */
 	public static final char H = 'H';
+	
+	/** The Constant D. */
 	public static final char D = 'D';
+	
+	/** The Constant d. */
 	public static final char d = 'd';
+	
+	/** The Constant A. */
 	public static final char A = 'A';
 
+	/**
+	 * Construtor do labirinto recebendo todos os parametros do labirinto.
+	 *
+	 * @param labir labirinto
+	 * @param heroi heroi do labirinto
+	 * @param dragoes ArrayList de dragoes do labirinto
+	 * @param espada espada do labirinto
+	 */
 	public void criarLabirinto(char[][] labir, Heroi heroi, ArrayList<Dragao> dragoes, Espada espada) {
 		labirinto = labir;
 		this.heroi = heroi;
@@ -45,6 +88,48 @@ public class Labirinto {
 		this.esp = espada;
 	}
 
+	/**
+	 * Criador Labirinto recebendo uma labirinto já pre definido.
+	 *
+	 * @param lab labirinto
+	 */
+	public void criarLabirintoP(char[][] lab){
+		this.labirinto = lab;
+	}
+	
+	/**
+	 * Criador de labirinto que recebe labirinto e desenha este.
+	 *
+	 * @param lab labirinto
+	 * @return labirinto criado
+	 */
+	public char[][] criarLabirinto(char[][] lab) {
+
+		labirinto = lab;
+		dragoes = new ArrayList<Dragao>();
+
+		for (int i = 0; i < labirinto.length; i++) {
+			for (int j = 0; j < labirinto[i].length; j++) {
+				if (labirinto[i][j] == D) {
+					Dragao dragao = new Dragao(i,j);
+					dragoes.add(dragao);
+				} else if (labirinto[i][j] == S) {
+					labirinto[i][j] = S;
+				} else if (labirinto[i][j] == H) {
+					heroi.setPosicaoHeroi(i, j);
+				} else if (labirinto[i][j] == E) {
+					esp.setEspadaPosicao(i, j);
+				}
+			}
+		}
+		return labirinto;
+	}
+	
+	/**
+	 * Criador do Labirinto por default.
+	 *
+	 * @return labirinto default
+	 */
 	public char[][] criarLabirinto() {
 
 		dragoes = new ArrayList<Dragao>();
@@ -73,31 +158,53 @@ public class Labirinto {
 		esp.setEspadaPosicao(6, 1);
 		return lab;
 	}
-	private void visit(char[][] m, int i, int j, boolean [][] visited) {
-		if (i < 0 || i >= m.length || j < 0 || j >= m.length)
+	
+	/**
+	 * Funcao auxiliar de checkExitReachable que verifica as celulas visitadas e as suas vizinhas recursivamente.
+	 *
+	 * @param lab labirinto
+	 * @param i linha do labirinto
+	 * @param j coluna do labirinto
+	 * @param visited labirinto que tem as celulas ja visitadas
+	 */
+	private void visit(char[][] lab, int i, int j, boolean [][] visited) {
+		if (i < 0 || i >= lab.length || j < 0 || j >= lab.length)
 			return;
-		if (m[i][j] == 'X' || visited[i][j])
+		if (lab[i][j] == 'X' || visited[i][j])
 			return;
 		visited[i][j] = true;
-		visit(m, i-1, j, visited);
-		visit(m, i+1, j, visited);
-		visit(m, i, j-1, visited);
-		visit(m, i, j+1, visited);
+		visit(lab, i-1, j, visited);
+		visit(lab, i+1, j, visited);
+		visit(lab, i, j-1, visited);
+		visit(lab, i, j+1, visited);
 	}
 	
-	private boolean checkExitReachable(char [][] maze) {
-		Point p = findPos(maze, 'S');
-		boolean [][] visited = new boolean[maze.length] [maze.length];
+	/**
+	 * Verifica se o labirinto recebido tem um caminho ate a saida.
+	 *
+	 * @param lab labirinto
+	 * @return boleano que indica se existe um caminho ate a saida
+	 */
+	private boolean checkExitReachable(char [][] lab) {
+		Point p = findPos(lab, 'S');
+		boolean [][] visited = new boolean[lab.length] [lab.length];
 		
-		visit(maze, p.y, p.x, visited);
+		visit(lab, p.y, p.x, visited);
 		
-		for (int i = 0; i < maze.length; i++)
-			for (int j = 0; j < maze.length; j++)
-				if (maze[i][j] != 'X' && ! visited[i][j] )
+		for (int i = 0; i < lab.length; i++)
+			for (int j = 0; j < lab.length; j++)
+				if (lab[i][j] != 'X' && ! visited[i][j] )
 					return false;
 		
 		return true; 
 	}
+	
+	/**
+	 * Gerar labirinto aleatorio.
+	 *
+	 * @param n tamanho do labirinto
+	 * @return posLivres ArrayList que contem as posicoes ja visitadas
+	 */
 	public ArrayList<Point> GerarLabirinto(int n) {
 		ArrayList<Point> PosLivres = new ArrayList<Point>();
 		labirinto = new char[n][n];
@@ -185,6 +292,13 @@ public class Labirinto {
 		return PosLivres;
 	}
 
+	/**
+	 * Cria um labirinto so com paredes e caminho.
+	 *
+	 * @param n tamanho do labirinto
+	 * @param flags posicoes visitadas
+	 * @param posLivres posicoes livres
+	 */
 	public void GeradorLabirintoInical(int n, ArrayDeque<Point> flags, ArrayList<Point> posLivres) {
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++) {
@@ -199,6 +313,14 @@ public class Labirinto {
 			}
 	}
 
+	/**
+	 * Verifica as condicoes necessarias para a criacao do labirinto nomeadamente criacao da diagonais e quadrados.
+	 *
+	 * @param n tamanho do labirinto
+	 * @param direcao para a qual se vai mover
+	 * @param posVizinha posicao da celula que se vai mexer
+	 * @return boleano que indica se esta celula se pode mover ou nao
+	 */
 	public boolean PodeMover(int n, char direcao, Point posVizinha) {
 
 		int x = posVizinha.x;
@@ -335,6 +457,13 @@ public class Labirinto {
 		return true;
 	}
 
+	/**
+	 * Encontra posicao de um char no labirinto.
+	 *
+	 * @param maze labirinto
+	 * @param c char que indica o simbolo a ser procurado
+	 * @return point se encontrado, null se nao encontrar
+	 */
 	public Point findPos(char [][] maze, char c) {
 		for (int x = 0; x < maze.length; x++)			
 			for (int y = 0; y < maze.length; y++)
@@ -343,7 +472,13 @@ public class Labirinto {
 		return null;		
 	}
 	
-
+	/**
+	 * Colocar carateres aleatoriamente no labirinto criado aleatoriamente.
+	 *
+	 * @param posLivres posicoes livres do labirinto nomeadamente caminho
+	 * @param nrDragoes a colocar no labirinto
+	 * @return labirinto com os carateres ja colocados
+	 */
 	public char[][] ColocarCarateres(ArrayList<Point> posLivres, int nrDragoes) {
 		Random rand = new Random();
 		int nrPosLivres = posLivres.size();
@@ -401,32 +536,13 @@ public class Labirinto {
 		return labirinto;
 	}
 
-	public char[][] criarLabirinto(char[][] lab) {
-
-		labirinto = lab;
-		dragoes = new ArrayList<Dragao>();
-
-		for (int i = 0; i < labirinto.length; i++) {
-			for (int j = 0; j < labirinto[i].length; j++) {
-				if (labirinto[i][j] == D) {
-					Dragao dragao = new Dragao(i,j);
-					dragoes.add(dragao);
-				} else if (labirinto[i][j] == S) {
-					labirinto[i][j] = S;
-				} else if (labirinto[i][j] == H) {
-					heroi.setPosicaoHeroi(i, j);
-				} else if (labirinto[i][j] == E) {
-					esp.setEspadaPosicao(i, j);
-				}
-			}
-		}
-		return labirinto;
-	}
-
-	public void criarLabirintoP(char[][] lab){
-		this.labirinto = lab;
-	}
-	
+	/**
+	 * Funcao para mover o dragao aleatoriamente no labirinto.
+	 *
+	 * @param dragao do labirinto
+	 * @param heroi do labirinto
+	 * @param mode modo de jogo se os dragoes se mexem e podem adormecer, ou sao estaticos
+	 */
 	public void moverDragao(Dragao dragao, Heroi heroi, int mode) { // 0 - N; 1
 		// - S; 2 -
 		// E; 3 - O
@@ -611,6 +727,12 @@ public class Labirinto {
 
 	}
 
+	/**
+	 * Funcao que move o heroi no labirinto verificando todas as condicoes.
+	 *
+	 * @param heroi do labirinto
+	 * @param coordenada para onde o heroi se pretende mover
+	 */
 	public void moverHeroi(Heroi heroi, char coordenada) {
 		switch (coordenada) {
 		case 'n': {
@@ -696,20 +818,27 @@ public class Labirinto {
 		}
 	}
 
+	/**
+	 * Funcao que verifica se o Dragao e Heroi tao adjacente criando uma luta.
+	 *
+	 * @param dragao the dragao
+	 * @return boleano que indica se estes estao adjacentes
+	 */
 	public boolean lutaPossivel(Dragao dragao) {
 		Point heroiPos = heroi.getHeroiPosicao();
 		Point DragaoPos = dragao.getDragaoPosicao();
 
-		if (heroiPos.x == DragaoPos.x
-				&& Math.abs(heroiPos.y - DragaoPos.y) <= 1)
-			return true;
-		else if (heroiPos.y == DragaoPos.y
-				&& Math.abs(heroiPos.x - DragaoPos.x) <= 1)
+		if (heroiPos.adjacentTo(DragaoPos))
 			return true;
 
 		return false;
 	}
 
+	/**
+	 * Funcao que trata de verificar quem ganha no caso de o dragao e o heroi estarem adjacentes.
+	 *
+	 * @param dragao do labirinto
+	 */
 	public void HeroivsDragao(Dragao dragao) {
 		if (lutaPossivel(dragao)) {
 			if (heroi.getArma()) {
@@ -725,6 +854,11 @@ public class Labirinto {
 		}
 	}
 
+	/**
+	 * Funcao que verifica se todos os dragoes do labirinto estao mortos.
+	 *
+	 * @return boleano que indica se estao todos mortos ou nao
+	 */
 	public boolean DragoesTodosMortos()
 	{
 		boolean mortos = true;
@@ -736,6 +870,12 @@ public class Labirinto {
 		return mortos;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	/* 
+	 * Converte o labirinto para uma string
+	 */
 	@Override
 	public String toString() {
 		String s = "";
@@ -748,6 +888,12 @@ public class Labirinto {
 		return s;
 	}
 
+	/**
+	 * Funcao que converte o modoJogo escolhido na parte grafica para inteiro.
+	 *
+	 * @param modo recebido pela interface
+	 * @return inteiro que indica o tipo de modo de jogo
+	 */
 	public int modoJogotoInt(String modo)
 	{
 		switch(modo)
@@ -763,6 +909,13 @@ public class Labirinto {
 
 	}
 
+	/**
+	 * Funcao que permite o desenvolvimento do jogo.
+	 *
+	 * @param lab labirinto
+	 * @param interf interface
+	 * @param mode modo de jogo
+	 */
 	public void jogar(Labirinto lab, Interface interf, int mode) {
 
 
@@ -802,26 +955,58 @@ public class Labirinto {
 		}
 	}
 
+	/**
+	 * Get heroi do labirinto.
+	 *
+	 * @return heroi do labirinto
+	 */
 	public Heroi getHeroi(){
 		return this.heroi;
 	}
 
+	/**
+	 * Get ArrayList dos dragoes do labirinto.
+	 *
+	 * @return ArrayList dos dragoes do labirinto
+	 */
 	public ArrayList<Dragao> getDragoes(){
 		return this.dragoes;
 	}
 
+	/**
+	 * Get modo de jogo.
+	 *
+	 * @return modoJogo do jogo
+	 */
 	public ModoJogo getModoJogo() {
 		return modoJogo;
 	}
 
+	/**
+	 * Get dimensao do labirinto.
+	 *
+	 * @return tamanho do labirinto
+	 */
 	public int getDimensao(){
 		return labirinto.length;
 	}
 
+	/**
+	 * Get simbolo da posicao do labirinto.
+	 *
+	 * @param i linha do labirinto
+	 * @param j coluna do labirinto
+	 * @return char do simbolo da posicao dada
+	 */
 	public char getSimboloPosicao(int i, int j){
 		return labirinto[i][j];
 	}
 
+	/**
+	 * Funcao main 			.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 
 		Interface interf = new Interface();

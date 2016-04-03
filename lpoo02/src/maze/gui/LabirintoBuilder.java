@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package maze.gui;
 
 import java.awt.Color;
@@ -10,30 +13,66 @@ import java.awt.event.MouseListener;
 import maze.logic.Labirinto;
 import maze.logic.Point;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LabirintoBuilder.
+ */
 public class LabirintoBuilder extends LabirintoPanelImagens implements MouseListener{
 
+	/** The lab. */
 	private Labirinto lab;
+	
+	/** The labirinto. */
 	private char labirinto[][];
+	
+	/** The Xinicial. */
 	public int Xinicial = 5;
+	
+	/** The s. */
 	private char s;
 
+	/** The heroi existe. */
 	private boolean heroiExiste;
+	
+	/** The espada existe. */
 	private boolean espadaExiste;
 
+	/** The heroi ant. */
 	private Point heroiAnt;
+	
+	/** The espada ant. */
 	private Point espadaAnt;
 
+	/** The Pos parede. */
 	private Point PosParede;
+	
+	/** The Pos espada. */
 	private Point PosEspada;
+	
+	/** The Pos heroi. */
 	private Point PosHeroi;
+	
+	/** The Pos dragao. */
 	private Point PosDragao;
+	
+	/** The Pos caminho. */
 	private Point PosCaminho;
+	
+	/** The dim botao x. */
 	private int dimBotaoX;
+	
+	/** The dim botao y. */
 	private int dimBotaoY;
 	
+	/** The Y bloco. */
 	private int YBloco;
+	
+	/** The X bloco. */
 	private int XBloco;
 
+	/**
+	 * Instantiates a new labirinto builder.
+	 */
 	public LabirintoBuilder(){
 		super();
 		lab = new Labirinto();
@@ -55,6 +94,9 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 		addMouseListener(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g); 
@@ -107,24 +149,36 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 		}
 	}	
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mousePressed(MouseEvent g) {
 		int X = g.getX();
@@ -246,17 +300,33 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 		repaint();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Between.
+	 *
+	 * @param x the x
+	 * @param xi the xi
+	 * @param xf the xf
+	 * @return true, if successful
+	 */
 	private boolean between(int x, int xi, int xf) {
 
 		return (x >= xi && x <= xf);
 	}
 	
+	/**
+	 * Sets the labirinto.
+	 *
+	 * @param lab the new labirinto
+	 */
 	public void setLabirinto(char[][] lab){
 		this.labirinto = lab;
 	}
