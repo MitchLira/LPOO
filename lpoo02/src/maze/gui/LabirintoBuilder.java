@@ -130,10 +130,9 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 		int X = g.getX();
 		int Y = g.getY();
 
-		if(X > Xinicial){
+		if(X >= 5 && X <= getWidth()){
 			int y = Y / YBloco;
-			int x = (X - Xinicial) / XBloco;
-			
+			int x = (X - Xinicial) / XBloco;	
 			switch (s) {
 
 			case '.':
@@ -260,5 +259,9 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 	
 	public void setLabirinto(char[][] lab){
 		this.labirinto = lab;
+	}
+	
+	public void setSimbolo(char p){
+		s = p;
 	}
 }

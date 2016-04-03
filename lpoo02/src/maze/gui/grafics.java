@@ -366,7 +366,7 @@ public class Grafics {
 				ButtonDragao.setBackground(Color.LIGHT_GRAY);
 				ButtonEspada.setBackground(Color.LIGHT_GRAY);
 				ButtonSaida.setBackground(Color.LIGHT_GRAY);
-				
+				panel_create.setSimbolo('.');
 			}
 		});
 		ButtonCaminho.setBounds(540, 10, 100, 49);
@@ -381,10 +381,11 @@ public class Grafics {
 				ButtonDragao.setBackground(Color.LIGHT_GRAY);
 				ButtonEspada.setBackground(Color.LIGHT_GRAY);
 				ButtonSaida.setBackground(Color.BLUE);
+				panel_create.setSimbolo('S');
 			}
 		});
 		ButtonSaida.setBounds(650, 10, 100, 49);
-		newLab.getContentPane().add(ButtonSaida);
+		newLab.getContentPane().add(ButtonSaida); 
 
 		ButtonHeroi = new JButton("Heroi");
 		ButtonHeroi.addActionListener(new ActionListener(){
@@ -395,6 +396,7 @@ public class Grafics {
 				ButtonDragao.setBackground(Color.LIGHT_GRAY);
 				ButtonEspada.setBackground(Color.LIGHT_GRAY);
 				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+				panel_create.setSimbolo('H');
 			}
 		});
 		ButtonHeroi.setBounds(540, 65, 100, 49);
@@ -409,6 +411,7 @@ public class Grafics {
 				ButtonDragao.setBackground(Color.BLUE);
 				ButtonEspada.setBackground(Color.LIGHT_GRAY);
 				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+				panel_create.setSimbolo('D');
 			}
 		});
 		ButtonDragao.setBounds(650, 65, 100, 49);
@@ -423,6 +426,7 @@ public class Grafics {
 				ButtonDragao.setBackground(Color.LIGHT_GRAY);
 				ButtonEspada.setBackground(Color.BLUE);
 				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+				panel_create.setSimbolo('E');
 			}
 		});
 		ButtonEspada.setBounds(540, 119, 100, 49);
@@ -437,6 +441,7 @@ public class Grafics {
 				ButtonDragao.setBackground(Color.LIGHT_GRAY);
 				ButtonEspada.setBackground(Color.LIGHT_GRAY);
 				ButtonSaida.setBackground(Color.LIGHT_GRAY);
+				panel_create.setSimbolo('X');
 			}
 		});
 		ButtonParede.setBounds(650, 119, 100, 49);
