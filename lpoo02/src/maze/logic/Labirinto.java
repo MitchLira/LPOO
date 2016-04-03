@@ -14,6 +14,8 @@ import maze.cli.Interface;
 import maze.gui.Grafics;
 
 
+
+
 enum ModoJogo {
 	Basico, Aleatorio, Adormecido
 }
@@ -71,7 +73,31 @@ public class Labirinto {
 		esp.setEspadaPosicao(6, 1);
 		return lab;
 	}
-
+	private void visit(char[][] m, int i, int j, boolean [][] visited) {
+		if (i < 0 || i >= m.length || j < 0 || j >= m.length)
+			return;
+		if (m[i][j] == 'X' || visited[i][j])
+			return;
+		visited[i][j] = true;
+		visit(m, i-1, j, visited);
+		visit(m, i+1, j, visited);
+		visit(m, i, j-1, visited);
+		visit(m, i, j+1, visited);
+	}
+	
+	private boolean checkExitReachable(char [][] maze) {
+		Point p = findPos(maze, 'S');
+		boolean [][] visited = new boolean[maze.length] [maze.length];
+		
+		visit(maze, p.y, p.x, visited);
+		
+		for (int i = 0; i < maze.length; i++)
+			for (int j = 0; j < maze.length; j++)
+				if (maze[i][j] != 'X' && ! visited[i][j] )
+					return false;
+		
+		return true; 
+	}
 	public ArrayList<Point> GerarLabirinto(int n) {
 		ArrayList<Point> PosLivres = new ArrayList<Point>();
 		labirinto = new char[n][n];
@@ -153,6 +179,9 @@ public class Labirinto {
 
 		} while (!PosVisitadas.isEmpty());
 
+		if(checkExitReachable(labirinto) != true)
+			GerarLabirinto(n);
+		
 		return PosLivres;
 	}
 
@@ -306,11 +335,20 @@ public class Labirinto {
 		return true;
 	}
 
-	public void ColocarCarateres(ArrayList<Point> posLivres, int nrDragoes) {
+	public Point findPos(char [][] maze, char c) {
+		for (int x = 0; x < maze.length; x++)			
+			for (int y = 0; y < maze.length; y++)
+				if (maze[y][x] == c)
+					return new Point(y, x);
+		return null;		
+	}
+	
+
+	public char[][] ColocarCarateres(ArrayList<Point> posLivres, int nrDragoes) {
 		Random rand = new Random();
 		int nrPosLivres = posLivres.size();
 		dragoes = new ArrayList<Dragao>();
-
+		
 		int HeroiPos = rand.nextInt(nrPosLivres);
 		Point HeroiP = new Point(posLivres.get(HeroiPos).y, posLivres.get(HeroiPos).x);
 		heroi = new Heroi(HeroiP.y, HeroiP.x);
@@ -318,26 +356,49 @@ public class Labirinto {
 		nrPosLivres--;
 		posLivres.remove(HeroiPos);
 
+
 		int EspadaPos = rand.nextInt(nrPosLivres);
 		Point EspadaP = new Point(posLivres.get(EspadaPos).y, posLivres.get(EspadaPos).x);
-		esp = new Espada(EspadaP.x, EspadaP.y);
+		esp = new Espada(EspadaP.y, EspadaP.x);
 		labirinto[EspadaP.y][EspadaP.x] = E;
 		nrPosLivres--;
 		posLivres.remove(EspadaPos);
 
+		
 		for (int i = 0; i < nrDragoes; i++) {
 			Dragao dragao;
 			do {
-				int DragaoPos = rand.nextInt(nrPosLivres);
+				
+				if (nrPosLivres <= 0)
+					return labirinto;
+				
+				int DragaoPos = rand.nextInt(posLivres.size());
 				Point DragaoP = new Point(posLivres.get(DragaoPos).y,
 						posLivres.get(DragaoPos).x);
 				dragao = new Dragao(DragaoP.y, DragaoP.x);
 				nrPosLivres--;
 				posLivres.remove(dragao);
 			} while (lutaPossivel(dragao));
+			
+			
 			labirinto[dragao.getLinha()][dragao.getColuna()] = D;
 			dragoes.add(dragao);
 		}
+	
+		if(checkExitReachable(labirinto) == false)
+		{
+			GerarLabirinto(labirinto.length);
+		}
+		if(findPos(labirinto, 'H') == null || findPos(labirinto, 'E') == null || findPos(labirinto,'S') == null)
+		{
+			ColocarCarateres(posLivres, nrDragoes);
+		}
+		for(Dragao d: dragoes)
+		{
+			if(d.getDragaoPosicao().adjacentTo(heroi.getHeroiPosicao()))
+				ColocarCarateres(posLivres, nrDragoes);
+		}
+		return labirinto;
 	}
 
 	public char[][] criarLabirinto(char[][] lab) {

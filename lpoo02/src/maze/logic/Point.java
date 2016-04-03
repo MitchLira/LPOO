@@ -23,7 +23,9 @@ public class Point {
 
 		return ((x % 2 != 0) && (y % 2 != 0));
 	}
+	
 
+	
 	@Override
 	public boolean equals(Object obj) {
 

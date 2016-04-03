@@ -56,12 +56,16 @@ public class TestModoBasico {
 		dragoes.add(dragao);
 		maze.criarLabirinto(m1, hero, dragoes, esp);
 		maze.moverHeroi(hero, 's');
+		assertEquals('H',hero.getSimbolo());
 		assertEquals(new Point(2, 3), hero.getHeroiPosicao());
 		maze.moverHeroi(hero, 'n');
+		assertEquals('H',hero.getSimbolo());
 		assertEquals(new Point(1, 3), hero.getHeroiPosicao());
 		maze.moverHeroi(hero,  'o');
+		assertEquals('H',hero.getSimbolo());
 		assertEquals(new Point(1, 2), hero.getHeroiPosicao());
 		maze.moverHeroi(hero, 'e');
+		assertEquals('H',hero.getSimbolo());
 		assertEquals(new Point(1, 3), hero.getHeroiPosicao());
 
 	}
@@ -73,12 +77,17 @@ public class TestModoBasico {
 		maze.criarLabirinto(m1, hero, dragoes, esp);
 		maze.moverHeroi(hero,  'n');
 		assertEquals(new Point(1, 3), hero.getHeroiPosicao());
+		
 		maze.moverHeroi(hero, 'e');
 		assertEquals(new Point(1, 3), hero.getHeroiPosicao());
+		assertEquals('H',hero.getSimbolo());
 		maze.moverHeroi(hero,  's');
+		assertEquals('H',hero.getSimbolo());
 		maze.moverHeroi(hero, 'o');
+		assertEquals('H',hero.getSimbolo());
 		assertEquals(new Point(2, 3), hero.getHeroiPosicao());
 		maze.moverHeroi(hero, 'e');
+		assertEquals('H',hero.getSimbolo());
 		assertEquals(new Point(2, 3), hero.getHeroiPosicao());
 	}
 
@@ -90,6 +99,7 @@ public class TestModoBasico {
 		hero.setLinha(2);
 		hero.setColuna(1);
 		maze.moverHeroi(hero, 's');
+		assertEquals('A',hero.getSimbolo());
 		assertEquals(new Point(3, 1), hero.getHeroiPosicao());
 		assertEquals(true, hero.getArma());
 
@@ -169,6 +179,7 @@ public class TestModoBasico {
 		assertEquals(new Point(2,1), heroi.getHeroiPosicao());
 		heroi.moveHeroiNorte();
 		assertEquals(new Point(1,1), heroi.getHeroiPosicao());
+		assertEquals('H', heroi.getSimbolo());
 		assertEquals(new Point(1,8),drag.getDragaoPosicao());
 		assertEquals('S', maze.getSimboloPosicao(5, 9));
 

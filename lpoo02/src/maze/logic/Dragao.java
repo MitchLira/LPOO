@@ -88,8 +88,8 @@ public class Dragao {
 	
 	public void mantemPosicaoDragao()
 	{
-		this.setLinha(y);
 		this.setColuna(x);
+		this.setLinha(y);
 	}
 	
 	public void moveDragaoNorte()

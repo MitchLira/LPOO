@@ -24,7 +24,7 @@ public class TestModosComplexos {
 	
 	@Test
 	public void testTamanhoLabirinto() {
-		maze.GerarLabirinto(15);
+		maze.GerarLabirinto(11);
 		
 	}
 
