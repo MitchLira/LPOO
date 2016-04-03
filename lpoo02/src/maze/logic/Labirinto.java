@@ -370,7 +370,7 @@ public class Labirinto {
 		// - S; 2 -
 		// E; 3 - O
 		Random r = new Random();
-
+ 
 		if (dragao.getVida() == true) {
 			int direcao = r.nextInt(5);		 	// para ter maior probabilidade de virar
 			// em certas direcoes

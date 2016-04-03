@@ -16,6 +16,7 @@ import javax.swing.*;
 public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener{
 
 	private Labirinto lab;
+	private char labirinto[][];
 
 	public LabirintoPanel(){
 		super();
@@ -51,10 +52,10 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
 
 					else if(lab.getSimboloPosicao(i, j) == lab.H)
-						g.drawImage(heroi, Xini, Yini, Xfim, Yfim, 0, 0, heroi.getWidth(), heroi.getHeight(), null);
+						g.drawImage(heroiFrente, Xini, Yini, Xfim, Yfim, 0, 0, heroiFrente.getWidth(), heroiFrente.getHeight(), null);
 
 					else if(lab.getSimboloPosicao(i, j) == lab.A)
-						g.drawImage(heroi, Xini, Yini, Xfim, Yfim, 0, 0, heroi.getWidth(), heroi.getHeight(), null);
+						g.drawImage(heroiArmado, Xini, Yini, Xfim, Yfim, 0, 0, heroiArmado.getWidth(), heroiArmado.getHeight(), null);
 
 					else if(lab.getSimboloPosicao(i, j) == lab.E)
 						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, espada.getWidth(), espada.getHeight(), null);
@@ -74,6 +75,12 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 
 	public void setLabirinto(Labirinto lab){
 		this.lab = lab;
+	}
+	
+	public void setLabirinto(char[][] lab){
+		this.labirinto = lab;
+		this.lab.criarLabirintoP(labirinto);
+		
 	}
 
 	@Override
