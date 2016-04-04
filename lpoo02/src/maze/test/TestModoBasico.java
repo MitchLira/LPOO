@@ -76,7 +76,7 @@ public class TestModoBasico {
 	
 	/** The dragao. */
 	Dragao dragao = new Dragao(3, 3);
-	Dragao dragaom6 = new Dragao(3,1);
+	
 	/** The dragoes. */
 	ArrayList<Dragao> dragoes = new ArrayList<Dragao>();
 	
@@ -425,8 +425,10 @@ public class TestModoBasico {
 	@Test
 	public void TestMoverDragaoSaidaNorte()
 	{
-		dragoes.add(dragaom6);
-		maze.criarLabirinto(m6, hero, dragoes, espm6);
+		esp = new Espada(2,1);
+		dragoes.add(dragao);
+		maze.criarLabirinto(m6, hero, dragoes,esp );
+		dragao.setPosicaoDragao(3, 1);
 		maze.moverDragao(dragao, hero, 2, 0, 0);
 		assertEquals(dragao.getDragaoPosicao(), esp.getEspPos());
 		maze.moverDragao(dragao, hero, 2, 0, 0);
