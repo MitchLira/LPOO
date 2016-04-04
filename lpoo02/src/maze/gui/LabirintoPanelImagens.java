@@ -33,12 +33,14 @@ public class LabirintoPanelImagens extends JPanel{
 	protected static BufferedImage dragaoEste;
 	protected static BufferedImage dragaoOeste;
 	protected static BufferedImage dragaoAdorm;
+	
+	protected static BufferedImage saidaNorte;
+	protected static BufferedImage saidaSul;
+	protected static BufferedImage saidaEste;
+	protected static BufferedImage saidaOeste;
 
 	/** The ponto. */
 	protected static BufferedImage ponto;
-
-	/** The saida. */
-	protected static BufferedImage saida;
 
 	/** The espada. */
 	protected static BufferedImage espada;
@@ -58,6 +60,7 @@ public class LabirintoPanelImagens extends JPanel{
 			heroiArmOeste= ImageIO.read(new File("imagens\\heroiArmOeste.png"));
 			heroiEste = ImageIO.read(new File("imagens\\heroiEste.png"));
 			heroiArmEste = ImageIO.read(new File("imagens\\heroiArmEste.png"));
+			
 			espada =  ImageIO.read(new File("imagens\\espada.png"));
 			
 			dragaoNorte = ImageIO.read(new File("imagens\\dragaoNorte.png"));
@@ -66,9 +69,15 @@ public class LabirintoPanelImagens extends JPanel{
 			dragaoOeste = ImageIO.read(new File("imagens\\dragaoOeste.png"));
 			dragaoAdorm = ImageIO.read(new File("imagens\\dragonSleep.png"));
 			
+			saidaNorte = ImageIO.read(new File("imagens\\saidaAbertaNorte.png"));
+			saidaSul = ImageIO.read(new File("imagens\\saidaAbertaSul.png"));
+			saidaEste = ImageIO.read(new File("imagens\\saidaAbertaEste.png"));
+			saidaOeste = ImageIO.read(new File("imagens\\saidaAbertaOeste.png"));
+			
 			parede =  ImageIO.read(new File("imagens\\parede.jpg")); 
+			
 			ponto =  ImageIO.read(new File("imagens\\ponto.jpg")); 
-			saida =  ImageIO.read(new File("imagens\\saida.png")); 
+			
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

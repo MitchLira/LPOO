@@ -77,9 +77,11 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 
 	/** The X bloco. */
 	private int XBloco;
-	
+
 	private char coordH;
 	private char coordD;
+	private char coordS;
+	private int construir;
 
 	/**
 	 * Instantiates a new labirinto builder.
@@ -90,9 +92,13 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 		h = new Heroi();
 		d = new ArrayList<Dragao>();
 		e = new Espada();
+		heroiAnt = null;
+		espadaAnt = null;
+		construir = -1;
+
 		coordH = 's';
 		coordD = 's';
-		
+
 		dimBotaoX = 100;
 		dimBotaoY = 49;
 
@@ -117,12 +123,15 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g); 
-		//lab.criarLabirinto(labirinto, h, d, e);
 
 		g.setColor(Color.white);
 
-
-		if(lab != null){
+		if(heroiExiste==false || espadaExiste==false || saidaExiste==false || d.size()==0)
+			construir = -1;
+		else
+			construir = 0;
+		
+		if(lab != null){			
 			int dimensao = lab.getDimensao();
 			YBloco = this.getHeight()/dimensao;
 			XBloco = this.getWidth()/dimensao;
@@ -140,13 +149,29 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 
 					else if(lab.getSimboloPosicao(i, j) == lab.P)
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-
-					else if(lab.getSimboloPosicao(i, j) == lab.S)
-						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
+					
+					else if(lab.getSimboloPosicao(i, j) == lab.S){						
+						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
+						
+						switch(coordS){
+						case 'n':
+							g.drawImage(saidaNorte, Xini, Yini, Xfim, Yfim, 0, 0, saidaNorte.getWidth(), saidaNorte.getHeight(), null);
+							break;
+						case 's':
+							g.drawImage(saidaSul, Xini, Yini, Xfim, Yfim, 0, 0, saidaSul.getWidth(), saidaSul.getHeight(), null);
+							break;
+						case 'e':
+							g.drawImage(saidaEste, Xini, Yini, Xfim, Yfim, 0, 0, saidaEste.getWidth(), saidaEste.getHeight(), null);
+							break;
+						case 'o':
+							g.drawImage(saidaOeste, Xini, Yini, Xfim, Yfim, 0, 0, saidaOeste.getWidth(), saidaOeste.getHeight(), null);
+							break;
+						}						
+					}
 
 					else if(lab.getSimboloPosicao(i, j) == lab.H){
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-						
+
 						switch(coordH){
 						case 'n':
 							g.drawImage(heroiNorte, Xini, Yini, Xfim, Yfim, 0, 0, heroiNorte.getWidth(), heroiNorte.getHeight(), null);
@@ -165,7 +190,7 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 
 					else if(lab.getSimboloPosicao(i, j) == lab.A){
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-						
+
 						switch(coordH){
 						case 'n':
 							g.drawImage(heroiArmNorte, Xini, Yini, Xfim, Yfim, 0, 0, heroiArmNorte.getWidth(), heroiArmNorte.getHeight(), null);
@@ -188,8 +213,8 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 					}
 
 					else if(lab.getSimboloPosicao(i, j) == lab.D){
-g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-						
+						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
+
 						switch(coordD){
 						case 'n':
 							g.drawImage(dragaoNorte, Xini, Yini, Xfim, Yfim, 0, 0, dragaoNorte.getWidth(), dragaoNorte.getHeight(), null);
@@ -205,11 +230,11 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 							break;
 						}
 					}
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.F){
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
-						
+						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, espada.getWidth(), espada.getHeight(), null);
+
 						switch(coordD){
 						case 'n':
 							g.drawImage(dragaoNorte, Xini, Yini, Xfim, Yfim, 0, 0, dragaoNorte.getWidth(), dragaoNorte.getHeight(), null);
@@ -311,7 +336,7 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 						heroiAnt = null;
 						h = null;
 					}
-					else if(labirinto[y][x] == 'E'){
+					else if(labirinto[y][x] == 'E' && !heroiExiste){
 						labirinto[y][x] = 'H';
 						espadaExiste = false;
 						espadaAnt = null;
@@ -388,7 +413,7 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 						espadaAnt = null;
 						e = null;
 					}
-					else if(labirinto[y][x] == 'H' && !saidaExiste){
+					else if(labirinto[y][x] == 'H' && !espadaExiste){
 						labirinto[y][x] = 'E';
 						espadaExiste = true;
 						espadaAnt = new Point(y,x);
@@ -417,30 +442,32 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 				}
 				break;
 			case 'X':
-				if(labirinto[y][x] == 'E'){
-					labirinto[y][x] = 'X';
-					espadaExiste = false;
-					espadaAnt = null;
-					e = null;
-				}
-				else if(labirinto[y][x] == 'H'){
-					labirinto[y][x] = 'X';
-					heroiExiste = false;
-					heroiAnt = null;
-					h = null;
-				}
-				else if(labirinto[y][x] == 'D'){
-					labirinto[y][x] = 'X';
-					int i = procurarDragao(y,x);
+				if(x > 0 && x < labirinto.length-1 && y >0 && y < labirinto.length-1){
+					if(labirinto[y][x] == 'E'){
+						labirinto[y][x] = 'X';
+						espadaExiste = false;
+						espadaAnt = null;
+						e = null;
+					}
+					else if(labirinto[y][x] == 'H'){
+						labirinto[y][x] = 'X';
+						heroiExiste = false;
+						heroiAnt = null;
+						h = null;
+					}
+					else if(labirinto[y][x] == 'D'){
+						labirinto[y][x] = 'X';
+						int i = procurarDragao(y,x);
 
-					if(i > -1)
-						d.remove(i);
+						if(i > -1)
+							d.remove(i);
+					}
+					else if(labirinto[y][x] == 'X'){
+						labirinto[y][x] = '.';
+					}
+					else 
+						labirinto[y][x] = 'X';
 				}
-				else if(labirinto[y][x] == 'X'){
-					labirinto[y][x] = '.';
-				}
-				else 
-					labirinto[y][x] = 'X';
 				break;
 			case 'S':
 				if(x == 0 && y != 0 && y != labirinto.length-1){
@@ -450,6 +477,7 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 					}else if(!saidaExiste){
 						labirinto[y][x] = 'S';
 						saidaExiste = true;
+						setCoordS(y, x);
 					}
 				}
 				else if(x == labirinto.length-1 && y != 0 && y != labirinto.length-1){
@@ -459,6 +487,7 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 					}else if(!saidaExiste){
 						labirinto[y][x] = 'S';
 						saidaExiste = true;
+						setCoordS(y, x);
 					}
 				}
 				else if(y == 0 && x != 0 && x != labirinto.length-1){
@@ -468,6 +497,7 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 					}else if(!saidaExiste){
 						labirinto[y][x] = 'S';
 						saidaExiste = true;
+						setCoordS(y, x);
 					}
 				}
 				else if(y == labirinto.length-1 && x != 0 && x != labirinto.length-1){
@@ -477,6 +507,7 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 					}else if(!saidaExiste){
 						labirinto[y][x] = 'S';
 						saidaExiste = true;
+						setCoordS(y, x);
 					}
 				}
 				break;
@@ -545,27 +576,27 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 
 		return -1;
 	}
-	
+
 	public char[][] getLabirinto(){
 		return labirinto;
 	}
-	
+
 	public Espada getEspada(){
 		return e;
 	}
-	
+
 	public Heroi getHeroi(){
 		return h;
 	}
-	
+
 	public ArrayList<Dragao> getDragoes(){
 		return d;
 	}
-	
+
 	public void setCoordH(char c){
 		coordH = c;
 	}
-	
+
 	public void setCoordD(int c){
 		if(c == 0)
 			coordD = 'n';
@@ -575,5 +606,43 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 			coordD = 'e';
 		else if(c == 3)
 			coordD = 'o';
+	}
+
+	public void setBoolean(){
+		heroiExiste = false;
+		espadaExiste = false;
+		saidaExiste = false;
+		d = new ArrayList<Dragao>();
+
+		coordH = 's';
+		coordD = 's';
+	}
+
+	public int getConstruir(){
+		return construir;
+	}
+	
+	public void setCoordS(int y, int x){
+		int dimens = lab.getDimensao();
+		if(x == 0){
+			if(y > 0 && y < dimens){
+				coordS = 'o';
+			}
+		}
+		else if(x == dimens-1){
+			if(y > 0 && y < dimens){
+				coordS = 'e';
+			}
+		}
+		else if(y == 0){
+			if(x > 0 && x < dimens){
+				coordS = 'n';
+			}
+		}
+		else if(y == dimens-1){
+			if(x > 0 && x < dimens){
+				coordS = 's';
+			}
+		}
 	}
 }

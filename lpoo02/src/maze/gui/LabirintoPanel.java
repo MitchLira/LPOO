@@ -24,11 +24,13 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 
 	/** The lab. */
 	private Labirinto lab;
-	
+
 	/** The labirinto. */
 	private char labirinto[][];
 	private char coordH;
 	private char coordD;
+	private char coordS;
+	private char ori[];
 
 	/**
 	 * Instantiates a new labirinto panel.
@@ -38,8 +40,8 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 		coordH = 's';
 		coordD = 's';
 	}
-	
-	
+
+
 
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
@@ -47,12 +49,10 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		
-		g.setColor(Color.white);
-		
 
-		if(lab != null){
+		g.setColor(Color.white);
+
+		if(lab != null){			
 			int dimensao = lab.getDimensao();
 			int Y = this.getHeight()/dimensao;
 			int X = this.getWidth()/dimensao;
@@ -65,18 +65,37 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 					int Xini = j*X ;
 					int Xfim = X + Xini;
 
-					if(lab.getSimboloPosicao(i, j) == lab.X)
+					if(lab.getSimboloPosicao(i, j) == lab.X){
+						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
 						g.drawImage(parede, Xini, Yini, Xfim, Yfim, 0, 0, parede.getWidth(), parede.getHeight(), null);
+					}
 
 					else if(lab.getSimboloPosicao(i, j) == lab.P)
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
 
-					else if(lab.getSimboloPosicao(i, j) == lab.S)
-						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
+					else if(lab.getSimboloPosicao(i, j) == lab.S){
+						setCoordS(i, j);
+						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
+						
+						switch(coordS){
+						case 'n':
+							g.drawImage(saidaNorte, Xini, Yini, Xfim, Yfim, 0, 0, saidaNorte.getWidth(), saidaNorte.getHeight(), null);
+							break;
+						case 's':
+							g.drawImage(saidaSul, Xini, Yini, Xfim, Yfim, 0, 0, saidaSul.getWidth(), saidaSul.getHeight(), null);
+							break;
+						case 'e':
+							g.drawImage(saidaEste, Xini, Yini, Xfim, Yfim, 0, 0, saidaEste.getWidth(), saidaEste.getHeight(), null);
+							break;
+						case 'o':
+							g.drawImage(saidaOeste, Xini, Yini, Xfim, Yfim, 0, 0, saidaOeste.getWidth(), saidaOeste.getHeight(), null);
+							break;
+						}						
+					}
 
 					else if(lab.getSimboloPosicao(i, j) == lab.H){
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-						
+
 						switch(coordH){
 						case 'n':
 							g.drawImage(heroiNorte, Xini, Yini, Xfim, Yfim, 0, 0, heroiNorte.getWidth(), heroiNorte.getHeight(), null);
@@ -95,7 +114,7 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 
 					else if(lab.getSimboloPosicao(i, j) == lab.A){
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-						
+
 						switch(coordH){
 						case 'n':
 							g.drawImage(heroiArmNorte, Xini, Yini, Xfim, Yfim, 0, 0, heroiArmNorte.getWidth(), heroiArmNorte.getHeight(), null);
@@ -116,10 +135,10 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
 						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, espada.getWidth(), espada.getHeight(), null);
 					}
-					
+
 					else if(lab.getSimboloPosicao(i, j) == lab.D){
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-						
+
 						switch(coordD){
 						case 'n':
 							g.drawImage(dragaoNorte, Xini, Yini, Xfim, Yfim, 0, 0, dragaoNorte.getWidth(), dragaoNorte.getHeight(), null);
@@ -138,8 +157,8 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 
 					else if(lab.getSimboloPosicao(i, j) == lab.F){
 						g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeight(), null);
-						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
-						
+						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, espada.getWidth(), espada.getHeight(), null);
+
 						switch(coordD){
 						case 'n':
 							g.drawImage(dragaoNorte, Xini, Yini, Xfim, Yfim, 0, 0, dragaoNorte.getWidth(), dragaoNorte.getHeight(), null);
@@ -173,11 +192,11 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	public void setLabirinto(Labirinto lab){
 		this.lab = lab;
 	}
-	
+
 	public void setCoordH(char c){
 		coordH = c;
 	}
-	
+
 	public void setCoordD(int c){
 		if(c == 0)
 			coordD = 'n';
@@ -188,7 +207,31 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 		else if(c == 3)
 			coordD = 'o';
 	}
-	
+
+	public void setCoordS(int y, int x){
+		int dimens = lab.getDimensao();
+		if(x == 0){
+			if(y > 0 && y < dimens){
+				coordS = 'o';
+			}
+		}
+		else if(x == dimens-1){
+			if(y > 0 && y < dimens){
+				coordS = 'e';
+			}
+		}
+		else if(y == 0){
+			if(x > 0 && x < dimens){
+				coordS = 'n';
+			}
+		}
+		else if(y == dimens-1){
+			if(x > 0 && x < dimens){
+				coordS = 's';
+			}
+		}
+	}
+
 	/**
 	 * Sets the labirinto.
 	 *
@@ -197,7 +240,7 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	public void setLabirinto(char[][] lab){
 		this.labirinto = lab;
 		this.lab.criarLabirintoP(labirinto);
-		
+
 	}
 
 	/* (non-Javadoc)
@@ -206,7 +249,7 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/* (non-Javadoc)
@@ -215,7 +258,7 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/* (non-Javadoc)
@@ -224,6 +267,6 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
