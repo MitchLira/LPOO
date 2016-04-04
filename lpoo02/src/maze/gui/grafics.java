@@ -35,6 +35,10 @@ import maze.logic.Labirinto;
 import maze.logic.Point;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Grafics.
+ */
 public class Grafics {
 
 	/** The menu. */
@@ -56,7 +60,7 @@ public class Grafics {
 	/** The Sair. */
 	private JButton Sair;
 
-	/** The Panel Buttons */
+	/**  The Panel Buttons. */
 	private JPanel panelButtons;
 	
 	/** The Button norte. */
@@ -99,6 +103,7 @@ public class Grafics {
 	/** The Button jogar Novo Jogo. */
 	private JButton ButtonNovoJogo;
 	
+	/** The Button criar labirinto. */
 	private JButton ButtonCriarLabirinto;
 
 	/** The Button jogar3. */
@@ -133,8 +138,11 @@ public class Grafics {
 
 	/** The modo jogo. */
 	private int modoJogo;
+	
 	/**
 	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -157,6 +165,11 @@ public class Grafics {
 	}
 	
 	
+	/**
+	 * Sets the visible.
+	 *
+	 * @param b the new visible
+	 */
 	public void setVisible(boolean b) {
 		menu.setVisible(b);
 		
