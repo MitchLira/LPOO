@@ -1,7 +1,7 @@
 /**  
-* Labirinto.java - classe labirinto
-* @author  Miguel Lira e Miriam Goncalves 
-*/
+ * Labirinto.java - classe labirinto
+ * @author  Miguel Lira e Miriam Goncalves 
+ */
 package maze.logic;
 
 import java.util.ArrayList;
@@ -29,47 +29,47 @@ enum ModoJogo {
  * The Class Labirinto.
  */
 public class Labirinto {
-	
+
 	/** The labirinto. */
 	private char[][] labirinto;
-	
+
 	/** The heroi. */
 	private Heroi heroi;
-	
+
 	/** The esp. */
 	private Espada esp;
-	
+
 	/** The dragoes. */
 	private ArrayList<Dragao> dragoes;
-	
+
 	/** The modo jogo. */
 	private ModoJogo modoJogo;
 
 	/** The Constant P. */
 	//caracteres
 	public static final char P = '.';
-	
+
 	/** The Constant E. */
 	public static final char E = 'E';
-	
+
 	/** The Constant S. */
 	public static final char S = 'S';
-	
+
 	/** The Constant F. */
 	public static final char F = 'F';
-	
+
 	/** The Constant X. */
 	public static final char X = 'X';
-	
+
 	/** The Constant H. */
 	public static final char H = 'H';
-	
+
 	/** The Constant D. */
 	public static final char D = 'D';
-	
+
 	/** The Constant d. */
 	public static final char d = 'd';
-	
+
 	/** The Constant A. */
 	public static final char A = 'A';
 
@@ -96,7 +96,7 @@ public class Labirinto {
 	public void criarLabirintoP(char[][] lab){
 		this.labirinto = lab;
 	}
-	
+
 	/**
 	 * Criador de labirinto que recebe labirinto e desenha este.
 	 *
@@ -124,7 +124,7 @@ public class Labirinto {
 		}
 		return labirinto;
 	}
-	
+
 	/**
 	 * Criador do Labirinto por default.
 	 *
@@ -158,7 +158,7 @@ public class Labirinto {
 		esp.setEspadaPosicao(3, 8);
 		return lab;
 	}
-	
+
 	/**
 	 * Funcao auxiliar de checkExitReachable que verifica as celulas visitadas e as suas vizinhas recursivamente.
 	 *
@@ -178,7 +178,7 @@ public class Labirinto {
 		visit(lab, i, j-1, visited);
 		visit(lab, i, j+1, visited);
 	}
-	
+
 	/**
 	 * Verifica se o labirinto recebido tem um caminho ate a saida.
 	 *
@@ -188,17 +188,17 @@ public class Labirinto {
 	public boolean checkExitReachable(char [][] lab) {
 		Point p = findPos(lab, 'S');
 		boolean [][] visited = new boolean[lab.length] [lab.length];
-		
+
 		visit(lab, p.y, p.x, visited);
-		
+
 		for (int i = 0; i < lab.length; i++)
 			for (int j = 0; j < lab.length; j++)
 				if (lab[i][j] != 'X' && ! visited[i][j])
 					return false;
-		
+
 		return true; 
 	}
-	
+
 	/**
 	 * Gerar labirinto aleatorio.
 	 *
@@ -288,7 +288,7 @@ public class Labirinto {
 
 		if(checkExitReachable(labirinto) != true)
 			GerarLabirinto(n);
-		
+
 		return PosLivres;
 	}
 
@@ -471,7 +471,7 @@ public class Labirinto {
 					return new Point(y, x);
 		return null;		
 	}
-	
+
 	/**
 	 * Colocar carateres aleatoriamente no labirinto criado aleatoriamente.
 	 *
@@ -483,7 +483,7 @@ public class Labirinto {
 		Random rand = new Random();
 		int nrPosLivres = posLivres.size();
 		dragoes = new ArrayList<Dragao>();
-		
+
 		int HeroiPos = rand.nextInt(nrPosLivres);
 		Point HeroiP = new Point(posLivres.get(HeroiPos).y, posLivres.get(HeroiPos).x);
 		heroi = new Heroi(HeroiP.y, HeroiP.x);
@@ -499,14 +499,14 @@ public class Labirinto {
 		nrPosLivres--;
 		posLivres.remove(EspadaPos);
 
-		
+
 		for (int i = 0; i < nrDragoes; i++) {
 			Dragao dragao;
 			do {
-				
+
 				if (nrPosLivres <= 0)
 					return labirinto;
-				
+
 				int DragaoPos = rand.nextInt(posLivres.size());
 				Point DragaoP = new Point(posLivres.get(DragaoPos).y,
 						posLivres.get(DragaoPos).x);
@@ -514,12 +514,12 @@ public class Labirinto {
 				nrPosLivres--;
 				posLivres.remove(dragao);
 			} while (lutaPossivel(dragao));
-			
-			
+
+
 			labirinto[dragao.getLinha()][dragao.getColuna()] = D;
 			dragoes.add(dragao);
 		}
-	
+
 		if(checkExitReachable(labirinto) == false)
 		{
 			GerarLabirinto(labirinto.length);
@@ -547,21 +547,20 @@ public class Labirinto {
 	 */
 	public void moverDragao(Dragao dragao, Heroi heroi, int mode, int dirc, int adorm) { // 0 - N; 1
 		// - S; 2 -
-		// E; 3 - O
-		
- 
+		// E; 3 - O		
+
 		if (dragao.getVida() == true) {
 			int direcao = dirc;						 	// para ter maior probabilidade de virar
-														// em certas direcoes
+			// em certas direcoes
 			int adormecer = adorm;						// decidir se adormece ou nao || 0, 2,
-														// 3 -> Nao || 1 -> Sim
+			// 3 -> Nao || 1 -> Sim
 
 			Point EspPos = esp.getEspPos();
 			Point DragPos = dragao.getDragaoPosicao();
-			
+
 			if(mode == 3 && adormecer == 1)
 			{
-				if(dragao.getSimbolo() != F)
+				if(labirinto[dragao.getLinha()][dragao.getColuna()] != F)
 				{
 					dragao.DragaoDorme();
 					labirinto[dragao.getLinha()][dragao.getColuna()] = d;
@@ -573,157 +572,159 @@ public class Labirinto {
 					labirinto[dragao.getLinha()][dragao.getColuna()] = F;
 				}
 			}
+			else{
+				dragao.DragaoAcorda();
+				switch(direcao)
+				{  
+				case 0:// NORTE
 
-			switch(direcao)
-			{  
-			case 0:// NORTE
-
-				if(labirinto[dragao.getLinha()-1][dragao.getColuna()] == X)
-				{
-					dragao.mantemPosicaoDragao();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-				else if(labirinto[dragao.getLinha()-1][dragao.getColuna()]== S)
-				{
-					dragao.mantemPosicaoDragao();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-				else if(labirinto[dragao.getLinha()-1][dragao.getColuna()] == P)
-				{
-					if(dragao.getSimbolo() == F)
+					if(labirinto[dragao.getLinha()-1][dragao.getColuna()] == X)
 					{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = E;
-						labirinto[dragao.getLinha()-1][dragao.getColuna()] = D;
+						dragao.mantemPosicaoDragao();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+					else if(labirinto[dragao.getLinha()-1][dragao.getColuna()]== S)
+					{
+						dragao.mantemPosicaoDragao();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+					else if(labirinto[dragao.getLinha()-1][dragao.getColuna()] == P)
+					{
+						if(dragao.getSimbolo() == F)
+						{
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = E;
+							labirinto[dragao.getLinha()-1][dragao.getColuna()] = D;
+							dragao.moveDragaoNorte();
+						}
+						else
+						{
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+							labirinto[dragao.getLinha()-1][dragao.getColuna()] = D;
+							dragao.moveDragaoNorte();
+						}
+					}
+					else if(labirinto[dragao.getLinha()-1][dragao.getColuna()] == E)
+					{
+						dragao.DragEsp();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						labirinto[dragao.getLinha()-1][dragao.getColuna()] = dragao.getSimbolo();
 						dragao.moveDragaoNorte();
 					}
-					else
-					{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-						labirinto[dragao.getLinha()-1][dragao.getColuna()] = D;
-						dragao.moveDragaoNorte();
-					}
-				}
-				else if(labirinto[dragao.getLinha()-1][dragao.getColuna()] == E)
-				{
-					dragao.DragEsp();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha()-1][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.moveDragaoNorte();
-				}
-				break;
-			case 1:// SUL
+					break;
+				case 1:// SUL
 
-				if(labirinto[dragao.getLinha()+1][dragao.getColuna()] == X)
-				{
-					dragao.mantemPosicaoDragao();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-				else if(labirinto[dragao.getLinha()+1][dragao.getColuna()]== S)
-				{
-					dragao.mantemPosicaoDragao();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-				else if(labirinto[dragao.getLinha()+1][dragao.getColuna()] == P)
-				{
-					if(dragao.getSimbolo() == F)
+					if(labirinto[dragao.getLinha()+1][dragao.getColuna()] == X)
 					{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = E;
-						labirinto[dragao.getLinha()+1][dragao.getColuna()] = D;
+						dragao.mantemPosicaoDragao();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+					else if(labirinto[dragao.getLinha()+1][dragao.getColuna()]== S)
+					{
+						dragao.mantemPosicaoDragao();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+					else if(labirinto[dragao.getLinha()+1][dragao.getColuna()] == P)
+					{
+						if(dragao.getSimbolo() == F)
+						{
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = E;
+							labirinto[dragao.getLinha()+1][dragao.getColuna()] = D;
+							dragao.moveDragaoSul();
+						}
+						else
+						{
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+							labirinto[dragao.getLinha()+1][dragao.getColuna()] = D;
+							dragao.moveDragaoSul();
+						}
+					}
+					else if(labirinto[dragao.getLinha()+1][dragao.getColuna()] == E)
+					{
+						dragao.DragEsp();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						labirinto[dragao.getLinha()+1][dragao.getColuna()] = dragao.getSimbolo();
 						dragao.moveDragaoSul();
 					}
-					else
-					{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-						labirinto[dragao.getLinha()+1][dragao.getColuna()] = D;
-						dragao.moveDragaoSul();
-					}
-				}
-				else if(labirinto[dragao.getLinha()+1][dragao.getColuna()] == E)
-				{
-					dragao.DragEsp();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha()+1][dragao.getColuna()] = dragao.getSimbolo();
-					dragao.moveDragaoSul();
-				}
-				break;
-			case 2:// ESTE
+					break;
+				case 2:// ESTE
 
-				if(labirinto[dragao.getLinha()][dragao.getColuna()+1] == X)
-				{
-					dragao.mantemPosicaoDragao();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-				else if(labirinto[dragao.getLinha()][dragao.getColuna()+1]== S)
-				{
-					dragao.mantemPosicaoDragao();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-				else if(labirinto[dragao.getLinha()][dragao.getColuna()+1] == P)
-				{
-					if(dragao.getSimbolo() == F)
+					if(labirinto[dragao.getLinha()][dragao.getColuna()+1] == X)
 					{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = E;
-						labirinto[dragao.getLinha()][dragao.getColuna()+1] = D;
+						dragao.mantemPosicaoDragao();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+					else if(labirinto[dragao.getLinha()][dragao.getColuna()+1]== S)
+					{
+						dragao.mantemPosicaoDragao();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+					else if(labirinto[dragao.getLinha()][dragao.getColuna()+1] == P)
+					{
+						if(dragao.getSimbolo() == F)
+						{
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = E;
+							labirinto[dragao.getLinha()][dragao.getColuna()+1] = D;
+							dragao.moveDragaoDireita();
+						}
+						else
+						{
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+							labirinto[dragao.getLinha()][dragao.getColuna()+1] = D;
+							dragao.moveDragaoDireita();
+						}
+					}
+					else if(labirinto[dragao.getLinha()][dragao.getColuna()+1] == E)
+					{
+						dragao.DragEsp();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+						labirinto[dragao.getLinha()][dragao.getColuna()+1] = dragao.getSimbolo();
 						dragao.moveDragaoDireita();
 					}
-					else
-					{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-						labirinto[dragao.getLinha()][dragao.getColuna()+1] = D;
-						dragao.moveDragaoDireita();
-					}
-				}
-				else if(labirinto[dragao.getLinha()][dragao.getColuna()+1] == E)
-				{
-					dragao.DragEsp();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha()][dragao.getColuna()+1] = dragao.getSimbolo();
-					dragao.moveDragaoDireita();
-				}
-				break;
-			case 3:// OESTE
+					break;
+				case 3:// OESTE
 
-				if(labirinto[dragao.getLinha()][dragao.getColuna()-1] == X)
-				{
-					dragao.mantemPosicaoDragao();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-				else if(labirinto[dragao.getLinha()][dragao.getColuna()-1]== S)
-				{
-					dragao.mantemPosicaoDragao();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
-				}
-				else if(labirinto[dragao.getLinha()][dragao.getColuna()-1] == P)
-				{
-					if(dragao.getSimbolo() == F)
+					if(labirinto[dragao.getLinha()][dragao.getColuna()-1] == X)
 					{
-						dragao.setSimbolo();
-						labirinto[dragao.getLinha()][dragao.getColuna()] = E;
-						labirinto[dragao.getLinha()][dragao.getColuna()-1] = D;
-						dragao.moveDragaoEsquerda();
+						dragao.mantemPosicaoDragao();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
 					}
-					else
+					else if(labirinto[dragao.getLinha()][dragao.getColuna()-1]== S)
 					{
-						dragao.setSimbolo();
+						dragao.mantemPosicaoDragao();
+						labirinto[dragao.getLinha()][dragao.getColuna()] = dragao.getSimbolo();
+					}
+					else if(labirinto[dragao.getLinha()][dragao.getColuna()-1] == P)
+					{
+						if(dragao.getSimbolo() == F)
+						{
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = E;
+							labirinto[dragao.getLinha()][dragao.getColuna()-1] = D;
+							dragao.moveDragaoEsquerda();
+						}
+						else
+						{
+							dragao.setSimbolo();
+							labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+							labirinto[dragao.getLinha()][dragao.getColuna()-1] = D;
+							dragao.moveDragaoEsquerda();
+						}
+					}
+					else if(labirinto[dragao.getLinha()][dragao.getColuna()-1] == E)
+					{
+						dragao.DragEsp();
 						labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-						labirinto[dragao.getLinha()][dragao.getColuna()-1] = D;
+						labirinto[dragao.getLinha()][dragao.getColuna()-1] = dragao.getSimbolo();
 						dragao.moveDragaoEsquerda();
 					}
+					break;
 				}
-				else if(labirinto[dragao.getLinha()][dragao.getColuna()-1] == E)
-				{
-					dragao.DragEsp();
-					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha()][dragao.getColuna()-1] = dragao.getSimbolo();
-					dragao.moveDragaoEsquerda();
-				}
-				break;
 			}
 		}
 
@@ -922,9 +923,9 @@ public class Labirinto {
 
 
 		int jogada = 1;
-		
-		
-		
+
+
+
 		interf.displayLabirinto(lab);
 		while (heroi.getVida() == true) {
 			Scanner S = interf.fazJogada(jogada);
@@ -941,7 +942,7 @@ public class Labirinto {
 						Random r = new Random();
 						int dirc = r.nextInt(5);
 						int adorm = r.nextInt(4);
-						
+
 						lab.moverDragao(dragao, heroi, mode, dirc, adorm);
 						lab.HeroivsDragao(dragao);
 					}

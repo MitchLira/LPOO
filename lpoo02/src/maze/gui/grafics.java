@@ -796,7 +796,7 @@ public class Grafics {
 		for(int i=0; i<d.size(); i++){
 			lab.HeroivsDragao(d.get(i));
 
-			if(modoJogo > 1){
+			if(modoJogo != 1 && (modoJogo == 2 || modoJogo == 3)){
 				dirc = r.nextInt(5);
 				adorm = r.nextInt(4);
 
