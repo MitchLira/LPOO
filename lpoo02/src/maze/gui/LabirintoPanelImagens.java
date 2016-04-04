@@ -19,7 +19,6 @@ public class LabirintoPanelImagens extends JPanel{
 	/** The parede. */
 	protected static BufferedImage parede;
 
-	protected static BufferedImage heroi;
 	protected static BufferedImage heroiNorte;
 	protected static BufferedImage heroiArmNorte;
 	protected static BufferedImage heroiSul;
@@ -28,9 +27,12 @@ public class LabirintoPanelImagens extends JPanel{
 	protected static BufferedImage heroiArmOeste;
 	protected static BufferedImage heroiEste;
 	protected static BufferedImage heroiArmEste;
-
-	/** The dragao. */
-	protected static BufferedImage dragao;
+	
+	protected static BufferedImage dragaoNorte;
+	protected static BufferedImage dragaoSul;
+	protected static BufferedImage dragaoEste;
+	protected static BufferedImage dragaoOeste;
+	protected static BufferedImage dragaoAdorm;
 
 	/** The ponto. */
 	protected static BufferedImage ponto;
@@ -45,48 +47,29 @@ public class LabirintoPanelImagens extends JPanel{
 	 * Instantiates a new labirinto panel imagens.
 	 */
 	public LabirintoPanelImagens(){
+		
 
 		try {
-			heroi = ImageIO.read(new File("imagens\\heroiSul.png"));
+			heroiNorte = ImageIO.read(new File("imagens\\heroiNorte.png"));
+			heroiArmNorte = ImageIO.read(new File("imagens\\heroiArmNorte.png"));
+			heroiSul = ImageIO.read(new File("imagens\\heroiSul.png"));
+			heroiArmSul = ImageIO.read(new File("imagens\\heroiArmSul.png"));
+			heroiOeste = ImageIO.read(new File("imagens\\heroiOeste.png"));
+			heroiArmOeste= ImageIO.read(new File("imagens\\heroiArmOeste.png"));
+			heroiEste = ImageIO.read(new File("imagens\\heroiEste.png"));
+			heroiArmEste = ImageIO.read(new File("imagens\\heroiArmEste.png"));
+			espada =  ImageIO.read(new File("imagens\\espada.png"));
+			
+			dragaoNorte = ImageIO.read(new File("imagens\\dragaoNorte.png"));
+			dragaoSul = ImageIO.read(new File("imagens\\dragaoSul.png"));
+			dragaoEste = ImageIO.read(new File("imagens\\dragaoEste.png"));
+			dragaoOeste = ImageIO.read(new File("imagens\\dragaoOeste.png"));
+			dragaoAdorm = ImageIO.read(new File("imagens\\dragonSleep.png"));
+			
 			parede =  ImageIO.read(new File("imagens\\parede.jpg")); 
-			dragao =  ImageIO.read(new File("imagens\\dragao.jpg")); 
 			ponto =  ImageIO.read(new File("imagens\\ponto.jpg")); 
 			saida =  ImageIO.read(new File("imagens\\saida.png")); 
-			espada =  ImageIO.read(new File("imagens\\pistola.jpg")); 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void setHeroiImagem(char c, boolean arm){
-		try {
-			switch(c){
-			case 'n':
-				if(arm)
-					heroi = ImageIO.read(new File("imagens\\heroiArmNorte.png"));
-				else
-					heroi = ImageIO.read(new File("imagens\\heroiNorte.png"));
-				break;
-			case 's':
-				if(arm)
-					heroi = ImageIO.read(new File("imagens\\heroiArmSul.png"));
-				else
-					heroi = ImageIO.read(new File("imagens\\heroiSul.png"));
-				break;
-			case 'o':
-				if(arm)
-					heroi = ImageIO.read(new File("imagens\\heroiArmOeste.png"));
-				else
-					heroi = ImageIO.read(new File("imagens\\heroiOeste.png"));
-				break;
-			case 'e':
-				if(arm)
-					heroi = ImageIO.read(new File("imagens\\heroiArmEste.png"));
-				else
-					heroi = ImageIO.read(new File("imagens\\heroiEste.png"));
-				break;
-			} 
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

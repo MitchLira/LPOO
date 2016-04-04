@@ -148,14 +148,14 @@ public class Labirinto {
 
 		labirinto = lab;
 		labirinto[1][1] = H;
-		labirinto[6][1] = E;
+		labirinto[3][8] = E;
 		labirinto[5][9] = S;
 		labirinto[1][8] = D;
 
 		heroi = new Heroi(1,1);
 		Dragao dragao = new Dragao(1,8);
 		dragoes.add(dragao);
-		esp.setEspadaPosicao(6, 1);
+		esp.setEspadaPosicao(3, 8);
 		return lab;
 	}
 	
@@ -543,15 +543,15 @@ public class Labirinto {
 	 * @param heroi do labirinto
 	 * @param mode modo de jogo se os dragoes se mexem e podem adormecer, ou sao estaticos
 	 */
-	public void moverDragao(Dragao dragao, Heroi heroi, int mode) { // 0 - N; 1
+	public void moverDragao(Dragao dragao, Heroi heroi, int mode, int dirc, int adorm) { // 0 - N; 1
 		// - S; 2 -
 		// E; 3 - O
-		Random r = new Random();
+		
  
 		if (dragao.getVida() == true) {
-			int direcao = r.nextInt(5);		 	// para ter maior probabilidade de virar
+			int direcao = dirc;//r.nextInt(5);		 	// para ter maior probabilidade de virar
 			// em certas direcoes
-			int adormecer = r.nextInt(4);		// decidir se adormece ou nao || 0, 2,
+			int adormecer = adorm;//r.nextInt(4);		// decidir se adormece ou nao || 0, 2,
 			// 3 -> Nao || 1 -> Sim
 
 			Point EspPos = esp.getEspPos();
@@ -920,6 +920,9 @@ public class Labirinto {
 
 
 		int jogada = 1;
+		
+		
+		
 		interf.displayLabirinto(lab);
 		while (heroi.getVida() == true) {
 			Scanner S = interf.fazJogada(jogada);
@@ -933,19 +936,21 @@ public class Labirinto {
 					lab.HeroivsDragao(dragao);
 
 					if (mode != 1) {
-						lab.moverDragao(dragao, heroi, mode);
+						Random r = new Random();
+						int dirc = r.nextInt(5);
+						int adorm = r.nextInt(4);
+						
+						lab.moverDragao(dragao, heroi, mode, dirc, adorm);
 						lab.HeroivsDragao(dragao);
 					}
 
 					if (heroi.getVitoria() == true) {
 						interf.venceu();
-						// interf.displayLabirinto(labirinto);
 						System.exit(0);
 					}
 
 					if (heroi.getVida() == false) {
 						interf.perdeu();
-						// interf.displayLabirinto(labirinto);
 						System.exit(1);
 					}
 				}
