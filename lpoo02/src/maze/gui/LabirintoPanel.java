@@ -196,13 +196,7 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	public void setLabirinto(Labirinto lab){
 		this.lab = lab;
 	}
-<<<<<<< HEAD
 
-	public void setCoordH(char c){
-		coordH = c;
-	}
-
-=======
 	
 	/**
 	 * Sets the coord h.
@@ -218,7 +212,7 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	 *
 	 * @param c the new coord d
 	 */
->>>>>>> origin/master
+
 	public void setCoordD(int c){
 		if(c == 0)
 			coordD = 'n';
