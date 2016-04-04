@@ -9,7 +9,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
+import maze.logic.Dragao;
+import maze.logic.Espada;
+import maze.logic.Heroi;
 import maze.logic.Labirinto;
 import maze.logic.Point;
 
@@ -21,52 +25,56 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 
 	/** The lab. */
 	private Labirinto lab;
-	
+	private Heroi h;
+	private Espada e;
+	private ArrayList<Dragao> d;
+
 	/** The labirinto. */
 	private char labirinto[][];
-	
+
 	/** The Xinicial. */
 	public int Xinicial = 5;
-	
+
 	/** The s. */
 	private char s;
 
 	/** The heroi existe. */
 	private boolean heroiExiste;
-	
+
 	/** The espada existe. */
 	private boolean espadaExiste;
+	private boolean saidaExiste;
 
 	/** The heroi ant. */
 	private Point heroiAnt;
-	
+
 	/** The espada ant. */
 	private Point espadaAnt;
 
 	/** The Pos parede. */
 	private Point PosParede;
-	
+
 	/** The Pos espada. */
 	private Point PosEspada;
-	
+
 	/** The Pos heroi. */
 	private Point PosHeroi;
-	
+
 	/** The Pos dragao. */
 	private Point PosDragao;
-	
+
 	/** The Pos caminho. */
 	private Point PosCaminho;
-	
+
 	/** The dim botao x. */
 	private int dimBotaoX;
-	
+
 	/** The dim botao y. */
 	private int dimBotaoY;
-	
+
 	/** The Y bloco. */
 	private int YBloco;
-	
+
 	/** The X bloco. */
 	private int XBloco;
 
@@ -76,12 +84,16 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 	public LabirintoBuilder(){
 		super();
 		lab = new Labirinto();
-		
+		h = new Heroi();
+		d = new ArrayList<Dragao>();
+		e = new Espada();
+
 		dimBotaoX = 100;
 		dimBotaoY = 49;
 
 		heroiExiste = false;
 		espadaExiste = false;
+		saidaExiste = false;
 		s = 'X';
 
 		PosParede = new Point(650, 119);
@@ -100,7 +112,7 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g); 
-		lab.criarLabirintoP(labirinto);
+		//lab.criarLabirinto(labirinto, h, d, e);
 
 		g.setColor(Color.white);
 
@@ -128,10 +140,10 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 						g.drawImage(saida, Xini, Yini, Xfim, Yfim, 0, 0, saida.getWidth(), saida.getHeight(), null);
 
 					else if(lab.getSimboloPosicao(i, j) == lab.H)
-						g.drawImage(heroiFrente, Xini, Yini, Xfim, Yfim, 0, 0, heroiFrente.getWidth(), heroiFrente.getHeight(), null);
+						g.drawImage(heroi, Xini, Yini, Xfim, Yfim, 0, 0, heroi.getWidth(), heroi.getHeight(), null);
 
 					else if(lab.getSimboloPosicao(i, j) == lab.A)
-						g.drawImage(heroiArmado, Xini, Yini, Xfim, Yfim, 0, 0, heroiArmado.getWidth(), heroiArmado.getHeight(), null);
+						g.drawImage(heroi, Xini, Yini, Xfim, Yfim, 0, 0, heroi.getWidth(), heroi.getHeight(), null);
 
 					else if(lab.getSimboloPosicao(i, j) == lab.E)
 						g.drawImage(espada, Xini, Yini, Xfim, Yfim, 0, 0, espada.getWidth(), espada.getHeight(), null);
@@ -190,78 +202,144 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 			switch (s) {
 
 			case '.':
-				if(labirinto[y][x] == '.')
-					break;
-				else if(labirinto[y][x] == 'H'){
-					labirinto[y][x] = '.';
-					heroiExiste = false;
-					heroiAnt = null;
+				if(x > 0 && x < labirinto.length-1 && y >0 && y < labirinto.length-1){
+					if(labirinto[y][x] == '.')
+						break;
+					else if(labirinto[y][x] == 'H'){
+						labirinto[y][x] = '.';
+						heroiExiste = false;
+						heroiAnt = null;
+						h = null;
+					}
+					else if(labirinto[y][x] == 'E'){
+						labirinto[y][x] = '.';
+						espadaExiste = false;
+						espadaAnt = null;
+						e = null;
+					}
+					else if(labirinto[y][x] == 'D'){
+						labirinto[y][x] = '.';
+						int i = procurarDragao(y,x);
+
+						if(i > -1)
+							d.remove(i);
+					}
+					else
+						labirinto[y][x] = '.';
 				}
-				else if(labirinto[y][x] == 'E'){
-					labirinto[y][x] = '.';
-					espadaExiste = false;
-					espadaAnt = null;
-				}
-				else
-					labirinto[y][x] = '.';
 				break;
 
 			case 'H':
-				if(labirinto[y][x] == 'H'){
-					labirinto[y][x] = '.';
-					heroiExiste = false;
-					heroiAnt = null;
-				}
-				else if(labirinto[y][x] == 'E'){
-					labirinto[y][x] = 'H';
-					espadaExiste = false;
-					espadaAnt = null;
-					heroiExiste = true;
-					heroiAnt = new Point(y,x);
-				}
-				else{
-					labirinto[y][x] = 'H';
-					heroiExiste = true;
-					heroiAnt = new Point(y,x);
+				if(x > 0 && x < labirinto.length-1 && y >0 && y < labirinto.length-1){
+					if(labirinto[y][x] == 'H'){
+						labirinto[y][x] = '.';
+						heroiExiste = false;
+						heroiAnt = null;
+						h = null;
+					}
+					else if(labirinto[y][x] == 'E'){
+						labirinto[y][x] = 'H';
+						espadaExiste = false;
+						espadaAnt = null;
+						e = null;
+						heroiExiste = true;
+						heroiAnt = new Point(y,x);
+						h = new Heroi(y,x);
+					}
+					else if(labirinto[y][x] == 'D'){
+						labirinto[y][x] = 'D';
+						int i = procurarDragao(y,x);
+
+						if(i > -1)
+							d.remove(i);
+
+						heroiExiste = true;
+						heroiAnt = new Point(y,x);
+						h = new Heroi(y,x);
+					}
+					else if(!heroiExiste){
+						labirinto[y][x] = 'H';
+						heroiExiste = true;
+						heroiAnt = new Point(y,x);
+						h = new Heroi(y,x);
+					}
 				}
 				break;
 
 			case 'D':
-				if(labirinto[y][x] == 'D'){
-					labirinto[y][x] = '.';
-				}
-				else if(labirinto[y][x] == 'H'){
-					labirinto[y][x] = 'D';
-					heroiExiste = false;
-					heroiAnt = null;
-				}
-				else if(labirinto[y][x] == 'E'){
-					labirinto[y][x] = 'D';
-					espadaExiste = false;
-					espadaAnt = null;
-				}
-				else{
-					labirinto[y][x] = 'D';
+				if(x > 0 && x < labirinto.length-1 && y >0 && y < labirinto.length-1){
+					if(labirinto[y][x] == 'D'){
+						labirinto[y][x] = '.';
+						int i = procurarDragao(y,x);
+
+						if(i > -1)
+							d.remove(i);
+					}
+					else if(labirinto[y][x] == 'H'){
+						labirinto[y][x] = 'D';
+						heroiExiste = false;
+						heroiAnt = null;
+						h = null;
+						d.add(new Dragao(y,x));
+					}
+					else if(labirinto[y][x] == 'E'){
+						labirinto[y][x] = 'D';
+						espadaExiste = false;
+						espadaAnt = null;
+						e = null;
+						d.add(new Dragao(y,x));
+					}
+					else if(labirinto[y][x] == 'X'){
+						labirinto[y][x] = 'D';
+						d.add(new Dragao(y,x));
+					}
+					else{
+						labirinto[y][x] = 'D';
+						d.add(new Dragao(y,x));
+					}
 				}
 				break;
 
 			case 'E':
-				if(labirinto[y][x] == 'E'){
-					labirinto[y][x] = '.';
-					espadaExiste = false;
-					espadaAnt = null;
-				}
-				else if(labirinto[y][x] == 'H'){
-					labirinto[y][x] = 'E';
-					espadaExiste = true;
-					espadaAnt = new Point(y,x);
-					heroiExiste = false;
-					heroiAnt = null;
-				}
-				else{
-					labirinto[y][x] = 'E';
-					espadaExiste = true;
-					espadaAnt = new Point(y,x);
+				if(x > 0 && x < labirinto.length-1 && y >0 && y < labirinto.length-1){
+					if(labirinto[y][x] == 'X' && !saidaExiste){
+						labirinto[y][x] = 'E';
+						espadaExiste = true;
+						espadaAnt = new Point(y,x);
+						e = new Espada(y,x);
+					}
+					else if(labirinto[y][x] == 'E'){
+						labirinto[y][x] = '.';
+						espadaExiste = false;
+						espadaAnt = null;
+						e = null;
+					}
+					else if(labirinto[y][x] == 'H' && !saidaExiste){
+						labirinto[y][x] = 'E';
+						espadaExiste = true;
+						espadaAnt = new Point(y,x);
+						e = new Espada(y,x);
+						heroiExiste = false;
+						heroiAnt = null;
+						h = null;
+					}
+					else if(labirinto[y][x] == 'D' && !saidaExiste){
+						labirinto[y][x] = 'D';
+						int i = procurarDragao(y,x);
+
+						if(i > -1)
+							d.remove(i);
+
+						espadaExiste = true;
+						espadaAnt = new Point(y,x);
+						e = new Espada(y,x);
+					}
+					else if(!espadaExiste){
+						labirinto[y][x] = 'E';
+						espadaExiste = true;
+						espadaAnt = new Point(y,x);
+						e = new Espada(y,x);
+					}
 				}
 				break;
 			case 'X':
@@ -269,34 +347,83 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 					labirinto[y][x] = 'X';
 					espadaExiste = false;
 					espadaAnt = null;
+					e = null;
 				}
 				else if(labirinto[y][x] == 'H'){
 					labirinto[y][x] = 'X';
 					heroiExiste = false;
 					heroiAnt = null;
+					h = null;
 				}
-				else{
+				else if(labirinto[y][x] == 'D'){
 					labirinto[y][x] = 'X';
+					int i = procurarDragao(y,x);
+
+					if(i > -1)
+						d.remove(i);
+				}
+				else if(labirinto[y][x] == 'X'){
+					labirinto[y][x] = '.';
+				}
+				else 
+					labirinto[y][x] = 'X';
+				break;
+			case 'S':
+				if(x == 0 && y != 0 && y != labirinto.length-1){
+					if(labirinto[y][x] == 'S'){
+						labirinto[y][x] = 'X';
+						saidaExiste = false;
+					}else if(!saidaExiste){
+						labirinto[y][x] = 'S';
+						saidaExiste = true;
+					}
+				}
+				else if(x == labirinto.length-1 && y != 0 && y != labirinto.length-1){
+					if(labirinto[y][x] == 'S'){
+						labirinto[y][x] = 'X';
+						saidaExiste = false;
+					}else if(!saidaExiste){
+						labirinto[y][x] = 'S';
+						saidaExiste = true;
+					}
+				}
+				else if(y == 0 && x != 0 && x != labirinto.length-1){
+					if(labirinto[y][x] == 'S'){
+						labirinto[y][x] = 'X';
+						saidaExiste = false;
+					}else if(!saidaExiste){
+						labirinto[y][x] = 'S';
+						saidaExiste = true;
+					}
+				}
+				else if(y == labirinto.length-1 && x != 0 && x != labirinto.length-1){
+					if(labirinto[y][x] == 'S'){
+						labirinto[y][x] = 'X';
+						saidaExiste = false;
+					}else if(!saidaExiste){
+						labirinto[y][x] = 'S';
+						saidaExiste = true;
+					}
 				}
 				break;
 			}
-			
+
 			repaint();
 		}
 		else{
-			if(between(X, PosCaminho.x, PosCaminho.x+dimBotaoX) && between(Y, PosCaminho.y, PosCaminho.y+dimBotaoY))
+			if(entre(X, PosCaminho.x, PosCaminho.x+dimBotaoX) && entre(Y, PosCaminho.y, PosCaminho.y+dimBotaoY))
 				s = '.';
-			else if(between(X, PosHeroi.x, PosHeroi.x+dimBotaoX) && between(Y, PosHeroi.y, PosHeroi.y+dimBotaoY))
+			else if(entre(X, PosHeroi.x, PosHeroi.x+dimBotaoX) && entre(Y, PosHeroi.y, PosHeroi.y+dimBotaoY))
 				s = 'H';
-			else if(between(X, PosDragao.x, PosDragao.x+dimBotaoX) && between(Y, PosDragao.y, PosDragao.y+dimBotaoY))
+			else if(entre(X, PosDragao.x, PosDragao.x+dimBotaoX) && entre(Y, PosDragao.y, PosDragao.y+dimBotaoY))
 				s = 'D';
-			else if(between(X, PosEspada.x, PosEspada.x+dimBotaoX) && between(Y, PosEspada.y, PosEspada.y+dimBotaoY))
+			else if(entre(X, PosEspada.x, PosEspada.x+dimBotaoX) && entre(Y, PosEspada.y, PosEspada.y+dimBotaoY))
 				s = 'E';
-			else if(between(X, PosParede.x, PosParede.x+dimBotaoX) && between(Y, PosParede.y, PosParede.y+dimBotaoY))
+			else if(entre(X, PosParede.x, PosParede.x+dimBotaoX) && entre(Y, PosParede.y, PosParede.y+dimBotaoY))
 				s = 'X';
 		}
 
-		
+
 		repaint();
 	}
 
@@ -317,11 +444,11 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 	 * @param xf the xf
 	 * @return true, if successful
 	 */
-	private boolean between(int x, int xi, int xf) {
+	private boolean entre(int x, int xi, int xf) {
 
 		return (x >= xi && x <= xf);
 	}
-	
+
 	/**
 	 * Sets the labirinto.
 	 *
@@ -329,9 +456,35 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 	 */
 	public void setLabirinto(char[][] lab){
 		this.labirinto = lab;
+		this.lab.criarLabirinto(labirinto, new Heroi(0,0), new ArrayList<Dragao>(), new Espada(0,0));
 	}
-	
+
 	public void setSimbolo(char p){
 		s = p;
+	}
+
+	public int procurarDragao(int y, int x){
+		for(int i = 0; i<d.size(); i++){
+			if(x == d.get(i).getColuna() && y == d.get(i).getLinha())
+				return i;
+		}
+
+		return -1;
+	}
+	
+	public char[][] getLabirinto(){
+		return labirinto;
+	}
+	
+	public Espada getEspada(){
+		return e;
+	}
+	
+	public Heroi getHeroi(){
+		return h;
+	}
+	
+	public ArrayList<Dragao> getDragoes(){
+		return d;
 	}
 }
