@@ -649,8 +649,21 @@ public class Labirinto {
 						labirinto[dragao.getLinha()+1][dragao.getColuna()] = dragao.getSimbolo();
 						dragao.moveDragaoSul();
 					}
+<<<<<<< HEAD
 					break;
 				case 2:// ESTE
+=======
+				}
+				else if(labirinto[dragao.getLinha()+1][dragao.getColuna()] == E)
+				{
+					dragao.DragEsp();
+					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
+					labirinto[dragao.getLinha()+1][dragao.getColuna()] = F;
+					dragao.moveDragaoSul();
+				}
+				break;
+			case 2:// ESTE
+>>>>>>> origin/master
 
 					if(labirinto[dragao.getLinha()][dragao.getColuna()+1] == X)
 					{
