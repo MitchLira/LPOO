@@ -85,12 +85,7 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 
 	/** The X bloco. */
 	private int XBloco;
-<<<<<<< HEAD
 
-=======
-	
-	/** The coord h. */
->>>>>>> origin/master
 	private char coordH;
 	
 	/** The coord d. */
@@ -603,7 +598,6 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 
 		return -1;
 	}
-<<<<<<< HEAD
 
 	public char[][] getLabirinto(){
 		return labirinto;
@@ -625,59 +619,7 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 		coordH = c;
 	}
 
-=======
-	
-	/**
-	 * Gets the labirinto.
-	 *
-	 * @return the labirinto
-	 */
-	public char[][] getLabirinto(){
-		return labirinto;
-	}
-	
-	/**
-	 * Gets the espada.
-	 *
-	 * @return the espada
-	 */
-	public Espada getEspada(){
-		return e;
-	}
-	
-	/**
-	 * Gets the heroi.
-	 *
-	 * @return the heroi
-	 */
-	public Heroi getHeroi(){
-		return h;
-	}
-	
-	/**
-	 * Gets the dragoes.
-	 *
-	 * @return the dragoes
-	 */
-	public ArrayList<Dragao> getDragoes(){
-		return d;
-	}
-	
-	/**
-	 * Sets the coord h.
-	 *
-	 * @param c the new coord h
-	 */
-	public void setCoordH(char c){
-		coordH = c;
-	}
-	
-	/**
-	 * Sets the coord d.
-	 *
-	 * @param c the new coord d
-	 */
->>>>>>> origin/master
+
 	public void setCoordD(int c){
 		if(c == 0)
 			coordD = 'n';
