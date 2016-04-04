@@ -200,12 +200,12 @@ public class Grafics {
 
 		//janela jogar aleatorio
 		RandomLab = new JFrame();
-		RandomLab.setBounds(100, 100, 900, 630);
+		RandomLab.setBounds(100, 100, 920, 630);
 		RandomLab.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		RandomLab.setVisible(false);
 		JPanel panelGeneral = new JPanel();
 		RandomLab.getContentPane().add(panelGeneral, BorderLayout.CENTER);
-		RandomLab.setMinimumSize(new Dimension(900, 630));
+		RandomLab.setMinimumSize(new Dimension(920, 630));
 
 
 
@@ -274,9 +274,9 @@ public class Grafics {
 		Iniciar.setEnabled(true);
 		Iniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
-				int l = Integer.parseInt(DimensaoLabirinto.getText()); //tamanho
-				int drags = Integer.parseInt(NrDragoes.getText());			//nr dragoes
-				int dg = l-drags;
+				int l = Integer.parseInt(DimensaoLabirinto.getText()); 	//tamanho
+				int drags = Integer.parseInt(NrDragoes.getText());		//nr dragoes
+				int dg = l-5;
 
 				if(l < 5){
 					JOptionPane.showMessageDialog(menu, "Dimensão impossível!");
@@ -288,11 +288,12 @@ public class Grafics {
 					JOptionPane.showMessageDialog(menu, "Tem de ter pelo menos um dragão!");
 				else{
 					
+					if(l > 25)
+						JOptionPane.showMessageDialog(menu, "Dimensões acima de 25 podem tornar labirinto impercetível!");
+						
 					ButtonNovoJogo.setEnabled(true);
 					ButtonNovoJogo.setVisible(true);
-					
-					//clocar para avisar de nao se ver muito bem
-					
+
 					nVezes = 0;
 					menu.setVisible(false);
 					RandomLab.setVisible(true);
@@ -787,6 +788,7 @@ public class Grafics {
 		Heroi h = lab.getHeroi();
 		ArrayList<Dragao> d = lab.getDragoes();
 		lab.moverHeroi(h, c);
+		
 		Random r = new Random();
 		int dirc;
 		int adorm;
@@ -794,9 +796,8 @@ public class Grafics {
 		for(int i=0; i<d.size(); i++){
 			lab.HeroivsDragao(d.get(i));
 
-			if(modoJogo != -1 && modoJogo != 1){
+			if(modoJogo > 1){
 				dirc = r.nextInt(5);
-
 				adorm = r.nextInt(4);
 
 				lab.moverDragao(d.get(i), h, modoJogo, dirc, adorm);

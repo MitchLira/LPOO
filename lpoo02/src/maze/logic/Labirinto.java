@@ -193,7 +193,7 @@ public class Labirinto {
 		
 		for (int i = 0; i < lab.length; i++)
 			for (int j = 0; j < lab.length; j++)
-				if (lab[i][j] != 'X' && ! visited[i][j] )
+				if (lab[i][j] != 'X' && ! visited[i][j])
 					return false;
 		
 		return true; 
@@ -551,10 +551,10 @@ public class Labirinto {
 		
  
 		if (dragao.getVida() == true) {
-			int direcao = dirc;//r.nextInt(5);		 	// para ter maior probabilidade de virar
-			// em certas direcoes
-			int adormecer = adorm;//r.nextInt(4);		// decidir se adormece ou nao || 0, 2,
-			// 3 -> Nao || 1 -> Sim
+			int direcao = dirc;						 	// para ter maior probabilidade de virar
+														// em certas direcoes
+			int adormecer = adorm;						// decidir se adormece ou nao || 0, 2,
+														// 3 -> Nao || 1 -> Sim
 
 			Point EspPos = esp.getEspPos();
 			Point DragPos = dragao.getDragaoPosicao();
