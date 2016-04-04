@@ -25,8 +25,14 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 
 	/** The lab. */
 	private Labirinto lab;
+	
+	/** The h. */
 	private Heroi h;
+	
+	/** The e. */
 	private Espada e;
+	
+	/** The d. */
 	private ArrayList<Dragao> d;
 
 	/** The labirinto. */
@@ -43,6 +49,8 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 
 	/** The espada existe. */
 	private boolean espadaExiste;
+	
+	/** The saida existe. */
 	private boolean saidaExiste;
 
 	/** The heroi ant. */
@@ -78,7 +86,10 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 	/** The X bloco. */
 	private int XBloco;
 	
+	/** The coord h. */
 	private char coordH;
+	
+	/** The coord d. */
 	private char coordD;
 
 	/**
@@ -533,10 +544,22 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 		this.lab.criarLabirinto(labirinto, new Heroi(0,0), new ArrayList<Dragao>(), new Espada(0,0));
 	}
 
+	/**
+	 * Sets the simbolo.
+	 *
+	 * @param p the new simbolo
+	 */
 	public void setSimbolo(char p){
 		s = p;
 	}
 
+	/**
+	 * Procurar dragao.
+	 *
+	 * @param y the y
+	 * @param x the x
+	 * @return the int
+	 */
 	public int procurarDragao(int y, int x){
 		for(int i = 0; i<d.size(); i++){
 			if(x == d.get(i).getColuna() && y == d.get(i).getLinha())
@@ -546,26 +569,56 @@ g.drawImage(ponto, Xini, Yini, Xfim, Yfim, 0, 0, ponto.getWidth(), ponto.getHeig
 		return -1;
 	}
 	
+	/**
+	 * Gets the labirinto.
+	 *
+	 * @return the labirinto
+	 */
 	public char[][] getLabirinto(){
 		return labirinto;
 	}
 	
+	/**
+	 * Gets the espada.
+	 *
+	 * @return the espada
+	 */
 	public Espada getEspada(){
 		return e;
 	}
 	
+	/**
+	 * Gets the heroi.
+	 *
+	 * @return the heroi
+	 */
 	public Heroi getHeroi(){
 		return h;
 	}
 	
+	/**
+	 * Gets the dragoes.
+	 *
+	 * @return the dragoes
+	 */
 	public ArrayList<Dragao> getDragoes(){
 		return d;
 	}
 	
+	/**
+	 * Sets the coord h.
+	 *
+	 * @param c the new coord h
+	 */
 	public void setCoordH(char c){
 		coordH = c;
 	}
 	
+	/**
+	 * Sets the coord d.
+	 *
+	 * @param c the new coord d
+	 */
 	public void setCoordD(int c){
 		if(c == 0)
 			coordD = 'n';

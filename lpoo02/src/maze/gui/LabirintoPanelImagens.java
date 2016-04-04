@@ -19,19 +19,43 @@ public class LabirintoPanelImagens extends JPanel{
 	/** The parede. */
 	protected static BufferedImage parede;
 
+	/** The heroi norte. */
 	protected static BufferedImage heroiNorte;
+	
+	/** The heroi arm norte. */
 	protected static BufferedImage heroiArmNorte;
+	
+	/** The heroi sul. */
 	protected static BufferedImage heroiSul;
+	
+	/** The heroi arm sul. */
 	protected static BufferedImage heroiArmSul;
+	
+	/** The heroi oeste. */
 	protected static BufferedImage heroiOeste;
+	
+	/** The heroi arm oeste. */
 	protected static BufferedImage heroiArmOeste;
+	
+	/** The heroi este. */
 	protected static BufferedImage heroiEste;
+	
+	/** The heroi arm este. */
 	protected static BufferedImage heroiArmEste;
 	
+	/** The dragao norte. */
 	protected static BufferedImage dragaoNorte;
+	
+	/** The dragao sul. */
 	protected static BufferedImage dragaoSul;
+	
+	/** The dragao este. */
 	protected static BufferedImage dragaoEste;
+	
+	/** The dragao oeste. */
 	protected static BufferedImage dragaoOeste;
+	
+	/** The dragao adorm. */
 	protected static BufferedImage dragaoAdorm;
 
 	/** The ponto. */
