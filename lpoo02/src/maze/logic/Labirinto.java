@@ -851,7 +851,6 @@ public class Labirinto {
 				labirinto[heroi.getLinha()][heroi.getColuna()] = heroi.getSimbolo();
 
 			} else if (!dragao.getAdormecido()) {
-				labirinto[heroi.getLinha()][heroi.getColuna()] = P;
 				heroi.heroiMorre();
 				heroi.heroiPerde();
 			}
@@ -902,11 +901,11 @@ public class Labirinto {
 	{
 		switch(modo)
 		{
-		case "Basico":
+		case "Estatico":
 			return 1;
 		case "Aleatorio":
 			return 2;
-		case "Adormecido":
+		case "Aleatorio/Adormecido":
 			return 3;
 		}
 		return -1;
@@ -1026,8 +1025,6 @@ public class Labirinto {
 			gra.setVisible(true);
 		}
 		else{
-			//colocar try e catch
-
 			int nivel = interf.modojogo();
 			Labirinto lab = new Labirinto();
 			lab.criarLabirinto();
