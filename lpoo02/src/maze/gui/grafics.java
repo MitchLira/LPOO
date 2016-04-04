@@ -263,7 +263,7 @@ public class Grafics {
 		menu.getContentPane().add(lblModoDeJogo);
 
 		JComboBox MododeJogo = new JComboBox();
-		MododeJogo.setModel(new DefaultComboBoxModel(new String[] {"Basico", "Aleatorio", "Adormecido"}));
+		MododeJogo.setModel(new DefaultComboBoxModel(new String[] {"Estatico", "Aleatorio", "Aleatorio/Adormecido"}));
 		MododeJogo.setSelectedIndex(0);
 		MododeJogo.setBounds(321, 170, 131, 35);
 		menu.getContentPane().add(MododeJogo);
@@ -272,6 +272,7 @@ public class Grafics {
 		Iniciar = new JButton("Iniciar");
 		Iniciar.setForeground(Color.BLACK);
 		Iniciar.setEnabled(true);
+		Iniciar.setVisible(true);
 		Iniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
 				int l = Integer.parseInt(DimensaoLabirinto.getText()); 	//tamanho
@@ -300,21 +301,16 @@ public class Grafics {
 
 					ButtonNovoJogo.doClick();
 				}
-
 			}
 		});
 		Iniciar.setBounds(50, 300, 150, 52);
 		menu.getContentPane().add(Iniciar);
 
-
-
-
-
-
 		//botao de saida na janela menu
 		Sair = new JButton("Sair");
 		Sair.setForeground(Color.BLACK);
 		Sair.setEnabled(true);
+		Sair.setVisible(true);
 		Sair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
