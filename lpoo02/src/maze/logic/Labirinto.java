@@ -679,7 +679,7 @@ public class Labirinto {
 						dragao.moveDragaoDireita();
 					}
 				}
-				else if(labirinto[dragao.getLinha()+1][dragao.getColuna()] == E)
+				else if(labirinto[dragao.getLinha()][dragao.getColuna()+1] == E)
 				{
 					dragao.DragEsp();
 					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
@@ -716,7 +716,7 @@ public class Labirinto {
 						dragao.moveDragaoEsquerda();
 					}
 				}
-				else if(labirinto[dragao.getLinha()-1][dragao.getColuna()] == E)
+				else if(labirinto[dragao.getLinha()][dragao.getColuna()-1] == E)
 				{
 					dragao.DragEsp();
 					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
