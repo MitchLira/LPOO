@@ -56,6 +56,14 @@ public class TestModoBasico {
 			{ 'X', '.', 'X', '.', 'X' },
 			{ 'S', '.', 'E', 'D', 'X' },
 			{ 'X', 'X', 'X', 'X', 'X' } };
+	
+	/** The m5. */
+	char[][] m6 = { { 'X', 'X', 'X', 'X', 'X' },
+			{ 'X', '.', '.', 'H', 'X' },
+			{ 'X', 'E', 'X', '.', 'X' },
+			{ 'S', 'D', '.', '.', 'X' },
+			{ 'X', 'X', 'X', 'X', 'X' } };
+	
 
 	/** The interf. */
 	Interface interf = new Interface();
@@ -68,13 +76,14 @@ public class TestModoBasico {
 	
 	/** The dragao. */
 	Dragao dragao = new Dragao(3, 3);
-	
+	Dragao dragaom6 = new Dragao(3,1);
 	/** The dragoes. */
 	ArrayList<Dragao> dragoes = new ArrayList<Dragao>();
 	
 	/** The esp. */
 	Espada esp = new Espada(1, 3);
 	Espada esp5 = new Espada(3,2);
+	Espada espm6 = new Espada(2,1);
 
 	/**
 	 * Test moverhero celulalivre.
@@ -416,11 +425,8 @@ public class TestModoBasico {
 	@Test
 	public void TestMoverDragaoSaidaNorte()
 	{
-		hero = new Heroi(3,3);
-		esp = new Espada(2,1);
-		dragao = new Dragao(3,1);
-		dragoes.add(dragao);
-		maze.criarLabirinto(m3, hero, dragoes,esp);
+		dragoes.add(dragaom6);
+		maze.criarLabirinto(m6, hero, dragoes, espm6);
 		maze.moverDragao(dragao, hero, 2, 0, 0);
 		assertEquals(dragao.getDragaoPosicao(), esp.getEspPos());
 		maze.moverDragao(dragao, hero, 2, 0, 0);
