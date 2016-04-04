@@ -27,7 +27,11 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 
 	/** The labirinto. */
 	private char labirinto[][];
+	
+	/** The coord h. */
 	private char coordH;
+	
+	/** The coord d. */
 	private char coordD;
 	private char coordS;
 	private char ori[];
@@ -192,11 +196,29 @@ public class LabirintoPanel extends LabirintoPanelImagens implements KeyListener
 	public void setLabirinto(Labirinto lab){
 		this.lab = lab;
 	}
+<<<<<<< HEAD
 
 	public void setCoordH(char c){
 		coordH = c;
 	}
 
+=======
+	
+	/**
+	 * Sets the coord h.
+	 *
+	 * @param c the new coord h
+	 */
+	public void setCoordH(char c){
+		coordH = c;
+	}
+	
+	/**
+	 * Sets the coord d.
+	 *
+	 * @param c the new coord d
+	 */
+>>>>>>> origin/master
 	public void setCoordD(int c){
 		if(c == 0)
 			coordD = 'n';

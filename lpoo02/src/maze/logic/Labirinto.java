@@ -542,6 +542,8 @@ public class Labirinto {
 	 * @param dragao do labirinto
 	 * @param heroi do labirinto
 	 * @param mode modo de jogo se os dragoes se mexem e podem adormecer, ou sao estaticos
+	 * @param dirc direcao do dragao
+	 * @param adorm se esta a dormir ou nao
 	 */
 	public void moverDragao(Dragao dragao, Heroi heroi, int mode, int dirc, int adorm) { // 0 - N; 1
 		// - S; 2 -
