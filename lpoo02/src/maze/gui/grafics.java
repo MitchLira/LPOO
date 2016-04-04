@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
@@ -117,7 +118,6 @@ public class Grafics {
 
 	/** The panel_create. */
 	private LabirintoBuilder panel_create;
-
 	/** The lab. */
 	private Labirinto lab;
 
@@ -423,6 +423,7 @@ public class Grafics {
 		ButtonNorte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MoveHeroi('n');
+				panel_final.setCoordH('n');
 			}
 		});
 		ButtonNorte.setFocusable(false);
@@ -433,6 +434,7 @@ public class Grafics {
 		ButtonSul.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MoveHeroi('s');
+				panel_final.setCoordH('s');
 			}
 		});
 		ButtonSul.setBounds(150, 179, 94, 51);
@@ -446,6 +448,7 @@ public class Grafics {
 		ButtonOeste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MoveHeroi('o');
+				panel_final.setCoordH('o');
 			}
 		});
 
@@ -455,6 +458,7 @@ public class Grafics {
 		ButtonEste.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MoveHeroi('e');
+				panel_final.setCoordH('e');
 			}
 		});
 		
@@ -600,7 +604,7 @@ public class Grafics {
 				RandomLab.setVisible(true);
 				nVezes++;
 				panel_create.setLabirinto(labirinto);
-				lab.criarLabirintoP(labirinto);
+				lab.criarLabirinto(labirinto, panel_create.getHeroi(), panel_create.getDragoes(), panel_create.getEspada());
 				ButtonNovoJogo.doClick();
 			}
 		});
@@ -680,8 +684,14 @@ public class Grafics {
 			lab.HeroivsDragao(d.get(i));
 
 			if(modoJogo != -1 && modoJogo != 1){
-				lab.moverDragao(d.get(i), h, modoJogo);
+				Random r = new Random();
+				int dirc = r.nextInt(5);
+				int adorm = r.nextInt(4);
+				
+				lab.moverDragao(d.get(i), h, modoJogo, dirc, adorm);
 				lab.HeroivsDragao(d.get(i));
+				
+				panel_final.setCoordD(dirc);
 			}
 		}
 
