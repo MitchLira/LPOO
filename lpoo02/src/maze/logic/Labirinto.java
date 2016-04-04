@@ -185,7 +185,7 @@ public class Labirinto {
 	 * @param lab labirinto
 	 * @return boleano que indica se existe um caminho ate a saida
 	 */
-	private boolean checkExitReachable(char [][] lab) {
+	public boolean checkExitReachable(char [][] lab) {
 		Point p = findPos(lab, 'S');
 		boolean [][] visited = new boolean[lab.length] [lab.length];
 		

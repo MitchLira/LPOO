@@ -6,6 +6,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
@@ -143,7 +144,7 @@ public class Grafics {
 
 	/** The modo jogo. */
 	private int modoJogo;
-	
+
 	/**
 	 * Launch the application.
 	 *
@@ -199,7 +200,6 @@ public class Grafics {
 
 		//janela jogar aleatorio
 		RandomLab = new JFrame();
-		//RandomLab.setBounds(100, 100, 1186, 763);
 		RandomLab.setBounds(100, 100, 900, 630);
 		RandomLab.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		RandomLab.setVisible(false);
@@ -208,7 +208,7 @@ public class Grafics {
 		RandomLab.setMinimumSize(new Dimension(900, 630));
 
 
-		//janela de criar labirinto
+
 		//janela de criacao de labirinto
 		newLab = new JFrame();
 		newLab.getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 34));
@@ -274,11 +274,31 @@ public class Grafics {
 		Iniciar.setEnabled(true);
 		Iniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nVezes = 0;
-				menu.setVisible(false);
-				RandomLab.setVisible(true);
+				int l = Integer.parseInt(DimensaoLabirinto.getText()); //tamanho
+				int drags = Integer.parseInt(NrDragoes.getText());			//nr dragoes
+				int dg = l-drags;
 
-				ButtonNovoJogo.doClick();
+				if(l < 5){
+					JOptionPane.showMessageDialog(menu, "Dimensão impossível!");
+				}
+				else if(drags > dg){
+					JOptionPane.showMessageDialog(menu, "Número de dragões impossível!");
+				}
+				else if(drags <= 0)
+					JOptionPane.showMessageDialog(menu, "Tem de ter pelo menos um dragão!");
+				else{
+					
+					
+					
+					//clocar para avisar de nao se ver muito bem
+					
+					
+					nVezes = 0;
+					menu.setVisible(false);
+					RandomLab.setVisible(true);
+
+					ButtonNovoJogo.doClick();
+				}
 
 			}
 		});
@@ -421,6 +441,7 @@ public class Grafics {
 					criarOutroLab();
 
 				modoJogo = lab.modoJogotoInt((String)MododeJogo.getSelectedItem());
+
 				panel_final.repaint();
 				panel_final.setLabirinto(lab);
 				panel_final.setFocusable(true);
@@ -435,8 +456,6 @@ public class Grafics {
 				lblEtiquetaEstado.setText("Pode Jogar!");
 
 				panel_final.repaint();
-
-
 			}
 		});
 
@@ -653,29 +672,34 @@ public class Grafics {
 					EtiquetaCriacao.setText("Verifique número elementos!");
 				}
 				else{
-					ButtonParede.setEnabled(false);
-					ButtonCaminho.setEnabled(false);
-					ButtonHeroi.setEnabled(false);
-					ButtonDragao.setEnabled(false);
-					ButtonEspada.setEnabled(false);
-					ButtonSaida.setEnabled(false);
-
-					ButtonNorte.setEnabled(true);
-					ButtonSul.setEnabled(true);
-					ButtonEste.setEnabled(true);
-					ButtonOeste.setEnabled(true);
-					panel_final.setFocusable(true);
-
-					newLab.setVisible(true);
-					RandomLab.setVisible(true);
-					nVezes++;
 					panel_create.setLabirinto(labirinto);
 					lab.criarLabirinto(labirinto, panel_create.getHeroi(), panel_create.getDragoes(), panel_create.getEspada());
-					ButtonNovoJogo.doClick();
-					ButtonNovoJogo.setEnabled(false);
-					ButtonNovoJogo.setVisible(false);
-					panel_create.setBoolean();
-					panel_final.setLabirinto(lab);
+
+					if(lab.checkExitReachable(labirinto)){
+						ButtonParede.setEnabled(false);
+						ButtonCaminho.setEnabled(false);
+						ButtonHeroi.setEnabled(false);
+						ButtonDragao.setEnabled(false);
+						ButtonEspada.setEnabled(false);
+						ButtonSaida.setEnabled(false);
+
+						panel_final.setFocusable(true);
+
+						newLab.setVisible(false);
+						RandomLab.setVisible(true);
+						nVezes++;
+
+						ButtonNovoJogo.doClick();
+						ButtonNovoJogo.setEnabled(false);
+						ButtonNovoJogo.setVisible(false);
+
+						panel_final.requestFocus();
+						panel_create.setBoolean();
+						panel_final.setLabirinto(lab);
+					}
+					else{
+						EtiquetaCriacao.setText("Labirinto sem solução!");
+					}
 				}
 			}
 		});
@@ -698,7 +722,7 @@ public class Grafics {
 				lab = new Labirinto();
 
 				modoJogo = lab.modoJogotoInt((String)MododeJogo.getSelectedItem());
-				
+
 				int dim = Integer.parseInt(DimensaoLabirinto.getText());
 				labirinto = new char[dim][dim];
 
@@ -735,7 +759,6 @@ public class Grafics {
 		});
 		ButtonMenu2.setBounds(650, 450, 100, 49);
 		newLab.getContentPane().add(ButtonMenu2);
-
 		newLab.getContentPane().add(panel_create);
 
 	}

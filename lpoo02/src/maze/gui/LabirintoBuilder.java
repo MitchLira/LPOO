@@ -574,22 +574,11 @@ public class LabirintoBuilder extends LabirintoPanelImagens implements MouseList
 		this.lab.criarLabirinto(labirinto, new Heroi(0,0), new ArrayList<Dragao>(), new Espada(0,0));
 	}
 
-	/**
-	 * Sets the simbolo.
-	 *
-	 * @param p the new simbolo
-	 */
+	
 	public void setSimbolo(char p){
 		s = p;
 	}
 
-	/**
-	 * Procurar dragao.
-	 *
-	 * @param y the y
-	 * @param x the x
-	 * @return the int
-	 */
 	public int procurarDragao(int y, int x){
 		for(int i = 0; i<d.size(); i++){
 			if(x == d.get(i).getColuna() && y == d.get(i).getLinha())
