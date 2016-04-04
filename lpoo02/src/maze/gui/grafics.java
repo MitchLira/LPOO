@@ -273,7 +273,7 @@ public class Grafics {
 		Iniciar.setForeground(Color.BLACK);
 		Iniciar.setEnabled(true);
 		Iniciar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {				
 				int l = Integer.parseInt(DimensaoLabirinto.getText()); //tamanho
 				int drags = Integer.parseInt(NrDragoes.getText());			//nr dragoes
 				int dg = l-drags;
@@ -288,10 +288,10 @@ public class Grafics {
 					JOptionPane.showMessageDialog(menu, "Tem de ter pelo menos um dragão!");
 				else{
 					
-					
+					ButtonNovoJogo.setEnabled(true);
+					ButtonNovoJogo.setVisible(true);
 					
 					//clocar para avisar de nao se ver muito bem
-					
 					
 					nVezes = 0;
 					menu.setVisible(false);
@@ -669,7 +669,7 @@ public class Grafics {
 		ButtonJogar3.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(panel_create.getConstruir() == -1){
-					EtiquetaCriacao.setText("Verifique número elementos!");
+					JOptionPane.showMessageDialog(menu, "Tem de ter pelo menos um elemento de cada tipo!");
 				}
 				else{
 					panel_create.setLabirinto(labirinto);
@@ -698,7 +698,7 @@ public class Grafics {
 						panel_final.setLabirinto(lab);
 					}
 					else{
-						EtiquetaCriacao.setText("Labirinto sem solução!");
+						JOptionPane.showMessageDialog(menu, "Construiu labirinto sem solução!");
 					}
 				}
 			}
