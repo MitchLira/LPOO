@@ -103,12 +103,9 @@ public class Grafics {
 
 	/** The Button jogar Novo Jogo. */
 	private JButton ButtonNovoJogo;
-<<<<<<< HEAD
-
-=======
 	
 	/** The Button criar labirinto. */
->>>>>>> origin/master
+
 	private JButton ButtonCriarLabirinto;
 	private JButton ButtonCriarLabirinto2;
 
@@ -171,18 +168,13 @@ public class Grafics {
 	public Grafics() {
 		initialize();
 	}
-<<<<<<< HEAD
 
-
-=======
-	
 	
 	/**
 	 * Sets the visible.
 	 *
 	 * @param b the new visible
 	 */
->>>>>>> origin/master
 	public void setVisible(boolean b) {
 		menu.setVisible(b);
 
