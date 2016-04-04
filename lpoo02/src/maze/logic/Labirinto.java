@@ -646,7 +646,7 @@ public class Labirinto {
 				{
 					dragao.DragEsp();
 					labirinto[dragao.getLinha()][dragao.getColuna()] = P;
-					labirinto[dragao.getLinha()+1][dragao.getColuna()] = dragao.getSimbolo();
+					labirinto[dragao.getLinha()+1][dragao.getColuna()] = F;
 					dragao.moveDragaoSul();
 				}
 				break;

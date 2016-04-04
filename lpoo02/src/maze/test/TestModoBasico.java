@@ -383,22 +383,52 @@ public class TestModoBasico {
 		dragao.setPosicaoDragao(3,1);
 		maze.moverDragao(dragao, hero, 2, 2, 0);
 		assertEquals('F', dragao.getSimbolo());
+		maze.moverDragao(dragao, hero, 2, 3, 0);
+		assertEquals(new Point(3,1), dragao.getDragaoPosicao());
 		dragao.setPosicaoDragao(3, 1);
 		maze.moverDragao(dragao, hero, 2, 3, 0);
 		assertEquals(new Point(3,1), dragao.getDragaoPosicao());
+		dragao.setPosicaoDragao(3, 3);
+		maze.moverDragao(dragao, hero, 2, 3, 0);
+		assertEquals(new Point(3,2), dragao.getDragaoPosicao());
 	}
 	
 	@Test
 	public void TestMoverDragaoSaidaSul()
 	{
-		esp = new Espada(3,2);
+		esp = new Espada(2,1);
 		dragao = new Dragao(3,1);
+		dragoes.add(dragao);
 		maze.criarLabirinto(m4, hero, dragoes,esp);
 		maze.moverDragao(dragao, hero, 2, 2, 0);
 		assertEquals(new Point(3,2),dragao.getDragaoPosicao());
-		
+		maze.moverDragao(dragao, hero, 2, 1, 0);
+		assertEquals(new Point(3,2),dragao.getDragaoPosicao());
+		dragao.setPosicaoDragao(1, 1);
+		maze.moverDragao(dragao, hero, 2, 1, 0);
+		dragao.DragEsp();
+		assertEquals(dragao.getDragaoPosicao(), esp.getEspPos());
+		maze.moverDragao(dragao, hero, 2, 1, 0);
+		assertEquals(new Point(3,1),dragao.getDragaoPosicao());
 	}
 
+	
+	@Test
+	public void TestMoverDragaoSaidaNorte()
+	{
+		hero = new Heroi(3,3);
+		esp = new Espada(2,1);
+		dragao = new Dragao(3,1);
+		dragoes.add(dragao);
+		maze.criarLabirinto(m3, hero, dragoes,esp);
+		maze.moverDragao(dragao, hero, 2, 0, 0);
+		assertEquals(dragao.getDragaoPosicao(), esp.getEspPos());
+		maze.moverDragao(dragao, hero, 2, 0, 0);
+		assertEquals(new Point(1,1), dragao.getDragaoPosicao());
+		dragao.setPosicaoDragao(1, 3);
+		maze.moverDragao(dragao, hero, 2, 0, 0);
+		assertEquals(new Point(1,3), dragao.getDragaoPosicao());
+	}
 	/**
 	 * Test dragao vs heroi
 	 */
